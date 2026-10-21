@@ -51,6 +51,7 @@ window.YAB_I18N.en = {
   "flow.lessons-role": "looks back",
   "purpose-human.title": "Nothing moves forward without a human yes.",
   "purpose-human.badge": "Approval",
+  "purpose-human.badge-hint": " by a human",
   "purpose-memory.title": "A memory that outlives the session",
   "purpose-memory.lead": "Each ticket leaves a note. The retrospective feeds lessons back into the workflow.",
   "purpose-memory.notes": "<strong>Notes</strong><br>what each ticket taught",

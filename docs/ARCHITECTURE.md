@@ -35,4 +35,5 @@ The YAB framework files copied from the template. Change them upstream in
 
 ## Dependencies
 
-- None beyond the Python standard library.
+- [reveal.js](https://revealjs.com) for the presentation deck.
+- The YAB tooling needs nothing beyond the Python standard library.

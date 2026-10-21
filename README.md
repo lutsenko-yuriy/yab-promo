@@ -6,11 +6,14 @@ Promo materials for Yuriy's agentic boyz (YAB) framework: **[lutsenko-yuriy/yuri
 
 Promo pages are static HTML/CSS: open them in a browser. No build step.
 
+The presentation deck is `deck/index.html`. It works opened straight from the file (also offline); add `?lang=de` for German, or use the EN/DE switch.
+
 ## Testing
 
 ```bash
 python3 -m unittest discover -s scripts/onboard/tests -t .
 python3 -m unittest discover -s scripts/skill_router/tests -t scripts
+python3 -m unittest discover -s tests -t .
 ```
 
 ## Architecture

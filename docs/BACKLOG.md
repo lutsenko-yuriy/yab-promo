@@ -8,7 +8,7 @@ The `## In Progress` section at the top is the one exception — it is maintaine
 
 ## In Progress
 
-- **YP-2**: Animated YAB presentation deck. WU1 (foundation) merged in PR #6, WU2 (Purpose section) in PR #7, WU3 (HAB-202 example) in PR #8, WU4 (brief and analytics slides) in PR #9; next: WU5 (cases, limits, get YAB, release).
+_(nothing in progress)_
 
 ---
 

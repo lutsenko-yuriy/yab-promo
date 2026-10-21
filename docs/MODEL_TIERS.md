@@ -55,7 +55,9 @@ Models available to this project (set during `/onboard`):
 
 | Model | Access |
 |---|---|
-| {{AVAILABLE_MODELS}} | |
+| claude-opus-5-5 | Claude Code |
+| claude-sonnet-5-5 | Claude Code |
+| claude-haiku-4-5 | Claude Code |
 
 The `calibrate` skill reads this list and proposes the mapping below. Re-run `calibrate` whenever the available models change.
 
@@ -63,9 +65,16 @@ The `calibrate` skill reads this list and proposes the mapping below. Re-run `ca
 
 ## Active mapping
 
-_Not yet configured — invoke the `calibrate` skill to populate this section._
+_Last updated: 2026-10-21._
 
-Once configured, the table will include a `Claude Code alias` column (`opus` / `sonnet` / `lm-studio`) used by command stubs to route each skill to the correct model.
+| Effort | Reasoning | Model | Claude Code alias |
+|---|---|---|---|
+| THOROUGH | ARCHITECTURAL | claude-opus-5-5 | `opus` |
+| THOROUGH | TACTICAL | claude-opus-5-5 | `opus` |
+| FOCUSED | ARCHITECTURAL | claude-sonnet-5-5 | `sonnet` |
+| FOCUSED | TACTICAL | claude-sonnet-5-5 | `sonnet` |
+| RAPID | TACTICAL | claude-haiku-4-5 | `haiku` |
+| RAPID | MECHANICAL | claude-haiku-4-5 | `haiku` |
 
 ---
 

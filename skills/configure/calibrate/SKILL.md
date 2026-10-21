@@ -70,9 +70,9 @@ Rules for the proposal:
 Present the proposal in this format:
 
 ```
-## Proposed model tier mapping — {{PROJECT_NAME}}
+## Proposed model tier mapping — YAB Promo
 
-Available models: {{AVAILABLE_MODELS}}
+Available models: claude-opus-5-5, claude-sonnet-5-5, claude-haiku-4-5
 
 | Effort | Reasoning | Model | Justification |
 |---|---|---|---|

@@ -5,33 +5,33 @@
 # Add your own under scripts/skill_router/providers/<name>/provider.py
 # pm is mandatory and the only record of the PM tool; it must name a provider above: linear | github (GitHub Issues).
 # It is empty in the template; /onboard fills it in and `onboard.py apply` reconciles .mcp.json to match.
-pm = ""
+pm = "github"
 vcs = "github"
 
 [project]
 # Answers that used to be {{PLACEHOLDER}} values; `scripts/onboard/onboard.py apply` substitutes them into
 # tracked files. Empty values are left as placeholders so `onboard.py check` still reports them.
-name = ""
-description = ""
-architecture_summary = ""
-issue_prefix = ""
-git_host = ""
-pm_project_url = ""
-team_id = ""
-project_id = ""
-experiment_tool = ""
-available_models = ""
-ai_commit_trailer = ""
-ai_tool_credit = ""
-test_command = ""
-integration_test_dir = ""
-test_harness_file = ""
-test_harness_class = ""
-version_file = ""
-version_field = ""
-in_qa_paths = ""
+name = "YAB Promo"
+description = "Promo materials for Yuriy's agentic boyz (YAB) framework (https://github.com/lutsenko-yuriy/yuriys-agentic-boyz)"
+architecture_summary = "Content repo: Markdown copy plus static HTML/CSS pages, with the YAB tooling scripts in Python"
+issue_prefix = "YP"
+git_host = "GitHub"
+pm_project_url = "https://github.com/lutsenko-yuriy/yab-promo/issues"
+team_id = "none"
+project_id = "none"
+experiment_tool = "none"
+available_models = "claude-opus-5-5, claude-sonnet-5-5, claude-haiku-4-5"
+ai_commit_trailer = "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>"
+ai_tool_credit = "🤖 Generated with [Claude Code](https://claude.com/claude-code)"
+test_command = "python3 -m unittest discover -s scripts/onboard/tests -t . && python3 -m unittest discover -s scripts/skill_router/tests -t scripts"
+integration_test_dir = "none (no integration test harness)"
+test_harness_file = "none (no integration test harness)"
+test_harness_class = "none (no integration test harness)"
+version_file = "none (no version file)"
+version_field = "none (no version file)"
+in_qa_paths = "none (no QA phase for content)"
 # false: apply deletes LICENSE (the project is not MIT-licensed like the template).
-keep_licence = true
+keep_licence = false
 
 [llm]
 lmstudio_base = "http://localhost:1234/v1"

@@ -6,7 +6,7 @@
 
 ## Overview
 
-{{PROJECT_NAME}} — {{PROJECT_DESCRIPTION}}
+YAB Promo — Promo materials for Yuriy's agentic boyz (YAB) framework (https://github.com/lutsenko-yuriy/yuriys-agentic-boyz)
 
 ## Features
 

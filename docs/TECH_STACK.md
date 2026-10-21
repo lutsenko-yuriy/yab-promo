@@ -1,29 +1,28 @@
-<!-- yab:template -->
 # Tech Stack
-
-<!-- Delete the marker line above once this file is filled in; `onboard.py check` reports it as still a template while it is present.
-     Agents read this file to know which languages, tools and platforms the project uses. -->
 
 ## Languages
 
-<!-- One row per language, name in the first column. Every language listed here must also be named in
-     docs/CODE_STYLE.md under "## Base standard" (exact, case-sensitive match). -->
-
 | Language | Version | Used for |
 |---|---|---|
-| <language> | <version> | <e.g. application code, scripts> |
+| Markdown | CommonMark / GitHub Flavored Markdown | Promo copy, docs |
+| HTML | HTML5 | Static promo pages |
+| CSS | CSS3 | Styling for static pages |
+| Python | 3.9+ (CI matrix 3.9, 3.12 in `.github/workflows/tests.yml`) | YAB tooling under `scripts/` |
+| Shell | Bash (`scripts/onboard/gate.sh`) | Onboarding gate hook |
 
 ## Frameworks and libraries
 
-- <framework or key library, with a link>
+- None for the promo content (plain static HTML/CSS). A presentation on a separate stack is planned and will be briefed after onboarding.
+- YAB tooling uses the Python standard library only.
 
 ## Platforms
 
-- <target platforms, runtimes or deployment environments>
+- Web browsers (static pages, hostable on GitHub Pages)
+- GitHub (repo and README rendering)
 
 ## Tooling
 
-- **Build / package manager:** <tool>
-- **Test runner:** <tool>
-- **Linter / formatter:** <tool>
-- **CI:** <service>
+- **Build / package manager:** none (static files)
+- **Test runner:** Python `unittest` for the YAB tooling
+- **Linter / formatter:** none configured
+- **CI:** GitHub Actions (`.github/workflows/tests.yml`)

@@ -1,8 +1,8 @@
 ## Summary
 - <bullet points>
 
-## {{PM_TOOL}}
-Closes {{ISSUE_PREFIX}}-XX
+## GitHub Issues
+Closes YP-XX
 
 ## Test plan
 - [ ] <what was tested>
@@ -10,4 +10,4 @@ Closes {{ISSUE_PREFIX}}-XX
 - [ ] Linting passes
 - [ ] Smoke tested
 
-{{AI_TOOL_CREDIT}}
+🤖 Generated with [Claude Code](https://claude.com/claude-code)

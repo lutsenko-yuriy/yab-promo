@@ -6,7 +6,7 @@ output_style: CONCISE
 description: Present the current backlog at session start. Fetches open issues from the PM tool, shows the active milestone and completion percentage, groups work by label, and asks "What goes into the next release?" Invoke at the start of every session before any work begins.
 ---
 
-The project management tool is **{{PM_TOOL}}**. The issue identifier prefix is **{{ISSUE_PREFIX}}** (e.g. `{{ISSUE_PREFIX}}-12`).
+The project management tool is **GitHub Issues**. The issue identifier prefix is **YP** (e.g. `YP-12`).
 
 ---
 
@@ -40,15 +40,15 @@ Get the current milestone (sprint, version, or release) and its completion perce
 ### 3. Produce the backlog summary
 
 ```
-## Backlog — {{PROJECT_NAME}}
+## Backlog — YAB Promo
 
 ### Active milestone: <name> (<X>% complete)
 
 ### Issues (bugs & tech debt)
-- {{ISSUE_PREFIX}}-XX: <title> — <one-line description>
+- YP-XX: <title> — <one-line description>
 
 ### Remaining work
-- {{ISSUE_PREFIX}}-XX: <title> — <one-line description>
+- YP-XX: <title> — <one-line description>
 
 ### Recently completed
 - <version>: <summary of what shipped>

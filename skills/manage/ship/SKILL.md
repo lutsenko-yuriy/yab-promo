@@ -6,7 +6,7 @@ output_style: CONCISE
 description: Post-merge housekeeping after a PR/MR is approved. Closes the linked PM issues, adds a CHANGELOG entry, regenerates BACKLOG.md, bumps the version, proposes PRODUCT_SPEC.md and GLOSSARY.md updates for approval, commits everything onto the feature branch, pushes, and merges. Invoke when the user approves a PR/MR, before merging.
 ---
 
-The project management tool is **{{PM_TOOL}}**. The issue identifier prefix is **{{ISSUE_PREFIX}}**.
+The project management tool is **GitHub Issues**. The issue identifier prefix is **YP**.
 
 @skills/shared/git-cli-safety.md
 
@@ -35,7 +35,7 @@ Open `docs/CHANGELOG.md` and prepend a new entry at the top:
 ## [X.Y.Z] — YYYY-MM-DD
 
 ### Added / Changed / Fixed
-- {{ISSUE_PREFIX}}-XX: <one-line summary of what changed>
+- YP-XX: <one-line summary of what changed>
 ```
 
 Follow semantic versioning (`docs/VERSIONING.md`): patch for bug fixes, minor for new features, major for breaking changes.
@@ -79,7 +79,7 @@ Stage only the files changed above and commit onto the feature branch:
 git add docs/CHANGELOG.md docs/BACKLOG.md <version-file>
 # add only if modified in step 5:
 git add docs/PRODUCT_SPEC.md docs/GLOSSARY.md
-git commit -m "chore: release {{ISSUE_PREFIX}}-XX, bump version to X.Y.Z"
+git commit -m "chore: release YP-XX, bump version to X.Y.Z"
 git push
 ```
 
@@ -95,4 +95,4 @@ Then merge the PR/MR on your Git host:
 
 Confirm: issue(s) closed, changelog updated, version bumped, docs updated (list which files changed), PR/MR merged. Include the new version number and the PR/MR URL.
 
-After reporting, propose: *"Want to run `/debrief {{ISSUE_PREFIX}}-XX` to capture what you learned from this ticket?"* (optional — do not block on it)
+After reporting, propose: *"Want to run `/debrief YP-XX` to capture what you learned from this ticket?"* (optional — do not block on it)

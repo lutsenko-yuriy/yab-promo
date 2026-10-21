@@ -4,7 +4,7 @@ This file provides guidance to AI coding agents (Claude Code, Codex, Cursor, Ope
 
 ## Project Overview
 
-{{PROJECT_NAME}} — {{PROJECT_DESCRIPTION}}
+YAB Promo — Promo materials for Yuriy's agentic boyz (YAB) framework (https://github.com/lutsenko-yuriy/yuriys-agentic-boyz)
 
 Full product specifications: docs/PRODUCT_SPEC.md
 
@@ -52,20 +52,20 @@ Full product specifications: docs/PRODUCT_SPEC.md
 
 ## Architecture
 
-{{ARCHITECTURE_SUMMARY}}
+Content repo: Markdown copy plus static HTML/CSS pages, with the YAB tooling scripts in Python
 
 Details and directory layout: @docs/ARCHITECTURE.md. Languages and tooling: docs/TECH_STACK.md.
 
 ## Common Commands
 
-- **Run tests:** `<test command>`
-- **Lint:** `<lint command>`
-- **Build:** `<build command>`
-- **Install dependencies:** `<install command>`
+- **Run tests:** `python3 -m unittest discover -s scripts/onboard/tests -t . && python3 -m unittest discover -s scripts/skill_router/tests -t scripts`
+- **Lint:** none configured
+- **Build:** none (static files)
+- **Install dependencies:** none
 
 ## Code style
 
-{{CODE_STYLE}}
+Google Markdown and HTML/CSS style guides for content, PEP 8 for Python, Google Shell Style Guide for Shell.
 
 See `docs/CODE_STYLE.md` for the full rules.
 
@@ -79,7 +79,7 @@ Details: @docs/VERSIONING.md
 
 At the beginning of every new session, before doing anything else:
 
-1. Read `[providers].pm` in `skill_router.toml`: it is the only PM tool for this repo. With `github`, ticket `{{ISSUE_PREFIX}}-N` is GitHub issue #N (use `gh`); ignore any other PM MCP tools (e.g. Linear) in the session. With an MCP-backed PM tool, ensure it is authenticated; if its tools are unavailable, run `/mcp` to trigger the OAuth flow — see `CLAUDE.local.md` for setup notes.
+1. Read `[providers].pm` in `skill_router.toml`: it is the only PM tool for this repo. With `github`, ticket `YP-N` is GitHub issue #N (use `gh`); ignore any other PM MCP tools (e.g. Linear) in the session. With an MCP-backed PM tool, ensure it is authenticated; if its tools are unavailable, run `/mcp` to trigger the OAuth flow — see `CLAUDE.local.md` for setup notes.
 2. Check `CLAUDE.local.md` for an `## Active communication style` section and silently load that style (see `styles/`). If absent, each skill will use its own `output_style` — no global default.
 3. Invoke the `summarize` skill to present the current backlog.
 4. Run `scripts/checkup/due.py --format=session`. If it reports a tier as due, recommend running `/checkup` before picking up a new ticket, alongside the backlog summary.

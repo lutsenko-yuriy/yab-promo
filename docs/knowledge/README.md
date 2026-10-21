@@ -2,7 +2,7 @@
 
 A local Markdown vault for ticket-scoped research, learnings, retrospectives, and standing decisions — committed to the repo so the agent and the user share the same history across sessions.
 
-**Standing decisions** that should be discoverable without knowing which ticket produced them (e.g. "we chose the MIT licence") live in `decisions/` (ADRs) — see `docs/knowledge/decisions/README.md`. Day-to-day, ticket-scoped research stays in `notes/`; an ADR links back to the relevant `{{ISSUE_PREFIX}}-XX.md` file for full rationale.
+**Standing decisions** that should be discoverable without knowing which ticket produced them (e.g. "we chose the MIT licence") live in `decisions/` (ADRs) — see `docs/knowledge/decisions/README.md`. Day-to-day, ticket-scoped research stays in `notes/`; an ADR links back to the relevant `YP-XX.md` file for full rationale.
 
 ## Structure
 
@@ -10,7 +10,7 @@ A local Markdown vault for ticket-scoped research, learnings, retrospectives, an
 docs/knowledge/
 ├── README.md          # this file
 ├── notes/
-│   └── {{ISSUE_PREFIX}}-XX.md      # one file per ticket; created on first /note or /debrief use
+│   └── YP-XX.md      # one file per ticket; created on first /note or /debrief use
 ├── decisions/
 │   └── ADR-NNNN-<short-name>.md   # one file per standing decision; see decisions/README.md
 └── checkups/
@@ -26,22 +26,22 @@ See `docs/knowledge/notes/TEMPLATE.md` for the canonical structure. In brief:
 - `## Notes` — dated headings (`### YYYY-MM-DD`) with named observations (bold title + paragraph body), appended mid-session
 - `## Debrief summary` — a single structured block written by `/debrief` after the ticket closes
 
-**Reopened tickets:** if a ticket's notes file is already finalised, do not edit it. Create a new file with a suffix: `{{ISSUE_PREFIX}}-XX-adjust-1.md`, `{{ISSUE_PREFIX}}-XX-adjust-2.md`, etc. The original file is treated as a closed record.
+**Reopened tickets:** if a ticket's notes file is already finalised, do not edit it. Create a new file with a suffix: `YP-XX-adjust-1.md`, `YP-XX-adjust-2.md`, etc. The original file is treated as a closed record.
 
 ## How entries are written
 
 | Command | Writes to |
 |---|---|
-| `/note [{{ISSUE_PREFIX}}-XX:] <text>` | Appends a dated observation to `## Notes` |
-| `/debrief {{ISSUE_PREFIX}}-XX` | Appends a dated block to `## Debrief summary` |
+| `/note [YP-XX:] <text>` | Appends a dated observation to `## Notes` |
+| `/debrief YP-XX` | Appends a dated block to `## Debrief summary` |
 | `/checkup [light\|heavy\|status]` | Writes a dated `checkups/CHK-YYYY-MM-DD-<tier>.md` and updates `checkups/LEDGER.md` |
 
 On first use for a ticket, the file is created from `docs/knowledge/notes/TEMPLATE.md`.
 
 ## How to query
 
-- All notes for a ticket: `grep -r "{{ISSUE_PREFIX}}-XX" docs/knowledge/notes/`
-- Recent decisions: open `docs/knowledge/notes/{{ISSUE_PREFIX}}-XX.md` directly
+- All notes for a ticket: `grep -r "YP-XX" docs/knowledge/notes/`
+- Recent decisions: open `docs/knowledge/notes/YP-XX.md` directly
 - The agent reads the relevant file at the start of `/debrief` and can be asked to read any file on demand
 
 ## Tagged table of contents

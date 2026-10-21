@@ -1,9 +1,5 @@
 # Architecture
 
-<!-- Describe how the code is organised.
-     The Tech Lead and Developer agents read this file before planning or implementing work.
-     Keep it accurate — update it whenever the structure changes. -->
-
 ## Related docs
 
 - `docs/TECH_STACK.md` — languages, frameworks, tooling
@@ -12,41 +8,31 @@
 
 ## Overview
 
-{{ARCHITECTURE_SUMMARY}}
+Content repo: Markdown copy plus static HTML/CSS pages, with the YAB tooling scripts in Python
 
 ## Directory structure
 
 ```
-<!-- Add your project's directory tree here. Example:
-
-src/
-├── main.<ext>          # Entry point
-├── features/           # Vertical slices / modules
-│   └── <feature>/
-│       ├── domain/     # Business logic, models, interfaces
-│       ├── data/       # Storage, API, repository implementations
-│       └── ui/         # Presentation layer
-└── shared/             # Cross-cutting utilities
-
-test/
-└── features/           # Mirrors src/features/
--->
+.claude/            # Slash-command stubs and onboarding gate hooks
+.github/workflows/  # CI for the YAB tooling tests
+docs/               # Project docs, knowledge base, workflows
+scripts/            # YAB tooling (onboard, skill_router, notes, checkup) in Python
+skills/             # YAB skills: configure, design, build, verify, manage
+styles/             # Communication styles
+skill_router.toml   # Project config and provider mapping
 ```
+
+Promo content does not exist yet; add its directories here as they are created.
 
 ## Layers
 
-<!-- Describe each layer's responsibilities and rules.
-     Be explicit about what may and may not import from where. -->
+### Content
+Promo copy and static pages. No dependency on the tooling.
 
-### Domain
-<!-- Core business logic. No dependencies on data, UI, or infrastructure. -->
-
-### Data
-<!-- Storage and persistence. Implements repository interfaces from domain. -->
-
-### UI
-<!-- Presentation layer. -->
+### Tooling
+The YAB framework files copied from the template. Change them upstream in
+[yuriys-agentic-boyz](https://github.com/lutsenko-yuriy/yuriys-agentic-boyz) where possible.
 
 ## Dependencies
 
-<!-- List key libraries and frameworks with links. -->
+- None beyond the Python standard library.

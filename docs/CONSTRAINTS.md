@@ -1,21 +1,20 @@
-<!-- yab:template -->
 # Project Constraints
 
-<!-- Delete the marker line above once this file is filled in; `onboard.py check` reports it as still a template while it is present.
-     Standing constraints that agents and reviewers weigh when evaluating trade-offs, especially in research tickets. -->
+Standing constraints that agents and reviewers weigh when evaluating trade-offs, especially in research tickets.
 
 ## Team & capacity
 
-- <e.g. team size, who reviews, what support capacity exists>
+- **Solo developer + AI agents.** No dedicated support, QA or second reviewer; anything needing ongoing human review must be sustainable by one person.
 
 ## Stage
 
-- <e.g. pre-launch vs. in production; what to optimise for>
+- **No launch deadline.** Optimise for simplicity and reversibility.
 
 ## Environment
 
-- <e.g. available devices, test environments, access limits>
+- None known.
 
 ## Budget & compliance
 
-- <e.g. cost ceilings, licensing, privacy or regulatory rules>
+- **Budget:** none known.
+- **Compliance:** none known. The repo carries no licence by choice.

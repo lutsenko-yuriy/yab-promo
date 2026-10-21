@@ -2,12 +2,12 @@
 bookmarks: []
 ---
 
-# {{ISSUE_PREFIX}}-XX: <ticket title>
+# YP-XX: <ticket title>
 
 ## Notes
 
 <!-- Each entry: dated heading, then named observations (bold title + paragraph).
-     If the ticket is reopened after this file is finalised, create {{ISSUE_PREFIX}}-XX-adjust-N.md instead of editing this file. -->
+     If the ticket is reopened after this file is finalised, create YP-XX-adjust-N.md instead of editing this file. -->
 
 ### YYYY-MM-DD
 

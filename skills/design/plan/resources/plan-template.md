@@ -1,7 +1,7 @@
 ## Implementation plan — <short title>
 
 ### Issues
-- {{ISSUE_PREFIX}}-XX: <title>
+- YP-XX: <title>
 
 ### New packages / dependencies
 - <package>: <why needed>
@@ -27,4 +27,4 @@ Each unit is one focused session. Keep units small enough to fit in a single PR/
 
 | # | Unit | Issues | Files touched (approx) |
 |---|------|--------|------------------------|
-| 1 | <unit name> | {{ISSUE_PREFIX}}-XX | <files> |
+| 1 | <unit name> | YP-XX | <files> |

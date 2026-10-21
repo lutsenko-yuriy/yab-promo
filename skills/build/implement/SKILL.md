@@ -6,7 +6,7 @@ output_style: CONCISE
 description: Implement a work unit from an approved plan. Given a PM issue ID, fetches the plan comment, follows strict TDD (red → green → refactor), creates the feature branch, runs tests and linting, commits with a style-only commit first, pushes, and opens a PR/MR. Does not merge — that is the `ship` skill's job.
 ---
 
-The project management tool is **{{PM_TOOL}}**. The Git host is **{{GIT_HOST}}**. The issue identifier prefix is **{{ISSUE_PREFIX}}**.
+The project management tool is **GitHub Issues**. The Git host is **GitHub**. The issue identifier prefix is **YP**.
 
 ---
 
@@ -32,7 +32,7 @@ Retrieve the issue details and find the implementation plan comment left by the 
 
 **If no approved plan comment exists — stop.** Report back:
 
-> "No approved plan found on {{ISSUE_PREFIX}}-XX. Invoke the `plan` skill to produce and approve a plan before implementation can begin."
+> "No approved plan found on YP-XX. Invoke the `plan` skill to produce and approve a plan before implementation can begin."
 
 ### 2. Move issue to In Progress
 
@@ -47,10 +47,10 @@ Update the issue status to **In Progress** in the PM tool.
 
 ### 3. Create or switch to the feature branch
 
-Branch naming: `feature/{{ISSUE_PREFIX}}-XX-<short-description>` (2–4 words, kebab-case).
+Branch naming: `feature/YP-XX-<short-description>` (2–4 words, kebab-case).
 
 - If already on the correct branch, continue.
-- Otherwise: `git checkout -b feature/{{ISSUE_PREFIX}}-XX-<short-description>`
+- Otherwise: `git checkout -b feature/YP-XX-<short-description>`
 
 ### 4. TDD cycle
 
@@ -102,7 +102,7 @@ Apply the project's formatter in a **separate, formatting-only commit before the
 # run formatter (see CLAUDE.md for the command)
 # if any files changed:
 git add <only changed files>
-git commit -m "style: apply formatter ({{ISSUE_PREFIX}}-XX)"
+git commit -m "style: apply formatter (YP-XX)"
 ```
 
 If no files changed, skip this step. Never mix formatting and functional changes in the same commit.
@@ -117,7 +117,7 @@ git commit -m "$(cat <<'EOF'
 
 <optional body explaining why this change was needed>
 
-{{AI_COMMIT_TRAILER}}
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
 EOF
 )"
 ```

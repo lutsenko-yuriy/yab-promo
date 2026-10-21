@@ -21,7 +21,7 @@ a WU0 scenario-stub commit.
 
 If planning surfaces a design choice that would benefit from external validation (precedent from other apps/tools, a published guideline, an established best practice), `plan` proposes a **Research-WU** as the ticket's first WU, running before Scenario-WU/Checklist-WU. It runs `/research` (or an equivalent bounded, cited check) and writes findings to the ticket's knowledge note. No separate branch or PR/MR — same as Checklist-WU below. **Omit it when the ticket is genuinely novel** — no comparable precedent exists to research.
 
-**Scenario-WU** — for tickets with a user-facing flow `draft-scenarios` can assert against: after scenarios are approved and written (`FEATURE.md` step 1.6), commit them to `feature/{{ISSUE_PREFIX}}-XX-WU0-scenarios`, push, and open a PR/MR titled `test(WU0): integration scenarios ({{ISSUE_PREFIX}}-XX)`. Use `[test]` as the CHANGELOG classification tag. Merge WU0 directly — no `ship`, no version bump. Each subsequent WU's plan entry lists which scenarios it makes green.
+**Scenario-WU** — for tickets with a user-facing flow `draft-scenarios` can assert against: after scenarios are approved and written (`FEATURE.md` step 1.6), commit them to `feature/YP-XX-WU0-scenarios`, push, and open a PR/MR titled `test(WU0): integration scenarios (YP-XX)`. Use `[test]` as the CHANGELOG classification tag. Merge WU0 directly — no `ship`, no version bump. Each subsequent WU's plan entry lists which scenarios it makes green.
 
 **Checklist-WU** — for everything else (meta/skills/docs work, backend-only changes, or any ticket where scenario generation is skipped): `plan` writes this WU as a **verification checklist** in the plan's Test strategy section instead — a plan-only artifact, no separate branch or PR/MR. Each item is tagged **[agent]** (the agent runs it itself) or **[human]** (needs a person's judgment). **Run it before opening the final WU's PR/MR** (`FEATURE.md` step 9) regardless of whether `/implement` was formally invoked for that WU — this convention exists specifically because process/meta tickets are often worked directly in the orchestrating session rather than through `/implement`, so the enforcement point cannot live solely in that skill.
 
@@ -29,7 +29,7 @@ Research-WU, Scenario-WU, and Checklist-WU are named, not numbered — they're p
 
 ## One WU = one branch = one PR/MR
 
-Each WU gets its own branch (`feature/{{ISSUE_PREFIX}}-XX-WUN-<short>`, where N is the WU number from the plan's WU table) created fresh from `origin/main`. Never reuse a branch from a previous WU. Branch names are pre-named in the plan comment's WU table so the full mapping is visible from day one.
+Each WU gets its own branch (`feature/YP-XX-WUN-<short>`, where N is the WU number from the plan's WU table) created fresh from `origin/main`. Never reuse a branch from a previous WU. Branch names are pre-named in the plan comment's WU table so the full mapping is visible from day one.
 
 ## CHANGELOG tags for intermediate WUs
 

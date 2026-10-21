@@ -1,0 +1,350 @@
+/* YAB deck theme. Colours come from Habit Loop's HabitLoopColors
+   (habit_loop/lib/theme/colors.dart); the background is Material Light Green 50. */
+
+:root {
+  --yab-primary: #00796b;
+  --yab-primary-dark: #004d40;
+  --yab-growth: #8bc34a;
+  --yab-sunrise: #ffb74d;
+  --yab-success: #2e7d32;
+  --yab-danger: #c62828;
+  --yab-pending: #f57c00;
+  --yab-info: #1976d2;
+  --yab-muted: #616161;
+
+  --yab-background: #f1f8e9;
+  --yab-surface: #ffffff;
+  --yab-text: #1b2b26;
+  --yab-border: #c5e1a5;
+  --yab-radius: 18px;
+  --yab-shadow: 0 6px 20px rgba(0, 77, 64, 0.1);
+
+  --yab-font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Base */
+
+html,
+body {
+  background: var(--yab-background);
+}
+
+.reveal-viewport {
+  background: var(--yab-background);
+  color: var(--yab-text);
+}
+
+.reveal {
+  font-family: var(--yab-font);
+  font-size: 34px;
+  line-height: 1.35;
+  color: var(--yab-text);
+}
+
+.reveal .slides {
+  text-align: left;
+}
+
+.reveal .slides section {
+  box-sizing: border-box;
+  padding: 0 24px;
+}
+
+.reveal h1,
+.reveal h2 {
+  margin: 0 0 24px;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--yab-primary-dark);
+}
+
+.reveal h1 {
+  font-size: 2.1em;
+}
+
+.reveal h2 {
+  font-size: 1.7em;
+}
+
+.reveal a {
+  color: var(--yab-primary);
+  text-decoration: none;
+}
+
+.reveal strong {
+  font-weight: 700;
+  color: var(--yab-primary-dark);
+}
+
+.reveal .lead {
+  margin: 0 0 28px;
+  font-size: 1.15em;
+}
+
+.reveal .note {
+  margin-top: 32px;
+  font-size: 0.8em;
+  color: var(--yab-muted);
+}
+
+.reveal .eyebrow {
+  margin: 0 0 8px;
+  font-size: 0.6em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--yab-primary);
+}
+
+.reveal .card {
+  display: block;
+  padding: 18px 24px;
+  background: var(--yab-surface);
+  border: 2px solid var(--yab-border);
+  border-radius: var(--yab-radius);
+  box-shadow: var(--yab-shadow);
+}
+
+.reveal .card-title {
+  display: block;
+  font-weight: 700;
+  color: var(--yab-primary-dark);
+}
+
+.reveal .cards {
+  display: flex;
+  gap: 32px;
+}
+
+.reveal .cards .card {
+  flex: 1;
+}
+
+.reveal .points,
+.reveal .steps {
+  margin: 0 0 0 1.2em;
+}
+
+.reveal .points li,
+.reveal .steps li {
+  margin: 0 0 14px;
+}
+
+.reveal .points li::marker {
+  color: var(--yab-growth);
+}
+
+.reveal .steps li::marker {
+  font-weight: 700;
+  color: var(--yab-primary);
+}
+
+/* Table of contents */
+
+.reveal .toc-title {
+  margin-bottom: 8px;
+}
+
+.reveal .toc-tagline {
+  margin: 0 0 32px;
+  font-size: 0.85em;
+  color: var(--yab-muted);
+}
+
+.reveal .toc {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reveal .toc li:last-child {
+  grid-column: 1 / -1;
+}
+
+.reveal .toc .card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-size: 0.85em;
+  font-weight: 600;
+  color: var(--yab-primary-dark);
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.reveal .toc .card:hover,
+.reveal .toc .card:focus-visible {
+  border-color: var(--yab-primary);
+  transform: translateY(-2px);
+}
+
+.reveal .toc-num {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 1.7em;
+  height: 1.7em;
+  border-radius: 50%;
+  background: var(--yab-growth);
+  color: var(--yab-primary-dark);
+}
+
+/* The pact mock-up on the example opener */
+
+.reveal .pact-chain {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.reveal .pact {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 320px;
+}
+
+.reveal .pact-name {
+  font-weight: 700;
+}
+
+.reveal .pact-status {
+  font-size: 0.7em;
+  color: var(--yab-primary);
+}
+
+.reveal .pact-status.is-done {
+  color: var(--yab-success);
+}
+
+.reveal .pact-button {
+  align-self: flex-start;
+  margin-top: 8px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: var(--yab-primary);
+  color: var(--yab-surface);
+  font-size: 0.65em;
+  font-weight: 600;
+}
+
+.reveal .pact-link {
+  font-size: 0.65em;
+  color: var(--yab-primary);
+}
+
+.reveal .pact-arrow {
+  font-size: 1.6em;
+  color: var(--yab-growth);
+}
+
+/* Get YAB */
+
+.reveal .big-link {
+  display: inline-block;
+  margin: 0 0 32px;
+  font-size: 0.95em;
+  font-weight: 700;
+  border-bottom: 3px solid var(--yab-growth);
+}
+
+.reveal .thanks {
+  margin-top: 28px;
+  font-size: 1.3em;
+  font-weight: 700;
+  color: var(--yab-primary-dark);
+}
+
+/* reveal.js chrome */
+
+.reveal .controls {
+  color: var(--yab-primary);
+}
+
+.reveal .progress {
+  height: 6px;
+  color: var(--yab-growth);
+}
+
+.reveal .slide-number {
+  right: auto;
+  bottom: 14px;
+  left: 14px;
+  background: transparent;
+  color: var(--yab-muted);
+  font-family: var(--yab-font);
+}
+
+/* Language switch and full-screen button */
+
+.yab-controls {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  z-index: 40;
+  display: flex;
+  gap: 10px;
+  padding: 6px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 999px;
+  box-shadow: var(--yab-shadow);
+  font-family: var(--yab-font);
+}
+
+.yab-controls button {
+  min-width: 44px;
+  min-height: 44px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--yab-primary-dark);
+  font: 600 15px var(--yab-font);
+  cursor: pointer;
+}
+
+.yab-controls button:hover {
+  background: rgba(0, 121, 107, 0.1);
+}
+
+.yab-controls button:focus-visible {
+  outline: 3px solid var(--yab-primary);
+  outline-offset: 2px;
+}
+
+.yab-lang {
+  display: flex;
+}
+
+.yab-lang button[aria-pressed="true"] {
+  background: var(--yab-primary);
+  color: var(--yab-surface);
+}
+
+.yab-fullscreen svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vertical-align: middle;
+}
+
+.yab-fullscreen .icon-exit,
+.yab-fullscreen.is-active .icon-enter {
+  display: none;
+}
+
+.yab-fullscreen.is-active .icon-exit {
+  display: inline;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal .toc .card {
+    transition: none;
+  }
+}

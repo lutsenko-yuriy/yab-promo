@@ -31,7 +31,7 @@ Languages, frameworks, platforms and tooling: `docs/TECH_STACK.md`.
 | Integration test directory | `none (no integration test harness)` (e.g. `integration_test/`, `e2e/`) |
 | Test harness file | `none (no integration test harness)` (e.g. `integration_test/harness.dart`) |
 | Harness class / entry point | `none (no integration test harness)` (e.g. `AppHarness`) |
-| Unit / integration test command | `python3 -m unittest discover -s scripts/onboard/tests -t . && python3 -m unittest discover -s scripts/skill_router/tests -t scripts` (e.g. `flutter test`, `npm test`, `pytest`) |
+| Unit / integration test command | `python3 -m unittest discover -s scripts/onboard/tests -t . && python3 -m unittest discover -s scripts/skill_router/tests -t scripts && python3 -m unittest discover -s tests -t .` (e.g. `flutter test`, `npm test`, `pytest`) |
 
 ## Version management
 

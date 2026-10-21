@@ -58,7 +58,7 @@ Details and directory layout: @docs/ARCHITECTURE.md. Languages and tooling: docs
 
 ## Common Commands
 
-- **Run tests:** `python3 -m unittest discover -s scripts/onboard/tests -t . && python3 -m unittest discover -s scripts/skill_router/tests -t scripts`
+- **Run tests:** `python3 -m unittest discover -s scripts/onboard/tests -t . && python3 -m unittest discover -s scripts/skill_router/tests -t scripts && python3 -m unittest discover -s tests -t .`
 - **Lint:** none configured
 - **Build:** none (static files)
 - **Install dependencies:** none

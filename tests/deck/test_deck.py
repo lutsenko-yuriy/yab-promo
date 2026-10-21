@@ -15,7 +15,7 @@ DECK = REPO / "deck"
 LANGS = ("en", "de")
 
 # Sections the table-of-contents slide links to, in order.
-TOC_TARGETS = ["purpose", "example", "cases", "limits", "get-yab"]
+TOC_TARGETS = ["purpose", "example", "cases", "limits", "values", "get-yab"]
 
 # Slides of the purpose section, in order. The flow and human slides share one lifecycle.
 PURPOSE_SLIDES = ["purpose", "purpose-what", "purpose-flow", "purpose-human", "purpose-memory"]
@@ -86,8 +86,12 @@ CHECKLISTER_TRACK = ["wu-1", "wu-2", "wu-3", "wu-4"]
 # Screenshots are resized for the web before they are committed.
 MAX_IMAGE_BYTES = 250 * 1024
 
-# Slides of the limits section, in order; the last one is the human's part, not a limit.
-LIMITS_SLIDES = ["limits", "limits-tools", "limits-next", "limits-human"]
+# Slides of the limits section, in order.
+LIMITS_SLIDES = ["limits", "limits-tools", "limits-next"]
+
+# Slides of the core-values section, in order: the opener names each value, and each value
+# then gets its own slide.
+VALUES_SLIDES = ["values", "values-human", "values-safe", "values-understanding"]
 
 PAGES_WORKFLOW = REPO / ".github" / "workflows" / "pages.yml"
 
@@ -273,8 +277,25 @@ class MarkupTest(unittest.TestCase):
         ids = [slide["id"] for slide in self.deck.slides]
         start = ids.index("limits")
         self.assertEqual(ids[start:start + len(LIMITS_SLIDES)], LIMITS_SLIDES)
-        self.assertEqual(ids[start + len(LIMITS_SLIDES)], "get-yab")
+        self.assertEqual(ids[start + len(LIMITS_SLIDES)], "values")
+
+    def test_values_section_order(self):
+        ids = [slide["id"] for slide in self.deck.slides]
+        start = ids.index("values")
+        self.assertEqual(ids[start:start + len(VALUES_SLIDES)], VALUES_SLIDES)
+        self.assertEqual(ids[start + len(VALUES_SLIDES)], "get-yab")
         self.assertEqual(ids[-1], "get-yab")
+
+    def test_values_opener_names_each_value(self):
+        opener = self._slide("values")
+        for slide_id in VALUES_SLIDES[1:]:
+            with self.subTest(value=slide_id):
+                self.assertIn(f"#/{slide_id}", opener["links"])
+                self.assertIn(f"{slide_id}.title", opener["i18n"])
+                self.assertIn(f"{slide_id}.title", self._slide(slide_id)["i18n"])
+
+    def test_deck_ends_on_what_yab_gives_not_thanks(self):
+        self.assertFalse([k for k in self._slide("get-yab")["i18n"] if k.endswith(".thanks")])
 
     def test_case_slides_link_their_repo(self):
         for slide_id, repo in CASE_REPOS.items():

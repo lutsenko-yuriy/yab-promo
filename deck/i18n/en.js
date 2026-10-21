@@ -11,14 +11,16 @@ window.YAB_I18N.en = {
   "toc.purpose": "Purpose of YAB",
   "toc.example": "An example: one real ticket",
   "toc.cases": "Cases",
-  "toc.limits": "Not proven yet",
+  "toc.limits": "Plans for the future",
+  "toc.values": "Core values",
   "toc.get-yab": "Get YAB",
 
   "eyebrow.purpose": "1 · Purpose",
   "eyebrow.example": "2 · Example",
   "eyebrow.cases": "3 · Cases",
-  "eyebrow.limits": "4 · Not proven yet",
-  "eyebrow.get-yab": "5 · Get YAB",
+  "eyebrow.limits": "4 · Plans for the future",
+  "eyebrow.values": "5 · Core values",
+  "eyebrow.get-yab": "6 · Get YAB",
 
   "purpose.lead": "An AI agent is a brilliant new hire, with <strong>no process</strong> and <strong>no memory</strong>.",
   "purpose.hurry": "In a hurry, it skips the planning.",
@@ -166,7 +168,7 @@ window.YAB_I18N.en = {
   "cases-codex.works": "It works: the same skills, the same workflow, the same human gates.",
   "cases-codex.tokens": "But it is token-heavy, even with smaller models.",
   "cases-codex.mapping": "Matching OpenAI’s models to YAB’s effort levels is less mature than for Claude.",
-  "cases-codex.note": "Which brings us to what YAB has not proven yet.",
+  "cases-codex.note": "Which brings us to what is still ahead.",
 
   "limits.lead": "Scale is still an open question.",
   "limits.team": "Proven by one developer working with agents, never by a team.",
@@ -185,15 +187,29 @@ window.YAB_I18N.en = {
   "limits-next.cost": "<span class=\"card-title\">Cost per skill run</span>See how many tokens, and how much money, each skill run takes.",
   "limits-next.sync": "<span class=\"card-title\">Template sync</span>Projects that already use YAB get template updates automatically.",
 
-  "limits-human.title": "The human stays in charge",
-  "limits-human.quote": "The human is the main one. The AI is an extremely smart, yet very humble assistant.",
-  "limits-human.plans": "Plans still miss things.",
-  "limits-human.testing": "Manual testing still finds bugs that automation misses.",
-  "limits-human.owner": "The human owns the decisions and the verification.",
-  "limits-human.note": "This is not a limit of YAB. It is one of its core values.",
+  "values.lead": "How YAB wants people and agents to work together.",
+
+  "values-human.title": "The human stays in charge",
+  "values-human.quote": "The human is the main one. The AI is an extremely smart, yet very humble assistant.",
+  "values-human.plans": "Plans still miss things.",
+  "values-human.testing": "Manual testing still finds bugs that automation misses.",
+  "values-human.owner": "The human owns the decisions and the verification.",
+  "values-human.note": "That is why these are not on the list of limits.",
+
+  "values-safe.title": "A safe space to think",
+  "values-safe.lead": "Every dialog is a thinking space, not a test.",
+  "values-safe.pressure": "No urgency, no judgement, no wrong answers.",
+  "values-safe.help": "A challenge reads as help: it names the problem, not a verdict.",
+  "values-safe.lessons": "Mistakes become lessons: every ticket ends with a debrief, written down for next time.",
+
+  "values-understanding.title": "Understanding before decisions",
+  "values-understanding.lead": "A decision made without a shared picture is a liability.",
+  "values-understanding.one": "One question at a time.",
+  "values-understanding.mirror": "The agent puts the human’s ideas into clearer words. It doesn’t replace them.",
+  "values-understanding.options": "Where there is a choice, the agent lays out the options and the human picks.",
 
   "get-yab.template": "Create a repo from the template.",
   "get-yab.open": "Open Claude Code in it.",
   "get-yab.onboard": "Let onboarding set it up. It only asks what it can't work out.",
-  "get-yab.thanks": "Thank you!"
+  "get-yab.closer": "Streamline the way you build, with as few tokens as possible."
 };

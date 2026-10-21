@@ -11,14 +11,16 @@ window.YAB_I18N.de = {
   "toc.purpose": "Wozu YAB?",
   "toc.example": "Ein Beispiel: ein echtes Ticket",
   "toc.cases": "Praxisfälle",
-  "toc.limits": "Noch nicht bewiesen",
+  "toc.limits": "Pläne für die Zukunft",
+  "toc.values": "Grundwerte",
   "toc.get-yab": "YAB ausprobieren",
 
   "eyebrow.purpose": "1 · Wozu",
   "eyebrow.example": "2 · Beispiel",
   "eyebrow.cases": "3 · Praxisfälle",
-  "eyebrow.limits": "4 · Noch nicht bewiesen",
-  "eyebrow.get-yab": "5 · Ausprobieren",
+  "eyebrow.limits": "4 · Pläne für die Zukunft",
+  "eyebrow.values": "5 · Grundwerte",
+  "eyebrow.get-yab": "6 · Ausprobieren",
 
   "purpose.lead": "Ein KI-Agent ist ein brillanter Neuzugang, aber <strong>ohne Prozess</strong> und <strong>ohne Gedächtnis</strong>.",
   "purpose.hurry": "Unter Zeitdruck überspringt er die Planung.",
@@ -166,7 +168,7 @@ window.YAB_I18N.de = {
   "cases-codex.works": "Es funktioniert: dieselben Skills, derselbe Workflow, dieselben menschlichen Freigaben.",
   "cases-codex.tokens": "Aber es verbraucht viele Tokens, selbst mit kleineren Modellen.",
   "cases-codex.mapping": "Die Zuordnung der OpenAI-Modelle zu YABs Aufwandsstufen ist weniger ausgereift als bei Claude.",
-  "cases-codex.note": "Und damit zu dem, was YAB noch nicht bewiesen hat.",
+  "cases-codex.note": "Und damit zu dem, was noch vor uns liegt.",
 
   "limits.lead": "Skalierung ist noch eine offene Frage.",
   "limits.team": "Bewährt bei einem Entwickler mit Agenten, noch nie in einem Team.",
@@ -185,15 +187,29 @@ window.YAB_I18N.de = {
   "limits-next.cost": "<span class=\"card-title\">Kosten pro Skill-Lauf</span>Sehen, wie viele Tokens und wie viel Geld jeder Skill-Lauf kostet.",
   "limits-next.sync": "<span class=\"card-title\">Template-Abgleich</span>Projekte, die YAB schon nutzen, bekommen Template-Updates automatisch.",
 
-  "limits-human.title": "Der Mensch behält das Sagen",
-  "limits-human.quote": "Der Mensch ist die Hauptperson. Die KI ist eine äußerst kluge, aber sehr bescheidene Assistenz.",
-  "limits-human.plans": "Pläne übersehen immer noch Dinge.",
-  "limits-human.testing": "Manuelles Testen findet immer noch Fehler, die der Automatisierung entgehen.",
-  "limits-human.owner": "Der Mensch verantwortet die Entscheidungen und die Prüfung.",
-  "limits-human.note": "Das ist keine Grenze von YAB. Es ist einer seiner Grundwerte.",
+  "values.lead": "Wie Menschen und Agenten mit YAB zusammenarbeiten sollen.",
+
+  "values-human.title": "Der Mensch behält das Sagen",
+  "values-human.quote": "Der Mensch ist die Hauptperson. Die KI ist eine äußerst kluge, aber sehr bescheidene Assistenz.",
+  "values-human.plans": "Pläne übersehen immer noch Dinge.",
+  "values-human.testing": "Manuelles Testen findet immer noch Fehler, die der Automatisierung entgehen.",
+  "values-human.owner": "Der Mensch verantwortet die Entscheidungen und die Prüfung.",
+  "values-human.note": "Darum stehen diese Punkte nicht auf der Liste der Grenzen.",
+
+  "values-safe.title": "Ein sicherer Raum zum Nachdenken",
+  "values-safe.lead": "Jeder Dialog ist ein Raum zum Nachdenken, kein Test.",
+  "values-safe.pressure": "Keine Eile, kein Urteil, keine falschen Antworten.",
+  "values-safe.help": "Ein Einwand ist als Hilfe gemeint: Er benennt das Problem, statt zu urteilen.",
+  "values-safe.lessons": "Fehler werden zu Lektionen: Jedes Ticket endet mit einem Debrief, festgehalten für das nächste Mal.",
+
+  "values-understanding.title": "Erst verstehen, dann entscheiden",
+  "values-understanding.lead": "Eine Entscheidung ohne gemeinsames Bild ist ein Risiko.",
+  "values-understanding.one": "Eine Frage nach der anderen.",
+  "values-understanding.mirror": "Der Agent fasst die Ideen des Menschen klarer in Worte. Er ersetzt sie nicht.",
+  "values-understanding.options": "Wo es eine Wahl gibt, legt der Agent die Optionen dar, und der Mensch entscheidet.",
 
   "get-yab.template": "Ein Repo aus dem Template erstellen.",
   "get-yab.open": "Claude Code darin öffnen.",
   "get-yab.onboard": "Das Onboarding richtet alles ein und fragt nur, was es nicht selbst herausfindet.",
-  "get-yab.thanks": "Danke!"
+  "get-yab.closer": "Effizienter bauen, mit so wenigen Tokens wie möglich."
 };

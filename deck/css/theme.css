@@ -160,8 +160,10 @@ body {
   list-style: none;
 }
 
-.reveal .toc li:last-child {
-  grid-column: 1 / -1;
+/* The core values as a single column of links, one per value slide. */
+.reveal .values-list {
+  grid-template-columns: 1fr;
+  max-width: 820px;
 }
 
 .reveal .toc .card {
@@ -732,9 +734,10 @@ body {
   border-bottom: 3px solid var(--yab-growth);
 }
 
-.reveal .thanks {
+
+.reveal .closer {
   margin-top: 28px;
-  font-size: 1.3em;
+  font-size: 1.15em;
   font-weight: 700;
   color: var(--yab-primary-dark);
 }

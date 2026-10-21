@@ -405,6 +405,9 @@ body {
   color: var(--yab-muted);
   font-size: 0.55em;
   line-height: 1.2;
+  /* Two lines tall even for name-only steps, so chips keep their height from slide to slide. */
+  box-sizing: content-box;
+  min-height: 2.4em;
 }
 
 .reveal .wu-name {
@@ -424,12 +427,40 @@ body {
   border-color: var(--yab-sunrise);
 }
 
+/* Dividers set the scoping steps and the debrief apart from the work units: a line centred
+   in the widened gap (12px track gap + 12px margin; 2px border, 2px line). */
 .reveal .wu-chip[data-id="step-plan"] {
-  margin-right: 10px;
+  position: relative;
+  margin-right: 12px;
 }
 
 .reveal .wu-chip[data-id="step-debrief"] {
-  margin-left: 10px;
+  position: relative;
+  margin-left: 12px;
+}
+
+.reveal .wu-chip[data-id="step-plan"]:not(:last-child)::after,
+.reveal .wu-chip[data-id="step-debrief"]::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  width: 2px;
+  border-radius: 1px;
+  background: var(--yab-border);
+}
+
+.reveal .wu-chip[data-id="step-plan"]::after {
+  right: -15px;
+}
+
+.reveal .wu-chip[data-id="step-debrief"]::before {
+  left: -15px;
+}
+
+/* On the plan slide the line waits for the first work unit to appear. */
+.reveal .wu-chip[data-id="step-plan"]:has(+ .fragment:not(.visible))::after {
+  display: none;
 }
 
 .reveal .wu-chip.is-current {

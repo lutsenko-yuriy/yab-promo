@@ -18,7 +18,7 @@ Content repo: Markdown copy plus static HTML/CSS pages, with the YAB tooling scr
 deck/               # The YAB presentation deck, published to GitHub Pages as is
   index.html        #   All slides; visible text and alt text referenced by i18n keys
   css/              #   Theme (Habit Loop palette) and deck components
-  js/               #   Deck start-up, controls, language switching
+  js/               #   Deck start-up, section menu and controls, language switching
   i18n/             #   String tables, one per language (en.js, de.js)
   img/cases/<app>/  #   App screenshots for the cases section, resized for the web
   vendor/           #   Third-party files copied in unchanged (reveal.js)

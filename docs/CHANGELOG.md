@@ -4,6 +4,11 @@ A record of all versioned releases. For planned work and known issues, see @docs
 
 ---
 
+## [Unreleased]
+
+### Added
+- YP-2 WU1: presentation deck foundation — contents slide, five section openers, EN/DE switch that keeps the current slide, full-screen button, Habit Loop theme, vendored reveal.js 6.0.2, deck structure tests in CI (PR #6) [wip]
+
 ## [0.1.0] — 2026-10-21 (PR #4 merged)
 
 ### Added

@@ -1,0 +1,2 @@
+# tests/deck/test_deck.py parses the string tables with an LF-only pattern.
+deck/i18n/*.js text eol=lf

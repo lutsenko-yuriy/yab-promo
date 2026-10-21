@@ -26,6 +26,8 @@ HUMAN_GATES = ["ticket", "plan", "review", "release"]
 # track; its chips keep their data-id so Auto-Animate moves and recolours them.
 EXAMPLE_SLIDES = [
     "example",
+    "example-brief",
+    "example-analyze",
     "example-plan",
     "example-wu0",
     "example-correction",
@@ -39,9 +41,16 @@ EXAMPLE_SLIDES = [
 WU_TRACK = ["wu-0", "wu-0c", "wu-1", "wu-2", "wu-3", "wu-4"]
 INSERTED_CHIP = "wu-0c"
 # Workflow steps around the work units: brief, analytics and plan lead the track on every
-# slide (the plan is being made on example-plan), the debrief joins its end on the last one.
+# slide, the debrief joins its end on the last one.
 LEADING_STEPS = ["step-brief", "step-analyze", "step-plan"]
 DEBRIEF_STEP = "step-debrief"
+# The step being worked on while the ticket is scoped; the work units only appear once the
+# plan makes them. Steps before the current one are done, those after it not yet started.
+SCOPING_STEP = {
+    "example-brief": "step-brief",
+    "example-analyze": "step-analyze",
+    "example-plan": "step-plan",
+}
 # The chip being worked on per slide; chips before it are done. None: no work started
 # (plan) or all done (debrief).
 CURRENT_CHIP = {
@@ -253,23 +262,48 @@ class MarkupTest(unittest.TestCase):
                     self.assertEqual(aria, "step" if chip == current else None)
                     self.assertEqual("is-done" in classes, chip in done)
 
+    def test_scoping_slides_show_only_the_steps(self):
+        for slide_id in SCOPING_STEP.keys() - CURRENT_CHIP.keys():
+            slide = self._slide(slide_id)
+            with self.subTest(slide=slide_id):
+                self.assertIn("data-auto-animate", slide["attrs"])
+                self.assertIn("story", slide["attrs"].get("class", "").split())
+                self.assertEqual([i for i in slide["data_ids"] if i.startswith("wu-")], [])
+                self.assertNotIn(DEBRIEF_STEP, slide["data_ids"])
+
     def test_leading_steps_precede_work_units(self):
-        for slide_id in CURRENT_CHIP:
+        for slide_id in EXAMPLE_SLIDES[1:]:
             slide = self._slide(slide_id)
             steps = [i for i in slide["data_ids"] if i in LEADING_STEPS]
+            current = SCOPING_STEP.get(slide_id)
+            done = LEADING_STEPS[:LEADING_STEPS.index(current)] if current else LEADING_STEPS
             with self.subTest(slide=slide_id):
                 self.assertEqual(steps, LEADING_STEPS)
-                self.assertLess(slide["data_ids"].index(LEADING_STEPS[-1]),
-                                slide["data_ids"].index(WU_TRACK[0]))
+                if WU_TRACK[0] in slide["data_ids"]:
+                    self.assertLess(slide["data_ids"].index(LEADING_STEPS[-1]),
+                                    slide["data_ids"].index(WU_TRACK[0]))
                 for step in steps:
-                    current = slide_id == "example-plan" and step == "step-plan"
                     classes = slide["classes"][step]
                     self.assertIn("is-step", classes)
-                    self.assertEqual("is-current" in classes, current)
-                    self.assertEqual("is-done" in classes, not current)
+                    self.assertEqual("is-current" in classes, step == current)
+                    aria = slide["id_attrs"][step].get("aria-current")
+                    self.assertEqual(aria, "step" if step == current else None)
+                    self.assertEqual("is-done" in classes, step in done)
+
+    def test_plan_reveals_work_units_with_one_click(self):
+        plan = self._slide("example-plan")
+        indexes = set()
+        for chip in WU_TRACK:
+            if chip == INSERTED_CHIP:
+                continue
+            with self.subTest(chip=chip):
+                self.assertIn("fragment", plan["classes"][chip])
+                indexes.add(plan["id_attrs"][chip].get("data-fragment-index"))
+        self.assertEqual(len(indexes), 1)
+        self.assertIsNotNone(indexes.pop())
 
     def test_debrief_step_follows_work_units_on_last_slide(self):
-        for slide_id in CURRENT_CHIP:
+        for slide_id in EXAMPLE_SLIDES[1:]:
             slide = self._slide(slide_id)
             with self.subTest(slide=slide_id):
                 if slide_id != "example-debrief":

@@ -52,7 +52,8 @@ the work-unit track that runs through the example section).
 The example section's slides (`class="story"`) share one height so the work-unit track
 stays in place while Auto-Animate recolours its chips from slide to slide: the work units
 (`data-id="wu-<n>"`) between the workflow steps around them (`data-id="step-<skill>"`:
-brief, analyze and plan before, debrief after).
+brief, analyze and plan before, debrief after). The
+brief and analytics slides show only those steps; the work units appear once the plan makes them.
 
 ### Tooling
 The YAB framework files copied from the template. Change them upstream in

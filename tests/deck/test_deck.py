@@ -469,6 +469,15 @@ class MarkupTest(unittest.TestCase):
                 eyebrows = [k for k in slide["i18n"] if k.startswith("eyebrow.")]
                 self.assertEqual(eyebrows, [], "the section label is no longer on the slides")
 
+    def test_phones_held_upright_are_asked_to_turn(self):
+        html = (DECK / "index.html").read_text(encoding="utf-8")
+        hint = re.search(r'<div class="yab-rotate".*?</div>', html, re.DOTALL)
+        self.assertIsNotNone(hint, "no rotate hint")
+        self.assertIn('data-i18n="controls.rotate"', hint.group(0))
+        self.assertRegex(hint.group(0), r'<button[^>]*data-i18n="controls\.rotate-dismiss"')
+        css = (DECK / "css" / "theme.css").read_text(encoding="utf-8")
+        self.assertRegex(css, r"@media \(orientation: portrait\) and \(max-width: \d+px\)")
+
     def test_no_code_on_slides(self):
         self.assertEqual(self.deck.code_tags, 0)
 

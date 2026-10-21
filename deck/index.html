@@ -50,6 +50,19 @@
     </button>
   </div>
 
+  <!-- Shown only on phones held upright (see theme.css); the deck still works if dismissed. -->
+  <div class="yab-rotate">
+    <svg viewBox="0 0 48 48" aria-hidden="true">
+      <g class="yab-rotate-phone">
+        <rect x="16" y="10" width="16" height="28" rx="3"/>
+        <path d="M22 34h4"/>
+      </g>
+      <path d="M24 4a20 20 0 0 1 20 20M41 20l3 4 3-4"/>
+    </svg>
+    <p data-i18n="controls.rotate"></p>
+    <button type="button" class="yab-rotate-dismiss" data-i18n="controls.rotate-dismiss"></button>
+  </div>
+
   <div class="reveal">
     <div class="slides">
 

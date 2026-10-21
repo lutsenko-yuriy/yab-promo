@@ -44,6 +44,11 @@
     fullscreen.hidden = true;
   }
 
+  // The hint to turn a phone sideways can be waved away for the rest of the visit.
+  document.querySelector('.yab-rotate-dismiss').addEventListener('click', () => {
+    document.documentElement.classList.add('yab-rotate-dismissed');
+  });
+
   // The section menu: a list of the sections, the one being shown marked as current.
   const menu = document.querySelector('.yab-menu');
   const menuToggle = menu.querySelector('.yab-menu-toggle');

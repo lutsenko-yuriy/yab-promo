@@ -870,6 +870,75 @@ body {
   pointer-events: none;
 }
 
+/* Phones held upright: ask to turn sideways, since slides are 16:9 */
+
+.yab-rotate {
+  display: none;
+}
+
+@media (orientation: portrait) and (max-width: 767px) {
+  html:not(.yab-rotate-dismissed) .yab-rotate {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 32px;
+    background: var(--yab-background);
+    color: var(--yab-primary-dark);
+    font: 600 20px/1.4 var(--yab-font);
+    text-align: center;
+  }
+}
+
+.yab-rotate svg {
+  width: 96px;
+  height: 96px;
+  fill: none;
+  stroke: var(--yab-primary);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* The phone turns clockwise under a fixed arrow, then starts over. */
+.yab-rotate-phone {
+  transform-box: view-box;
+  transform-origin: 24px 24px;
+  animation: yab-turn 2.4s ease-in-out infinite;
+}
+
+@keyframes yab-turn {
+  0%,
+  25% {
+    transform: rotate(0deg);
+  }
+
+  60%,
+  100% {
+    transform: rotate(90deg);
+  }
+}
+
+.yab-rotate p {
+  max-width: 18em;
+  margin: 0;
+}
+
+.yab-rotate-dismiss {
+  min-height: 44px;
+  padding: 0 20px;
+  border: 2px solid var(--yab-border);
+  border-radius: 999px;
+  background: var(--yab-surface);
+  color: var(--yab-primary-dark);
+  font: 600 16px var(--yab-font);
+  cursor: pointer;
+}
+
 /* Language switch and full-screen button */
 
 .yab-controls {
@@ -947,5 +1016,9 @@ body {
 
   .reveal .wu-chip.fragment.visible {
     transition-delay: 0s;
+  }
+
+  .yab-rotate-phone {
+    animation: none;
   }
 }

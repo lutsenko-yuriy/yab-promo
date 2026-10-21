@@ -6,6 +6,8 @@ window.YAB_I18N.de = {
   "controls.lang-de": "DE",
   "controls.fullscreen": "Vollbild (F)",
   "controls.menu": "Zu einem Abschnitt springen",
+  "controls.rotate": "Das Handy quer halten, um die Folien in voller Größe zu sehen.",
+  "controls.rotate-dismiss": "Trotzdem weiter",
 
   "toc.title": "YAB · Yuriy's agentic boyz",
   "toc.tagline": "Eine Arbeitsweise für KI-Coding-Agenten, bei der der Mensch das Sagen hat.",

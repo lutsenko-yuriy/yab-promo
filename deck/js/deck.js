@@ -64,21 +64,32 @@
   menuLinks.forEach((link) => {
     link.addEventListener('click', (event) => {
       setMenuOpen(false);
+      if (window.Reveal.isOverview()) window.Reveal.toggleOverview(false);
       releaseFocus(event, link);
     });
   });
-  menu.addEventListener('keydown', (event) => {
+  // Escape closes an open menu wherever focus is (Safari and Firefox don't focus clicked
+  // buttons); capturing it first keeps reveal.js from also opening the overview.
+  document.addEventListener('keydown', (event) => {
     if (event.key !== 'Escape' || menuList.hidden) return;
+    event.stopImmediatePropagation();
+    event.preventDefault();
+    const hadFocus = menu.contains(document.activeElement);
     setMenuOpen(false);
-    menuToggle.focus();
-  });
+    if (hadFocus) menuToggle.focus();
+  }, true);
   document.addEventListener('click', (event) => {
     if (!menu.contains(event.target)) setMenuOpen(false);
+  });
+  // Tabbing out of the menu closes it.
+  menu.addEventListener('focusout', (event) => {
+    if (event.relatedTarget && !menu.contains(event.relatedTarget)) setMenuOpen(false);
   });
 
   // A section runs from its opener to the slide before the next section's opener.
   function markCurrentSection() {
-    const slides = Array.from(document.querySelectorAll('.reveal .slides > section'));
+    // Reveal.getSlides() also works in the scroll view reveal.js uses on narrow screens.
+    const slides = window.Reveal.getSlides();
     const current = slides.indexOf(window.Reveal.getCurrentSlide());
     let section = null;
     menuLinks.forEach((link) => {

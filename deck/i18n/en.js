@@ -6,7 +6,6 @@ window.YAB_I18N.en = {
   "controls.lang-de": "DE",
   "controls.fullscreen": "Full screen (F)",
   "controls.menu": "Go to a section",
-  "controls.sections": "Sections",
 
   "toc.title": "YAB · Yuriy's agentic boyz",
   "toc.tagline": "A way of working for AI coding agents, with the human in charge.",

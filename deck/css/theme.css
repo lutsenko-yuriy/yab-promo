@@ -479,11 +479,27 @@ body {
   border-color: var(--yab-danger);
 }
 
-.reveal .toggle {
-  display: inline-flex;
+/* The switch sits left of the slide title, in the same spot on WU3 and WU4, so only the
+   knob and the colour change between them. */
+.reveal .toggle-row {
+  display: flex;
   align-items: center;
-  gap: 18px;
-  margin: 0 0 28px;
+  gap: 28px;
+  margin: 0 0 24px;
+}
+
+.reveal .toggle-row h2 {
+  margin: 0;
+}
+
+.reveal .toggle {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  width: 170px;
+  box-sizing: border-box;
+  margin: 0;
   padding: 8px 26px 8px 8px;
   border-radius: 999px;
   background: var(--yab-border);

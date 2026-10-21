@@ -78,7 +78,7 @@ class _DeckParser(HTMLParser):
     def __init__(self):
         super().__init__()
         # [{"id": str, "attrs": dict, "data_ids": [str], "classes": {data_id: set},
-        #   "links": [str]}]
+        #   "id_attrs": {data_id: dict}, "links": [str]}]
         self.slides = []
         self.nested_sections = 0
         self.i18n_keys = []
@@ -98,6 +98,7 @@ class _DeckParser(HTMLParser):
                     "attrs": attrs,
                     "data_ids": [],
                     "classes": {},
+                    "id_attrs": {},
                     "links": [],
                 }
             )
@@ -108,6 +109,7 @@ class _DeckParser(HTMLParser):
         if slide is not None and "data-id" in attrs:
             slide["data_ids"].append(attrs["data-id"])
             slide["classes"][attrs["data-id"]] = set((attrs.get("class") or "").split())
+            slide["id_attrs"][attrs["data-id"]] = attrs
         if slide is not None and tag == "a" and "href" in attrs:
             slide["links"].append(attrs["href"])
         if tag in ("code", "pre"):
@@ -243,6 +245,8 @@ class MarkupTest(unittest.TestCase):
                 classes = slide["classes"][chip]
                 with self.subTest(slide=slide_id, chip=chip):
                     self.assertEqual("is-current" in classes, chip == current)
+                    aria = slide["id_attrs"][chip].get("aria-current")
+                    self.assertEqual(aria, "step" if chip == current else None)
                     self.assertEqual("is-done" in classes, chip in done)
 
     def test_kill_switch_turns_on_in_last_work_unit(self):

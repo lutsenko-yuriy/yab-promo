@@ -73,6 +73,7 @@ window.YAB_I18N.en = {
   "wu.logic": "logic",
   "wu.links": "links",
   "wu.button": "button",
+  "wu.done": " (done)",
 
   "example-plan.title": "The plan splits the ticket into work units",
   "example-plan.lead": "Each unit gets its own branch, its own review and its own merge.",
@@ -86,7 +87,7 @@ window.YAB_I18N.en = {
   "example-correction.lead": "Jumping between Previous and Next could pile up an endless trail of screens.",
   "example-correction.rule": "The fix became a rule, and the rule became <strong>a test first</strong>.",
   "example-wu1.title": "Data: each pact knows the one before it",
-  "example-wu1.risk": "<strong>The audit flags a risk</strong><br>Two offline phones both start a new pact. After syncing, one quietly disappears.",
+  "example-wu1.risk": "<strong>The audit flags a risk</strong><br>Two offline phones both start the next pact from the same finished one. After syncing, one never shows up on the other phone.",
   "example-wu1.note": "Caught before a single screen existed.",
   "example-wu2.title": "Logic: the new pact comes prefilled",
   "example-wu2.name": "Named “Running (v2)”",

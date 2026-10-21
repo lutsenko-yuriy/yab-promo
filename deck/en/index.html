@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>YAB: Yuriy's agentic boyz</title>
+  <link rel="stylesheet" href="../vendor/reveal.js-5.1.0/reset.css">
+  <link rel="stylesheet" href="../vendor/reveal.js-5.1.0/reveal.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+  <nav class="yab-chrome" aria-label="Presentation controls">
+    <a href="./" aria-current="true" data-lang-link>EN</a>
+    <a href="../de/" data-lang-link>DE</a>
+    <button id="fullscreen" type="button" title="Full screen (F)">⛶</button>
+  </nav>
+
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Title and table of contents -->
+      <section id="contents" data-auto-animate>
+        <p class="eyebrow" data-id="eyebrow">Yuriy's agentic boyz</p>
+        <h1 data-id="title">YAB</h1>
+        <p class="muted">A workflow template that turns AI coding agents into a disciplined team</p>
+        <ol class="toc">
+          <li><a href="#/purpose">Purpose of YAB</a></li>
+          <li><a href="#/example">An example of using it</a></li>
+          <li><a href="#/cases">Cases: Habit Loop, CheckLister, Mordovorot</a></li>
+          <li><a href="#/limits">What it can't do yet</a></li>
+          <li><a href="#/link">Get YAB</a></li>
+        </ol>
+      </section>
+
+      <!-- 1. Purpose -->
+      <section>
+        <section id="purpose" data-auto-animate>
+          <p class="eyebrow" data-id="eyebrow">1 · Purpose</p>
+          <h2 data-id="title">Agents can write code. Who runs the process?</h2>
+          <ul>
+            <li class="fragment">An agent on its own skips planning, tests and review when it's in a hurry</li>
+            <li class="fragment">Every session starts from zero: no backlog, no memory of past decisions</li>
+            <li class="fragment">One person can't review everything an agent produces</li>
+          </ul>
+        </section>
+        <section data-auto-animate>
+          <p class="eyebrow" data-id="eyebrow">1 · Purpose</p>
+          <h2 data-id="title">YAB is a GitHub template</h2>
+          <div class="cards">
+            <div class="card fragment"><h3>Skills</h3>Each step of the job is a skill: brief, plan, implement, review, ship</div>
+            <div class="card fragment"><h3>Workflow</h3>Tickets, work units, TDD, one PR per work unit</div>
+            <div class="card fragment"><h3>Memory</h3>Knowledge base, decisions and debriefs live in the repo</div>
+            <div class="card fragment"><h3>Gate</h3><code>/onboard</code> must configure the project before anything else runs</div>
+          </div>
+        </section>
+        <section data-auto-animate>
+          <p class="eyebrow" data-id="eyebrow">1 · Purpose</p>
+          <h2 data-id="title">Five skill families</h2>
+          <div class="cards">
+            <div class="card"><h3>configure</h3>onboard, calibrate, style, skill-creator</div>
+            <div class="card"><h3>design</h3>brief, analyze, plan, research, experiment</div>
+            <div class="card"><h3>build</h3>implement</div>
+            <div class="card"><h3>verify</h3>review, audit, draft-scenarios</div>
+            <div class="card"><h3>manage</h3>summarize, ship, debrief, note, checkup</div>
+          </div>
+          <p class="fragment muted">Skills ask for an effort tier and a reasoning depth, not a model name.
+            You map tiers to the models you have once, with <code>/calibrate</code>.</p>
+        </section>
+      </section>
+
+      <!-- 2. Example -->
+      <section>
+        <section id="example" data-auto-animate>
+          <p class="eyebrow" data-id="eyebrow">2 · Example <span class="draft">example ticket to be chosen</span></p>
+          <h2 data-id="title">One ticket, several work units</h2>
+          <div class="steps" data-id="steps">
+            <span class="step active">/summarize</span><span class="step">/brief</span><span class="step">/plan</span>
+            <span class="step">WU0</span><span class="step">WU1…N</span><span class="step">/debrief</span><span class="step">/ship</span>
+          </div>
+          <p><strong>/summarize</strong> opens the session: here is the backlog, what goes into the next release?</p>
+        </section>
+        <section data-auto-animate>
+          <p class="eyebrow" data-id="eyebrow">2 · Example</p>
+          <h2 data-id="title">One ticket, several work units</h2>
+          <div class="steps" data-id="steps">
+            <span class="step">/summarize</span><span class="step active">/brief</span><span class="step active">/plan</span>
+            <span class="step">WU0</span><span class="step">WU1…N</span><span class="step">/debrief</span><span class="step">/ship</span>
+          </div>
+          <p><strong>/brief</strong> turns a rough idea into a scoped ticket, one question at a time.</p>
+          <p class="fragment"><strong>/plan</strong> splits it into work units, each with its own branch and PR. You approve the plan before any code is written.</p>
+        </section>
+        <section data-auto-animate>
+          <p class="eyebrow" data-id="eyebrow">2 · Example</p>
+          <h2 data-id="title">One ticket, several work units</h2>
+          <div class="steps" data-id="steps">
+            <span class="step">/summarize</span><span class="step">/brief</span><span class="step">/plan</span>
+            <span class="step active">WU0</span><span class="step">WU1…N</span><span class="step">/debrief</span><span class="step">/ship</span>
+          </div>
+          <p><strong>WU0</strong> comes before any production code: red integration scenarios for the user-facing flow, or a verification checklist for everything else.</p>
+        </section>
+        <section data-auto-animate>
+          <p class="eyebrow" data-id="eyebrow">2 · Example</p>
+          <h2 data-id="title">One ticket, several work units</h2>
+          <div class="steps" data-id="steps">
+            <span class="step">/summarize</span><span class="step">/brief</span><span class="step">/plan</span>
+            <span class="step">WU0</span><span class="step active">WU1…N</span><span class="step">/debrief</span><span class="step">/ship</span>
+          </div>
+          <p>Each <strong>work unit</strong> repeats the same loop:</p>
+          <div class="steps">
+            <span class="step fragment">red test</span><span class="step fragment">green</span><span class="step fragment">refactor + commit</span>
+            <span class="step fragment">PR</span><span class="step fragment">/review + /audit</span><span class="step fragment">fixes</span>
+          </div>
+          <p class="fragment muted">Intermediate work units are tagged <code>[wip]</code>, so testers never get half a feature.</p>
+        </section>
+        <section data-auto-animate>
+          <p class="eyebrow" data-id="eyebrow">2 · Example</p>
+          <h2 data-id="title">One ticket, several work units</h2>
+          <div class="steps" data-id="steps">
+            <span class="step">/summarize</span><span class="step">/brief</span><span class="step">/plan</span>
+            <span class="step">WU0</span><span class="step">WU1…N</span><span class="step active">/debrief</span><span class="step active">/ship</span>
+          </div>
+          <p><strong>/debrief</strong> runs a short retrospective and saves what was learned to the knowledge base.</p>
+          <p class="fragment"><strong>/ship</strong> closes the ticket, writes the changelog, bumps the version and merges.</p>
+        </section>
+      </section>
+
+      <!-- 3. Cases -->
+      <section>
+        <section id="cases">
+          <p class="eyebrow">3 · Cases</p>
+          <h2>Three apps, three stacks</h2>
+          <div class="cards">
+            <div class="card fragment"><h3>Habit Loop</h3>Flutter · iOS and Android</div>
+            <div class="card fragment"><h3>CheckLister</h3>React Native + TypeScript · iOS and Android</div>
+            <div class="card fragment"><h3>Mordovorot</h3><span class="draft">details to be confirmed</span></div>
+          </div>
+          <p class="fragment muted">Same skills, same workflow. Only <code>/onboard</code> answers differ.</p>
+        </section>
+        <section>
+          <p class="eyebrow">3 · Cases</p>
+          <h2>Habit Loop</h2>
+          <p class="muted">Build habits through pacts and showups</p>
+          <div class="cards">
+            <div class="card"><div class="stat">v0.62</div>current version</div>
+            <div class="card"><div class="stat">262</div>releases in the changelog</div>
+            <div class="card"><div class="stat">115</div>knowledge base notes</div>
+            <div class="card"><div class="stat">4</div>languages (EN, FR, DE, RU)</div>
+          </div>
+          <p><a href="https://github.com/lutsenko-yuriy/habit-loop">github.com/lutsenko-yuriy/habit-loop</a></p>
+        </section>
+        <section>
+          <p class="eyebrow">3 · Cases</p>
+          <h2>CheckLister</h2>
+          <p class="muted">Reusable checklists with runs and history, no backend</p>
+          <div class="cards">
+            <div class="card"><div class="stat">v0.13</div>current version</div>
+            <div class="card"><div class="stat">22</div>releases in the changelog</div>
+            <div class="card"><div class="stat">41</div>knowledge base notes</div>
+          </div>
+          <p><a href="https://github.com/lutsenko-yuriy/CheckLister">github.com/lutsenko-yuriy/CheckLister</a></p>
+        </section>
+        <section>
+          <p class="eyebrow">3 · Cases</p>
+          <h2>Mordovorot <span class="draft">to be filled in</span></h2>
+          <p class="muted">A private project: what we show here is still to be decided.</p>
+        </section>
+      </section>
+
+      <!-- 4. Limits -->
+      <section id="limits">
+        <p class="eyebrow">4 · Limits <span class="draft">draft, to be confirmed</span></p>
+        <h2>What it can't do yet</h2>
+        <ul>
+          <li class="fragment">Tested by one developer working with agents, not by a team</li>
+          <li class="fragment">GitHub is the only Git host; Linear or GitHub Issues are the only trackers</li>
+          <li class="fragment">Used mostly with Claude Code; other agents are less proven</li>
+          <li class="fragment">Needs Python 3.11+, and Claude Code must be started from the repo root</li>
+        </ul>
+      </section>
+
+      <!-- 5. Link -->
+      <section id="link" data-auto-animate>
+        <p class="eyebrow" data-id="eyebrow">5 · Get YAB</p>
+        <h1 data-id="title">YAB</h1>
+        <p>Click <strong>Use this template</strong>, clone it, run <code>/onboard</code>.</p>
+        <a class="big-link" href="https://github.com/lutsenko-yuriy/yuriys-agentic-boyz">github.com/lutsenko-yuriy/yuriys-agentic-boyz</a>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../vendor/reveal.js-5.1.0/reveal.js"></script>
+  <script src="../assets/deck.js"></script>
+</body>
+</html>

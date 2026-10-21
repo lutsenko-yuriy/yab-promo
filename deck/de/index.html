@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>YAB: Yuriy's agentic boyz</title>
+  <link rel="stylesheet" href="../vendor/reveal.js-5.1.0/reset.css">
+  <link rel="stylesheet" href="../vendor/reveal.js-5.1.0/reveal.css">
+  <link rel="stylesheet" href="../assets/theme.css">
+</head>
+<body>
+  <nav class="yab-chrome" aria-label="Präsentationssteuerung">
+    <a href="../en/" data-lang-link>EN</a>
+    <a href="./" aria-current="true" data-lang-link>DE</a>
+    <button id="fullscreen" type="button" title="Vollbild (F)">⛶</button>
+  </nav>
+
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Title and table of contents -->
+      <section id="contents" data-auto-animate>
+        <p class="eyebrow" data-id="eyebrow">Yuriy's agentic boyz</p>
+        <h1 data-id="title">YAB</h1>
+        <p class="muted">Eine Workflow-Vorlage, die KI-Coding-Agenten zu einem disziplinierten Team macht</p>
+        <ol class="toc">
+          <li><a href="#/purpose">Wozu YAB?</a></li>
+          <li><a href="#/example">Ein Beispiel aus der Praxis</a></li>
+          <li><a href="#/cases">Projekte: Habit Loop, CheckLister, Mordovorot</a></li>
+          <li><a href="#/limits">Was es noch nicht kann</a></li>
+          <li><a href="#/link">YAB holen</a></li>
+        </ol>
+      </section>
+
+      <!-- 1. Purpose -->
+      <section>
+        <section id="purpose" data-auto-animate>
+          <p class="eyebrow" data-id="eyebrow">1 · Zweck</p>
+          <h2 data-id="title">Agenten schreiben Code. Wer steuert den Prozess?</h2>
+          <ul>
+            <li class="fragment">Allein überspringt ein Agent unter Zeitdruck Planung, Tests und Review</li>
+            <li class="fragment">Jede Session beginnt bei null: kein Backlog, keine Erinnerung an frühere Entscheidungen</li>
+            <li class="fragment">Eine Person allein kann nicht alles prüfen, was ein Agent erzeugt</li>
+          </ul>
+        </section>
+        <section data-auto-animate>
+          <p class="eyebrow" data-id="eyebrow">1 · Zweck</p>
+          <h2 data-id="title">YAB ist eine GitHub-Vorlage</h2>
+          <div class="cards">
+            <div class="card fragment"><h3>Skills</h3>Jeder Arbeitsschritt ist ein Skill: brief, plan, implement, review, ship</div>
+            <div class="card fragment"><h3>Workflow</h3>Tickets, Work Units, TDD, ein PR pro Work Unit</div>
+            <div class="card fragment"><h3>Gedächtnis</h3>Wissensbasis, Entscheidungen und Debriefs liegen im Repo</div>
+            <div class="card fragment"><h3>Gate</h3>Erst konfiguriert <code>/onboard</code> das Projekt, dann läuft alles andere</div>
+          </div>
+        </section>
+        <section data-auto-animate>
+          <p class="eyebrow" data-id="eyebrow">1 · Zweck</p>
+          <h2 data-id="title">Fünf Skill-Familien</h2>
+          <div class="cards">
+            <div class="card"><h3>configure</h3>onboard, calibrate, style, skill-creator</div>
+            <div class="card"><h3>design</h3>brief, analyze, plan, research, experiment</div>
+            <div class="card"><h3>build</h3>implement</div>
+            <div class="card"><h3>verify</h3>review, audit, draft-scenarios</div>
+            <div class="card"><h3>manage</h3>summarize, ship, debrief, note, checkup</div>
+          </div>
+          <p class="fragment muted">Skills verlangen eine Aufwandsstufe und eine Denktiefe, keinen Modellnamen.
+            Die Zuordnung zu den vorhandenen Modellen erfolgt einmalig mit <code>/calibrate</code>.</p>
+        </section>
+      </section>
+
+      <!-- 2. Example -->
+      <section>
+        <section id="example" data-auto-animate>
+          <p class="eyebrow" data-id="eyebrow">2 · Beispiel <span class="draft">Beispiel-Ticket folgt</span></p>
+          <h2 data-id="title">Ein Ticket, mehrere Work Units</h2>
+          <div class="steps" data-id="steps">
+            <span class="step active">/summarize</span><span class="step">/brief</span><span class="step">/plan</span>
+            <span class="step">WU0</span><span class="step">WU1…N</span><span class="step">/debrief</span><span class="step">/ship</span>
+          </div>
+          <p><strong>/summarize</strong> eröffnet die Session: Hier ist das Backlog, was kommt ins nächste Release?</p>
+        </section>
+        <section data-auto-animate>
+          <p class="eyebrow" data-id="eyebrow">2 · Beispiel</p>
+          <h2 data-id="title">Ein Ticket, mehrere Work Units</h2>
+          <div class="steps" data-id="steps">
+            <span class="step">/summarize</span><span class="step active">/brief</span><span class="step active">/plan</span>
+            <span class="step">WU0</span><span class="step">WU1…N</span><span class="step">/debrief</span><span class="step">/ship</span>
+          </div>
+          <p><strong>/brief</strong> macht aus einer groben Idee ein klar umrissenes Ticket, Frage für Frage.</p>
+          <p class="fragment"><strong>/plan</strong> zerlegt es in Work Units, jede mit eigenem Branch und PR. Der Plan wird freigegeben, bevor Code entsteht.</p>
+        </section>
+        <section data-auto-animate>
+          <p class="eyebrow" data-id="eyebrow">2 · Beispiel</p>
+          <h2 data-id="title">Ein Ticket, mehrere Work Units</h2>
+          <div class="steps" data-id="steps">
+            <span class="step">/summarize</span><span class="step">/brief</span><span class="step">/plan</span>
+            <span class="step active">WU0</span><span class="step">WU1…N</span><span class="step">/debrief</span><span class="step">/ship</span>
+          </div>
+          <p><strong>WU0</strong> kommt vor jedem Produktionscode: rote Integrationsszenarien für den Nutzerfluss oder eine Prüf-Checkliste für alles andere.</p>
+        </section>
+        <section data-auto-animate>
+          <p class="eyebrow" data-id="eyebrow">2 · Beispiel</p>
+          <h2 data-id="title">Ein Ticket, mehrere Work Units</h2>
+          <div class="steps" data-id="steps">
+            <span class="step">/summarize</span><span class="step">/brief</span><span class="step">/plan</span>
+            <span class="step">WU0</span><span class="step active">WU1…N</span><span class="step">/debrief</span><span class="step">/ship</span>
+          </div>
+          <p>Jede <strong>Work Unit</strong> durchläuft dieselbe Schleife:</p>
+          <div class="steps">
+            <span class="step fragment">roter Test</span><span class="step fragment">grün</span><span class="step fragment">Refactoring + Commit</span>
+            <span class="step fragment">PR</span><span class="step fragment">/review + /audit</span><span class="step fragment">Korrekturen</span>
+          </div>
+          <p class="fragment muted">Zwischenstände tragen das Tag <code>[wip]</code>, damit Tester nie ein halbes Feature bekommen.</p>
+        </section>
+        <section data-auto-animate>
+          <p class="eyebrow" data-id="eyebrow">2 · Beispiel</p>
+          <h2 data-id="title">Ein Ticket, mehrere Work Units</h2>
+          <div class="steps" data-id="steps">
+            <span class="step">/summarize</span><span class="step">/brief</span><span class="step">/plan</span>
+            <span class="step">WU0</span><span class="step">WU1…N</span><span class="step active">/debrief</span><span class="step active">/ship</span>
+          </div>
+          <p><strong>/debrief</strong> hält eine kurze Retrospektive und speichert die Erkenntnisse in der Wissensbasis.</p>
+          <p class="fragment"><strong>/ship</strong> schließt das Ticket, schreibt das Changelog, erhöht die Version und merged.</p>
+        </section>
+      </section>
+
+      <!-- 3. Cases -->
+      <section>
+        <section id="cases">
+          <p class="eyebrow">3 · Projekte</p>
+          <h2>Drei Apps, drei Stacks</h2>
+          <div class="cards">
+            <div class="card fragment"><h3>Habit Loop</h3>Flutter · iOS und Android</div>
+            <div class="card fragment"><h3>CheckLister</h3>React Native + TypeScript · iOS und Android</div>
+            <div class="card fragment"><h3>Mordovorot</h3><span class="draft">Details folgen</span></div>
+          </div>
+          <p class="fragment muted">Gleiche Skills, gleicher Workflow. Nur die Antworten bei <code>/onboard</code> unterscheiden sich.</p>
+        </section>
+        <section>
+          <p class="eyebrow">3 · Projekte</p>
+          <h2>Habit Loop</h2>
+          <p class="muted">Gewohnheiten aufbauen mit Pacts und Showups</p>
+          <div class="cards">
+            <div class="card"><div class="stat">v0.62</div>aktuelle Version</div>
+            <div class="card"><div class="stat">262</div>Releases im Changelog</div>
+            <div class="card"><div class="stat">115</div>Notizen in der Wissensbasis</div>
+            <div class="card"><div class="stat">4</div>Sprachen (EN, FR, DE, RU)</div>
+          </div>
+          <p><a href="https://github.com/lutsenko-yuriy/habit-loop">github.com/lutsenko-yuriy/habit-loop</a></p>
+        </section>
+        <section>
+          <p class="eyebrow">3 · Projekte</p>
+          <h2>CheckLister</h2>
+          <p class="muted">Wiederverwendbare Checklisten mit Durchläufen und Verlauf, ohne Backend</p>
+          <div class="cards">
+            <div class="card"><div class="stat">v0.13</div>aktuelle Version</div>
+            <div class="card"><div class="stat">22</div>Releases im Changelog</div>
+            <div class="card"><div class="stat">41</div>Notizen in der Wissensbasis</div>
+          </div>
+          <p><a href="https://github.com/lutsenko-yuriy/CheckLister">github.com/lutsenko-yuriy/CheckLister</a></p>
+        </section>
+        <section>
+          <p class="eyebrow">3 · Projekte</p>
+          <h2>Mordovorot <span class="draft">folgt</span></h2>
+          <p class="muted">Ein privates Projekt: Was wir hier zeigen, ist noch offen.</p>
+        </section>
+      </section>
+
+      <!-- 4. Limits -->
+      <section id="limits">
+        <p class="eyebrow">4 · Grenzen <span class="draft">Entwurf, noch zu bestätigen</span></p>
+        <h2>Was es noch nicht kann</h2>
+        <ul>
+          <li class="fragment">Erprobt von einem Entwickler mit Agenten, nicht von einem Team</li>
+          <li class="fragment">Einziger Git-Host ist GitHub; als Tracker nur Linear oder GitHub Issues</li>
+          <li class="fragment">Hauptsächlich mit Claude Code genutzt; andere Agenten sind weniger erprobt</li>
+          <li class="fragment">Braucht Python 3.11+, und Claude Code muss im Repo-Root gestartet werden</li>
+        </ul>
+      </section>
+
+      <!-- 5. Link -->
+      <section id="link" data-auto-animate>
+        <p class="eyebrow" data-id="eyebrow">5 · YAB holen</p>
+        <h1 data-id="title">YAB</h1>
+        <p><strong>Use this template</strong> klicken, klonen, <code>/onboard</code> ausführen.</p>
+        <a class="big-link" href="https://github.com/lutsenko-yuriy/yuriys-agentic-boyz">github.com/lutsenko-yuriy/yuriys-agentic-boyz</a>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../vendor/reveal.js-5.1.0/reveal.js"></script>
+  <script src="../assets/deck.js"></script>
+</body>
+</html>

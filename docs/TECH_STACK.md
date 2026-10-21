@@ -12,7 +12,7 @@
 
 ## Frameworks and libraries
 
-- [reveal.js](https://revealjs.com) for the animated presentation (full-screen playback, Auto-Animate, fragments). Loaded as static files, no build step.
+- [reveal.js](https://revealjs.com) for the animated presentation (full-screen playback, Auto-Animate, fragments). Vendored in `deck/vendor/reveal.js-5.1.0/` (keeps its MIT licence file), so the deck works offline; no build step.
 - Other promo content is plain static HTML/CSS.
 - YAB tooling uses the Python standard library only.
 

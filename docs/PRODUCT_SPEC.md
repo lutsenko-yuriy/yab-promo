@@ -20,15 +20,17 @@ https://lutsenko-yuriy.github.io/yab-promo/ (source: `deck/`).
   with reduced motion turned on, they are not.
 - The viewer can switch between English and German at any time; the current slide stays. A
   `?lang=de` link opens the deck in German.
-- The first slide is a table of contents linking to five sections:
+- The first slide is a table of contents linking to six sections:
   1. Purpose of YAB: what it is, the ticket lifecycle with its human gates, and its memory.
   2. An example: Habit Loop's HAB-202, from the brief, analytics and plan through six work
      units and the review to the debrief, on a work-unit track that stays in place.
   3. Cases: Habit Loop (Flutter), CheckLister (React Native) and Mordovorot (Kotlin
      Multiplatform), each with screenshots, a link to its public repo and, where it has them,
      numbers with the date they were counted; then CheckLister on Codex.
-  4. Not proven yet: scale, runtimes and tools, what comes next, and why the human staying in
-     charge is a core value rather than a limit.
-  5. Get YAB: the link to the template and three steps to start.
+  4. Plans for the future: what is not proven yet (scale, giant brownfield codebases,
+     runtimes and tools) and what comes in the next updates.
+  5. Core values: the human stays in charge, a safe space to think, and understanding before
+     decisions.
+  6. Get YAB: the link to the template, three steps to start, and what YAB gives in return.
 - A talk through the whole deck takes 15 to 20 minutes, and no slide needs code to follow.
 - The deck also runs offline, opened from a local clone.

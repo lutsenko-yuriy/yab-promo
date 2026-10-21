@@ -19,7 +19,7 @@
 
 ## Platforms
 
-- Web browsers (static pages, hostable on GitHub Pages)
+- Web browsers (static pages); the deck is published on GitHub Pages by `.github/workflows/pages.yml`
 - GitHub (repo and README rendering)
 
 ## Tooling

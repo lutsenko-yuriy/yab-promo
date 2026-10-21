@@ -377,6 +377,161 @@ body {
   color: var(--yab-growth);
 }
 
+/* Example section: the work-unit track and its story */
+
+/* One height for every story slide, so reveal.js centres them alike and the track stays
+   put. reveal.css zeroes min-height on centred slides with !important, hence the override. */
+.reveal.center .slides section.story {
+  min-height: 560px !important;
+}
+
+.reveal .wu-track {
+  display: flex;
+  gap: 14px;
+  margin: 4px 0 28px;
+  padding: 0;
+  list-style: none;
+}
+
+.reveal .wu-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 112px;
+  padding: 8px 14px;
+  background: var(--yab-surface);
+  border: 2px solid var(--yab-border);
+  border-radius: 14px;
+  color: var(--yab-muted);
+  font-size: 0.55em;
+  line-height: 1.2;
+}
+
+.reveal .wu-name {
+  font-weight: 700;
+}
+
+.reveal .wu-chip.is-inserted {
+  border-style: dashed;
+  border-color: var(--yab-sunrise);
+}
+
+.reveal .wu-chip.is-current {
+  border-color: var(--yab-primary);
+  background: var(--yab-primary);
+  color: var(--yab-surface);
+}
+
+.reveal .wu-chip.is-done {
+  border-color: var(--yab-growth);
+  background: var(--yab-growth);
+  color: var(--yab-primary-dark);
+}
+
+/* The regression on WU4: the current chip flashes red once the callout shows. */
+.reveal section.present:has(.regression.visible) .wu-chip.is-current {
+  animation: yab-flash 1.8s ease-in-out both;
+}
+
+@keyframes yab-flash {
+  25%,
+  60% {
+    border-color: var(--yab-danger);
+    background: var(--yab-danger);
+  }
+}
+
+.reveal .scenarios {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reveal .scenarios li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0 0 12px;
+  font-size: 0.85em;
+}
+
+.reveal .scenarios li::before {
+  content: "";
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--yab-danger);
+}
+
+.reveal .callout {
+  max-width: 900px;
+  margin: 0;
+  border-left-width: 10px;
+  border-left-color: var(--yab-primary);
+}
+
+.reveal .callout.is-warning {
+  border-color: var(--yab-pending);
+}
+
+.reveal .callout.is-danger {
+  border-color: var(--yab-danger);
+}
+
+.reveal .toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  margin: 0 0 28px;
+  padding: 8px 26px 8px 8px;
+  border-radius: 999px;
+  background: var(--yab-border);
+  color: var(--yab-primary-dark);
+  font-weight: 700;
+}
+
+.reveal .toggle.is-on {
+  flex-direction: row-reverse;
+  padding: 8px 8px 8px 26px;
+  background: var(--yab-success);
+  color: var(--yab-surface);
+}
+
+.reveal .toggle-knob {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--yab-surface);
+  box-shadow: var(--yab-shadow);
+}
+
+.reveal .verdict {
+  margin: 28px 0 0;
+  font-size: 1.1em;
+  font-weight: 700;
+  color: var(--yab-primary);
+}
+
+.reveal .stats {
+  display: flex;
+  gap: 56px;
+  margin-top: 32px;
+}
+
+.reveal .stat {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0;
+}
+
+.reveal .stat-num {
+  font-size: 1.8em;
+  font-weight: 700;
+  color: var(--yab-primary);
+}
+
 /* Get YAB */
 
 .reveal .big-link {
@@ -484,7 +639,8 @@ body {
     transition: none;
   }
 
-  .reveal section.present .human {
+  .reveal section.present .human,
+  .reveal section.present:has(.regression.visible) .wu-chip.is-current {
     animation: none;
   }
 }

@@ -22,6 +22,40 @@ PURPOSE_SLIDES = ["purpose", "purpose-what", "purpose-flow", "purpose-human", "p
 LIFECYCLE_STEPS = ["idea", "ticket", "plan", "tests", "build", "review", "release", "lessons"]
 HUMAN_GATES = ["ticket", "plan", "review", "release"]
 
+# Slides of the example section (HAB-202), in order. All but the opener carry one work-unit
+# track; its chips keep their data-id so Auto-Animate moves and recolours them.
+EXAMPLE_SLIDES = [
+    "example",
+    "example-plan",
+    "example-wu0",
+    "example-correction",
+    "example-wu1",
+    "example-wu2",
+    "example-wu3",
+    "example-wu4",
+    "example-review",
+    "example-debrief",
+]
+WU_TRACK = ["wu-0", "wu-0c", "wu-1", "wu-2", "wu-3", "wu-4"]
+INSERTED_CHIP = "wu-0c"
+# Workflow steps around the work units: brief, analytics and plan lead the track on every
+# slide (the plan is being made on example-plan), the debrief joins its end on the last one.
+LEADING_STEPS = ["step-brief", "step-analyze", "step-plan"]
+DEBRIEF_STEP = "step-debrief"
+# The chip being worked on per slide; chips before it are done. None: no work started
+# (plan) or all done (debrief).
+CURRENT_CHIP = {
+    "example-plan": None,
+    "example-wu0": "wu-0",
+    "example-correction": "wu-0c",
+    "example-wu1": "wu-1",
+    "example-wu2": "wu-2",
+    "example-wu3": "wu-3",
+    "example-wu4": "wu-4",
+    "example-review": "wu-4",
+    "example-debrief": None,
+}
+
 # A German value may equal its English one only for these keys (proper nouns and the like).
 SAME_IN_BOTH = {
     "toc.title",
@@ -47,7 +81,9 @@ class _DeckParser(HTMLParser):
 
     def __init__(self):
         super().__init__()
-        self.slides = []  # [{"id": str, "attrs": dict, "data_ids": [str], "links": [str]}]
+        # [{"id": str, "attrs": dict, "data_ids": [str], "classes": {data_id: set},
+        #   "id_attrs": {data_id: dict}, "links": [str]}]
+        self.slides = []
         self.nested_sections = 0
         self.i18n_keys = []
         self.code_tags = 0
@@ -61,7 +97,14 @@ class _DeckParser(HTMLParser):
             if self._section_depth > 1:
                 self.nested_sections += 1
             self.slides.append(
-                {"id": attrs.get("id"), "attrs": attrs, "data_ids": [], "links": []}
+                {
+                    "id": attrs.get("id"),
+                    "attrs": attrs,
+                    "data_ids": [],
+                    "classes": {},
+                    "id_attrs": {},
+                    "links": [],
+                }
             )
         slide = self.slides[-1] if self._section_depth else None
         for name in ("data-i18n", "data-i18n-aria"):
@@ -69,6 +112,8 @@ class _DeckParser(HTMLParser):
                 self.i18n_keys.append(attrs[name])
         if slide is not None and "data-id" in attrs:
             slide["data_ids"].append(attrs["data-id"])
+            slide["classes"][attrs["data-id"]] = set((attrs.get("class") or "").split())
+            slide["id_attrs"][attrs["data-id"]] = attrs
         if slide is not None and tag == "a" and "href" in attrs:
             slide["links"].append(attrs["href"])
         if tag in ("code", "pre"):
@@ -167,6 +212,80 @@ class MarkupTest(unittest.TestCase):
         start = ids.index("purpose")
         self.assertEqual(ids[start:start + len(PURPOSE_SLIDES)], PURPOSE_SLIDES)
         self.assertEqual(ids[start + len(PURPOSE_SLIDES)], "example")
+
+    def test_example_section_order(self):
+        ids = [slide["id"] for slide in self.deck.slides]
+        start = ids.index("example")
+        self.assertEqual(ids[start:start + len(EXAMPLE_SLIDES)], EXAMPLE_SLIDES)
+        self.assertEqual(ids[start + len(EXAMPLE_SLIDES)], "cases")
+
+    def test_work_unit_track_persists_across_example(self):
+        for slide_id in CURRENT_CHIP:
+            slide = self._slide(slide_id)
+            with self.subTest(slide=slide_id):
+                self.assertIn("data-auto-animate", slide["attrs"])
+                chips = [i for i in slide["data_ids"] if i.startswith("wu-")]
+                inserted = EXAMPLE_SLIDES.index(slide_id) >= EXAMPLE_SLIDES.index(
+                    "example-correction"
+                )
+                expected = [c for c in WU_TRACK if inserted or c != INSERTED_CHIP]
+                self.assertEqual(chips, expected)
+                for chip in chips:
+                    self.assertIn("wu-chip", slide["classes"][chip])
+                if INSERTED_CHIP in chips:
+                    self.assertIn("is-inserted", slide["classes"][INSERTED_CHIP])
+
+    def test_work_unit_chip_states(self):
+        for slide_id, current in CURRENT_CHIP.items():
+            slide = self._slide(slide_id)
+            chips = [i for i in slide["data_ids"] if i.startswith("wu-")]
+            if current is not None:
+                done = chips[:chips.index(current)]
+            elif slide_id == "example-debrief":
+                done = chips
+            else:
+                done = []
+            for chip in chips:
+                classes = slide["classes"][chip]
+                with self.subTest(slide=slide_id, chip=chip):
+                    self.assertEqual("is-current" in classes, chip == current)
+                    aria = slide["id_attrs"][chip].get("aria-current")
+                    self.assertEqual(aria, "step" if chip == current else None)
+                    self.assertEqual("is-done" in classes, chip in done)
+
+    def test_leading_steps_precede_work_units(self):
+        for slide_id in CURRENT_CHIP:
+            slide = self._slide(slide_id)
+            steps = [i for i in slide["data_ids"] if i in LEADING_STEPS]
+            with self.subTest(slide=slide_id):
+                self.assertEqual(steps, LEADING_STEPS)
+                self.assertLess(slide["data_ids"].index(LEADING_STEPS[-1]),
+                                slide["data_ids"].index(WU_TRACK[0]))
+                for step in steps:
+                    current = slide_id == "example-plan" and step == "step-plan"
+                    classes = slide["classes"][step]
+                    self.assertIn("is-step", classes)
+                    self.assertEqual("is-current" in classes, current)
+                    self.assertEqual("is-done" in classes, not current)
+
+    def test_debrief_step_follows_work_units_on_last_slide(self):
+        for slide_id in CURRENT_CHIP:
+            slide = self._slide(slide_id)
+            with self.subTest(slide=slide_id):
+                if slide_id != "example-debrief":
+                    self.assertNotIn(DEBRIEF_STEP, slide["data_ids"])
+                    continue
+                self.assertEqual(slide["data_ids"].index(DEBRIEF_STEP),
+                                 slide["data_ids"].index(WU_TRACK[-1]) + 1)
+                self.assertLessEqual({"wu-chip", "is-step", "is-current"},
+                                     slide["classes"][DEBRIEF_STEP])
+                self.assertEqual(slide["id_attrs"][DEBRIEF_STEP].get("aria-current"), "step")
+
+    def test_kill_switch_turns_on_in_last_work_unit(self):
+        off, on = self._slide("example-wu3"), self._slide("example-wu4")
+        self.assertIn("toggle", off["classes"]["toggle"])
+        self.assertNotIn("is-on", off["classes"]["toggle"])
+        self.assertIn("is-on", on["classes"]["toggle"])
 
     def test_lifecycle_flow_auto_animates_into_human_gates(self):
         steps = [f"flow-{step}" for step in LIFECYCLE_STEPS]

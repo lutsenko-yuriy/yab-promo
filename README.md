@@ -19,7 +19,8 @@ Content (Markdown and static pages) sits beside the YAB tooling copied from the 
 
 ## Working on this project with Claude Code
 
-- Launch Claude Code from the repo root.
-- Run `/onboard` once per clone; a gate blocks most work until then.
+- Start Claude Code from the repo root: `cd yab-promo && claude`. Running `cd` inside an
+  existing session isn't enough, because project settings, skills and hooks only load at launch.
+- Run `/onboard` once per clone, in a session started there; a gate blocks most work until then.
 - Start each session with `/summarize`.
 - Issues: https://github.com/lutsenko-yuriy/yab-promo/issues

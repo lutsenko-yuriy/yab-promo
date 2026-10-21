@@ -61,6 +61,140 @@
         </ul>
       </section>
 
+      <section id="purpose-what" data-auto-animate>
+        <p class="eyebrow" data-i18n="eyebrow.purpose"></p>
+        <h2 data-i18n="purpose-what.title"></h2>
+        <p class="lead" data-i18n="purpose-what.lead"></p>
+        <ul class="pills">
+          <li class="fragment" data-i18n="purpose-what.tickets"></li>
+          <li class="fragment" data-i18n="purpose-what.plans"></li>
+          <li class="fragment" data-i18n="purpose-what.tests"></li>
+          <li class="fragment" data-i18n="purpose-what.reviews"></li>
+          <li class="fragment" data-i18n="purpose-what.notes"></li>
+        </ul>
+      </section>
+
+      <section id="purpose-flow" data-auto-animate>
+        <p class="eyebrow" data-i18n="eyebrow.purpose"></p>
+        <h2 data-id="purpose-flow-title" data-i18n="purpose-flow.title"></h2>
+        <ol class="flow">
+          <li class="flow-node" data-id="flow-idea">
+            <span class="flow-step" data-i18n="flow.idea"></span>
+            <span class="flow-role" data-i18n="flow.idea-role"></span>
+          </li>
+          <li class="flow-node" data-id="flow-ticket">
+            <span class="flow-step" data-i18n="flow.ticket"></span>
+            <span class="flow-role" data-i18n="flow.ticket-role"></span>
+            <span class="flow-skill">brief</span>
+          </li>
+          <li class="flow-node" data-id="flow-plan">
+            <span class="flow-step" data-i18n="flow.plan"></span>
+            <span class="flow-role" data-i18n="flow.plan-role"></span>
+            <span class="flow-skill">plan</span>
+          </li>
+          <li class="flow-node" data-id="flow-tests">
+            <span class="flow-step" data-i18n="flow.tests"></span>
+            <span class="flow-role" data-i18n="flow.tests-role"></span>
+            <span class="flow-skill">draft-scenarios</span>
+          </li>
+          <li class="flow-node" data-id="flow-build">
+            <span class="flow-step" data-i18n="flow.build"></span>
+            <span class="flow-role" data-i18n="flow.build-role"></span>
+            <span class="flow-skill">implement</span>
+          </li>
+          <li class="flow-node" data-id="flow-review">
+            <span class="flow-step" data-i18n="flow.review"></span>
+            <span class="flow-role" data-i18n="flow.review-role"></span>
+            <span class="flow-skill">review · audit</span>
+          </li>
+          <li class="flow-node" data-id="flow-release">
+            <span class="flow-step" data-i18n="flow.release"></span>
+            <span class="flow-role" data-i18n="flow.release-role"></span>
+            <span class="flow-skill">ship</span>
+          </li>
+          <li class="flow-node" data-id="flow-lessons">
+            <span class="flow-step" data-i18n="flow.lessons"></span>
+            <span class="flow-role" data-i18n="flow.lessons-role"></span>
+            <span class="flow-skill">debrief</span>
+          </li>
+        </ol>
+      </section>
+
+      <section id="purpose-human" data-auto-animate>
+        <p class="eyebrow" data-i18n="eyebrow.purpose"></p>
+        <h2 data-id="purpose-flow-title" data-i18n="purpose-human.title"></h2>
+        <ol class="flow">
+          <li class="flow-node" data-id="flow-idea">
+            <span class="flow-step" data-i18n="flow.idea"></span>
+            <span class="flow-role" data-i18n="flow.idea-role"></span>
+          </li>
+          <li class="flow-node is-gate" data-id="flow-ticket">
+            <span class="flow-step" data-i18n="flow.ticket"></span>
+            <span class="flow-role" data-i18n="flow.ticket-role"></span>
+            <span class="flow-skill">brief</span>
+            <span class="human" data-id="human-ticket" style="--i: 0">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+              <span data-i18n="purpose-human.badge"></span><span class="sr-only" data-i18n="purpose-human.badge-hint"></span>
+            </span>
+          </li>
+          <li class="flow-node is-gate" data-id="flow-plan">
+            <span class="flow-step" data-i18n="flow.plan"></span>
+            <span class="flow-role" data-i18n="flow.plan-role"></span>
+            <span class="flow-skill">plan</span>
+            <span class="human" data-id="human-plan" style="--i: 1">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+              <span data-i18n="purpose-human.badge"></span><span class="sr-only" data-i18n="purpose-human.badge-hint"></span>
+            </span>
+          </li>
+          <li class="flow-node" data-id="flow-tests">
+            <span class="flow-step" data-i18n="flow.tests"></span>
+            <span class="flow-role" data-i18n="flow.tests-role"></span>
+            <span class="flow-skill">draft-scenarios</span>
+          </li>
+          <li class="flow-node" data-id="flow-build">
+            <span class="flow-step" data-i18n="flow.build"></span>
+            <span class="flow-role" data-i18n="flow.build-role"></span>
+            <span class="flow-skill">implement</span>
+          </li>
+          <li class="flow-node is-gate" data-id="flow-review">
+            <span class="flow-step" data-i18n="flow.review"></span>
+            <span class="flow-role" data-i18n="flow.review-role"></span>
+            <span class="flow-skill">review · audit</span>
+            <span class="human" data-id="human-review" style="--i: 2">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+              <span data-i18n="purpose-human.badge"></span><span class="sr-only" data-i18n="purpose-human.badge-hint"></span>
+            </span>
+          </li>
+          <li class="flow-node is-gate" data-id="flow-release">
+            <span class="flow-step" data-i18n="flow.release"></span>
+            <span class="flow-role" data-i18n="flow.release-role"></span>
+            <span class="flow-skill">ship</span>
+            <span class="human" data-id="human-release" style="--i: 3">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+              <span data-i18n="purpose-human.badge"></span><span class="sr-only" data-i18n="purpose-human.badge-hint"></span>
+            </span>
+          </li>
+          <li class="flow-node" data-id="flow-lessons">
+            <span class="flow-step" data-i18n="flow.lessons"></span>
+            <span class="flow-role" data-i18n="flow.lessons-role"></span>
+            <span class="flow-skill">debrief</span>
+          </li>
+        </ol>
+      </section>
+
+      <section id="purpose-memory" data-auto-animate>
+        <p class="eyebrow" data-i18n="eyebrow.purpose"></p>
+        <h2 data-i18n="purpose-memory.title"></h2>
+        <p class="lead" data-i18n="purpose-memory.lead"></p>
+        <div class="chain">
+          <div class="card fragment" data-i18n="purpose-memory.notes"></div>
+          <div class="chain-arrow fragment" aria-hidden="true">→</div>
+          <div class="card fragment" data-i18n="purpose-memory.decisions"></div>
+          <div class="chain-arrow fragment" aria-hidden="true">→</div>
+          <div class="card fragment" data-i18n="purpose-memory.workflow"></div>
+        </div>
+      </section>
+
       <section id="example" data-auto-animate>
         <p class="eyebrow" data-i18n="eyebrow.example"></p>
         <h2 class="section-title" data-id="toc-2" data-i18n="toc.example"></h2>

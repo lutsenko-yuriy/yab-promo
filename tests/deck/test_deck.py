@@ -17,11 +17,20 @@ LANGS = ("en", "de")
 # Sections the table-of-contents slide links to, in order.
 TOC_TARGETS = ["purpose", "example", "cases", "limits", "get-yab"]
 
+# Slides of the purpose section, in order. The flow and human slides share one lifecycle.
+PURPOSE_SLIDES = ["purpose", "purpose-what", "purpose-flow", "purpose-human", "purpose-memory"]
+LIFECYCLE_STEPS = ["idea", "ticket", "plan", "tests", "build", "review", "release", "lessons"]
+HUMAN_GATES = ["ticket", "plan", "review", "release"]
+
 # A German value may equal its English one only for these keys (proper nouns and the like).
 SAME_IN_BOTH = {
     "toc.title",
     "controls.lang-en",
     "controls.lang-de",
+    "purpose-what.tickets",
+    "flow.ticket",
+    "flow.plan",
+    "flow.release",
 }
 
 ALLOWED_INLINE_TAGS = {"strong", "em", "br", "span"}
@@ -149,6 +158,26 @@ class MarkupTest(unittest.TestCase):
         ids = {slide["id"] for slide in self.deck.slides}
         for target in TOC_TARGETS:
             self.assertIn(target, ids)
+
+    def _slide(self, slide_id):
+        return next(slide for slide in self.deck.slides if slide["id"] == slide_id)
+
+    def test_purpose_section_order(self):
+        ids = [slide["id"] for slide in self.deck.slides]
+        start = ids.index("purpose")
+        self.assertEqual(ids[start:start + len(PURPOSE_SLIDES)], PURPOSE_SLIDES)
+        self.assertEqual(ids[start + len(PURPOSE_SLIDES)], "example")
+
+    def test_lifecycle_flow_auto_animates_into_human_gates(self):
+        steps = [f"flow-{step}" for step in LIFECYCLE_STEPS]
+        gates = [f"human-{gate}" for gate in HUMAN_GATES]
+        flow, human = self._slide("purpose-flow"), self._slide("purpose-human")
+        for slide in (flow, human):
+            self.assertIn("data-auto-animate", slide["attrs"])
+        self.assertEqual([i for i in flow["data_ids"] if i.startswith("flow-")], steps)
+        self.assertEqual([i for i in human["data_ids"] if i.startswith("flow-")], steps)
+        self.assertEqual([i for i in flow["data_ids"] if i.startswith("human-")], [])
+        self.assertEqual([i for i in human["data_ids"] if i.startswith("human-")], gates)
 
     def test_no_code_on_slides(self):
         self.assertEqual(self.deck.code_tags, 0)

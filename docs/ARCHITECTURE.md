@@ -41,11 +41,12 @@ language keeps the current slide. Everything it loads is local, so it also runs 
 from a clone over `file://`. `tests/deck/` checks its structure (language parity, links,
 local assets); it sits outside `deck/` so the published site carries no Python.
 
-String-table keys are `<slide-id>.<part>` for text that belongs to one slide, plus four
+String-table keys are `<slide-id>.<part>` for text that belongs to one slide, plus five
 shared groups: `meta.*` (page title), `controls.*` (language switch, full screen),
 `eyebrow.<section>` (the section label repeated on every slide of a section) and
 `toc.<section>` (each section's name, used on its contents card and as its opener's
-title, so Auto-Animate morphs one into the other).
+title, so Auto-Animate morphs one into the other) and `flow.<step>` (the lifecycle
+steps, shown on both `purpose-flow` and `purpose-human`).
 
 ### Tooling
 The YAB framework files copied from the template. Change them upstream in

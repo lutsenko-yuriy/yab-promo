@@ -8,6 +8,7 @@ A record of all versioned releases. For planned work and known issues, see @docs
 
 ### Added
 - YP-2 WU1: presentation deck foundation — contents slide, five section openers, EN/DE switch that keeps the current slide, full-screen button, Habit Loop theme, vendored reveal.js 6.0.2, deck structure tests in CI (PR #6) [wip]
+- YP-2 WU2: Purpose section — what YAB is, the ticket lifecycle with its skills, human approval gates, and how lessons feed back into the workflow, in EN and DE (PR #7) [wip]
 
 ## [0.1.0] — 2026-10-21 (PR #4 merged)
 

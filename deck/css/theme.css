@@ -463,6 +463,24 @@ body {
   display: none;
 }
 
+/* On the plan slide the work units appear on one click, one after another. Steps fill the
+   first three places; delays only on the way in, so stepping back hides them at once. */
+.reveal .wu-chip.fragment.visible:nth-child(5) {
+  transition-delay: 0.12s;
+}
+
+.reveal .wu-chip.fragment.visible:nth-child(6) {
+  transition-delay: 0.24s;
+}
+
+.reveal .wu-chip.fragment.visible:nth-child(7) {
+  transition-delay: 0.36s;
+}
+
+.reveal .wu-chip.fragment.visible:nth-child(8) {
+  transition-delay: 0.48s;
+}
+
 .reveal .wu-chip.is-current {
   border-color: var(--yab-primary);
   background: var(--yab-primary);
@@ -709,5 +727,9 @@ body {
   .reveal section.present .human,
   .reveal section.present:has(.regression.visible) .wu-chip.is-current {
     animation: none;
+  }
+
+  .reveal .wu-chip.fragment.visible {
+    transition-delay: 0s;
   }
 }

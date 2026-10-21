@@ -290,6 +290,18 @@ class MarkupTest(unittest.TestCase):
                     self.assertEqual(aria, "step" if step == current else None)
                     self.assertEqual("is-done" in classes, step in done)
 
+    def test_plan_reveals_work_units_with_one_click(self):
+        plan = self._slide("example-plan")
+        indexes = set()
+        for chip in WU_TRACK:
+            if chip == INSERTED_CHIP:
+                continue
+            with self.subTest(chip=chip):
+                self.assertIn("fragment", plan["classes"][chip])
+                indexes.add(plan["id_attrs"][chip].get("data-fragment-index"))
+        self.assertEqual(len(indexes), 1)
+        self.assertIsNotNone(indexes.pop())
+
     def test_debrief_step_follows_work_units_on_last_slide(self):
         for slide_id in EXAMPLE_SLIDES[1:]:
             slide = self._slide(slide_id)

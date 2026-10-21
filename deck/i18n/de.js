@@ -207,8 +207,8 @@ window.YAB_I18N.de = {
   "limits-tools.python": "Das volle Tooling braucht <strong>Python 3.11 oder neuer</strong>.",
 
   "limits-next.title": "Kommt in den nächsten Updates",
-  "limits-next.cost": "<span class=\"card-title\">Kosten pro Skill-Lauf</span>Sehen, wie viele Tokens und wie viel Geld jeder Skill-Lauf kostet.",
   "limits-next.sync": "<span class=\"card-title\">Template-Abgleich</span>Projekte, die YAB schon nutzen, bekommen Template-Updates automatisch.",
+  "limits-next.cost": "<span class=\"card-title\">Kosten pro Skill-Lauf</span>Sehen, wie viele Tokens und wie viel Geld jeder Skill-Lauf kostet.",
 
   "get-yab.template": "Ein Repo aus dem Template erstellen.",
   "get-yab.open": "Claude Code darin öffnen.",

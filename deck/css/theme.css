@@ -387,7 +387,7 @@ body {
 
 .reveal .wu-track {
   display: flex;
-  gap: 14px;
+  gap: 12px;
   margin: 4px 0 28px;
   padding: 0;
   list-style: none;
@@ -397,8 +397,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 112px;
-  padding: 8px 14px;
+  min-width: 100px;
+  padding: 8px 12px;
   background: var(--yab-surface);
   border: 2px solid var(--yab-border);
   border-radius: 14px;
@@ -416,6 +416,22 @@ body {
   border-color: var(--yab-sunrise);
 }
 
+/* Brief, analytics, plan and debrief are workflow steps, not work units: name-only chips
+   in a sunrise border, set apart from the units. */
+.reveal .wu-chip.is-step {
+  justify-content: center;
+  min-width: 0;
+  border-color: var(--yab-sunrise);
+}
+
+.reveal .wu-chip[data-id="step-plan"] {
+  margin-right: 10px;
+}
+
+.reveal .wu-chip[data-id="step-debrief"] {
+  margin-left: 10px;
+}
+
 .reveal .wu-chip.is-current {
   border-color: var(--yab-primary);
   background: var(--yab-primary);
@@ -426,6 +442,10 @@ body {
   border-color: var(--yab-growth);
   background: var(--yab-growth);
   color: var(--yab-primary-dark);
+}
+
+.reveal .wu-chip.is-step.is-done {
+  border-color: var(--yab-sunrise);
 }
 
 /* The regression on WU4: the current chip flashes red once the callout shows. */

@@ -38,6 +38,10 @@ EXAMPLE_SLIDES = [
 ]
 WU_TRACK = ["wu-0", "wu-0c", "wu-1", "wu-2", "wu-3", "wu-4"]
 INSERTED_CHIP = "wu-0c"
+# Workflow steps around the work units: brief, analytics and plan lead the track on every
+# slide (the plan is being made on example-plan), the debrief joins its end on the last one.
+LEADING_STEPS = ["step-brief", "step-analyze", "step-plan"]
+DEBRIEF_STEP = "step-debrief"
 # The chip being worked on per slide; chips before it are done. None: no work started
 # (plan) or all done (debrief).
 CURRENT_CHIP = {
@@ -248,6 +252,34 @@ class MarkupTest(unittest.TestCase):
                     aria = slide["id_attrs"][chip].get("aria-current")
                     self.assertEqual(aria, "step" if chip == current else None)
                     self.assertEqual("is-done" in classes, chip in done)
+
+    def test_leading_steps_precede_work_units(self):
+        for slide_id in CURRENT_CHIP:
+            slide = self._slide(slide_id)
+            steps = [i for i in slide["data_ids"] if i in LEADING_STEPS]
+            with self.subTest(slide=slide_id):
+                self.assertEqual(steps, LEADING_STEPS)
+                self.assertLess(slide["data_ids"].index(LEADING_STEPS[-1]),
+                                slide["data_ids"].index(WU_TRACK[0]))
+                for step in steps:
+                    current = slide_id == "example-plan" and step == "step-plan"
+                    classes = slide["classes"][step]
+                    self.assertIn("is-step", classes)
+                    self.assertEqual("is-current" in classes, current)
+                    self.assertEqual("is-done" in classes, not current)
+
+    def test_debrief_step_follows_work_units_on_last_slide(self):
+        for slide_id in CURRENT_CHIP:
+            slide = self._slide(slide_id)
+            with self.subTest(slide=slide_id):
+                if slide_id != "example-debrief":
+                    self.assertNotIn(DEBRIEF_STEP, slide["data_ids"])
+                    continue
+                self.assertEqual(slide["data_ids"].index(DEBRIEF_STEP),
+                                 slide["data_ids"].index(WU_TRACK[-1]) + 1)
+                self.assertLessEqual({"wu-chip", "is-step", "is-current"},
+                                     slide["classes"][DEBRIEF_STEP])
+                self.assertEqual(slide["id_attrs"][DEBRIEF_STEP].get("aria-current"), "step")
 
     def test_kill_switch_turns_on_in_last_work_unit(self):
         off, on = self._slide("example-wu3"), self._slide("example-wu4")

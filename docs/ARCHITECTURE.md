@@ -50,8 +50,9 @@ steps, shown on both `purpose-flow` and `purpose-human`) and `wu.<unit>` (the la
 the work-unit track that runs through the example section).
 
 The example section's slides (`class="story"`) share one height so the work-unit track
-stays in place while Auto-Animate recolours its chips (`data-id="wu-<n>"`) from slide
-to slide.
+stays in place while Auto-Animate recolours its chips from slide to slide: the work units
+(`data-id="wu-<n>"`) between the workflow steps around them (`data-id="step-<skill>"`:
+brief, analyze and plan before, debrief after).
 
 ### Tooling
 The YAB framework files copied from the template. Change them upstream in

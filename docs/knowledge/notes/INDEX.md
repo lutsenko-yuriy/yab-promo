@@ -8,3 +8,7 @@ Generated from `bookmarks:` frontmatter in `docs/knowledge/notes/*.md`. Run `pyt
 
 
 ## By bookmark
+
+## Not yet reviewed
+
+- [Onboarding guide (PR #4): Claude Code onboarding guide for new teammates](onboarding-guide.md)

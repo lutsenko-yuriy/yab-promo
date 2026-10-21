@@ -13,3 +13,4 @@ surfaces a recurring theme worth tagging; re-validated quarterly as part of the 
 
 | Bookmark | Meaning |
 |---|---|
+| scope-growth | Scope added after planning, often once the running result could be seen |

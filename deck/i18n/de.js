@@ -16,7 +16,7 @@ window.YAB_I18N.de = {
   "toc.limits": "Pläne für die Zukunft",
   "toc.get-yab": "YAB ausprobieren",
 
-  "eyebrow.purpose": "1 · Wozu",
+  "eyebrow.purpose": "1 · Zweck",
   "eyebrow.values": "2 · Grundwerte",
   "eyebrow.example": "3 · Beispiel",
   "eyebrow.cases": "4 · Praxisfälle",

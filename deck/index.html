@@ -25,6 +25,16 @@
     </ol>
   </nav>
 
+  <!-- The section being shown, beside the menu; deck.js shows the matching part. -->
+  <p class="yab-section">
+      <span data-section="purpose" data-i18n="eyebrow.purpose" hidden></span>
+      <span data-section="values" data-i18n="eyebrow.values" hidden></span>
+      <span data-section="example" data-i18n="eyebrow.example" hidden></span>
+      <span data-section="cases" data-i18n="eyebrow.cases" hidden></span>
+      <span data-section="limits" data-i18n="eyebrow.limits" hidden></span>
+      <span data-section="get-yab" data-i18n="eyebrow.get-yab" hidden></span>
+  </p>
+
   <div class="yab-controls">
     <div class="yab-lang" role="group" data-i18n-aria="controls.language">
       <button type="button" data-lang="en" data-i18n="controls.lang-en">EN</button>
@@ -69,7 +79,6 @@
       </section>
 
       <section id="purpose" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.purpose"></p>
         <h2 class="section-title" data-id="toc-1" data-i18n="toc.purpose"></h2>
         <p class="lead" data-i18n="purpose.lead"></p>
         <ul class="points">
@@ -80,7 +89,6 @@
       </section>
 
       <section id="purpose-what" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.purpose"></p>
         <h2 data-i18n="purpose-what.title"></h2>
         <p class="lead" data-i18n="purpose-what.lead"></p>
         <ul class="pills">
@@ -93,7 +101,6 @@
       </section>
 
       <section id="purpose-flow" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.purpose"></p>
         <h2 data-id="purpose-flow-title" data-i18n="purpose-flow.title"></h2>
         <ol class="flow">
           <li class="flow-node" data-id="flow-idea">
@@ -139,7 +146,6 @@
       </section>
 
       <section id="purpose-human" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.purpose"></p>
         <h2 data-id="purpose-flow-title" data-i18n="purpose-human.title"></h2>
         <ol class="flow">
           <li class="flow-node" data-id="flow-idea">
@@ -201,7 +207,6 @@
       </section>
 
       <section id="purpose-memory" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.purpose"></p>
         <h2 data-i18n="purpose-memory.title"></h2>
         <p class="lead" data-i18n="purpose-memory.lead"></p>
         <div class="chain">
@@ -214,7 +219,6 @@
       </section>
 
       <section id="values" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.values"></p>
         <h2 class="section-title" data-id="toc-2" data-i18n="toc.values"></h2>
         <p class="lead" data-i18n="values.lead"></p>
         <ol class="toc values-list">
@@ -231,7 +235,6 @@
       </section>
 
       <section id="values-human" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.values"></p>
         <h2 class="value-title" data-id="value-human" data-i18n="values-human.title"></h2>
         <blockquote class="quote" data-i18n="values-human.quote"></blockquote>
         <ul class="points">
@@ -243,7 +246,6 @@
       </section>
 
       <section id="values-safe" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.values"></p>
         <h2 class="value-title" data-id="value-safe" data-i18n="values-safe.title"></h2>
         <p class="lead" data-i18n="values-safe.lead"></p>
         <ul class="points">
@@ -254,7 +256,6 @@
       </section>
 
       <section id="values-understanding" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.values"></p>
         <h2 class="value-title" data-id="value-understanding" data-i18n="values-understanding.title"></h2>
         <p class="lead" data-i18n="values-understanding.lead"></p>
         <ul class="points">
@@ -265,7 +266,6 @@
       </section>
 
       <section id="example" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.example"></p>
         <h2 class="section-title" data-id="toc-3" data-i18n="toc.example"></h2>
         <p class="lead" data-i18n="example.lead"></p>
         <div class="pact-chain">
@@ -285,7 +285,6 @@
       </section>
 
       <section id="example-brief" class="story" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.example"></p>
         <ol class="wu-track" data-id="track">
           <li class="wu-chip is-step is-current" aria-current="step" data-id="step-brief"><span class="wu-name">Brief</span></li>
           <li class="wu-chip is-step" data-id="step-analyze"><span class="wu-name">Analyze</span></li>
@@ -302,7 +301,6 @@
       </section>
 
       <section id="example-analyze" class="story" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.example"></p>
         <ol class="wu-track" data-id="track">
           <li class="wu-chip is-step is-done" data-id="step-brief"><span class="wu-name">Brief</span><span class="sr-only" data-i18n="wu.done"></span></li>
           <li class="wu-chip is-step is-current" aria-current="step" data-id="step-analyze"><span class="wu-name">Analyze</span></li>
@@ -318,7 +316,6 @@
       </section>
 
       <section id="example-plan" class="story" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.example"></p>
         <ol class="wu-track" data-id="track">
           <li class="wu-chip is-step is-done" data-id="step-brief"><span class="wu-name">Brief</span><span class="sr-only" data-i18n="wu.done"></span></li>
           <li class="wu-chip is-step is-done" data-id="step-analyze"><span class="wu-name">Analyze</span><span class="sr-only" data-i18n="wu.done"></span></li>
@@ -334,7 +331,6 @@
       </section>
 
       <section id="example-wu0" class="story" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.example"></p>
         <ol class="wu-track" data-id="track">
           <li class="wu-chip is-step is-done" data-id="step-brief"><span class="wu-name">Brief</span><span class="sr-only" data-i18n="wu.done"></span></li>
           <li class="wu-chip is-step is-done" data-id="step-analyze"><span class="wu-name">Analyze</span><span class="sr-only" data-i18n="wu.done"></span></li>
@@ -356,7 +352,6 @@
       </section>
 
       <section id="example-correction" class="story" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.example"></p>
         <ol class="wu-track" data-id="track">
           <li class="wu-chip is-step is-done" data-id="step-brief"><span class="wu-name">Brief</span><span class="sr-only" data-i18n="wu.done"></span></li>
           <li class="wu-chip is-step is-done" data-id="step-analyze"><span class="wu-name">Analyze</span><span class="sr-only" data-i18n="wu.done"></span></li>
@@ -374,7 +369,6 @@
       </section>
 
       <section id="example-wu1" class="story" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.example"></p>
         <ol class="wu-track" data-id="track">
           <li class="wu-chip is-step is-done" data-id="step-brief"><span class="wu-name">Brief</span><span class="sr-only" data-i18n="wu.done"></span></li>
           <li class="wu-chip is-step is-done" data-id="step-analyze"><span class="wu-name">Analyze</span><span class="sr-only" data-i18n="wu.done"></span></li>
@@ -392,7 +386,6 @@
       </section>
 
       <section id="example-wu2" class="story" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.example"></p>
         <ol class="wu-track" data-id="track">
           <li class="wu-chip is-step is-done" data-id="step-brief"><span class="wu-name">Brief</span><span class="sr-only" data-i18n="wu.done"></span></li>
           <li class="wu-chip is-step is-done" data-id="step-analyze"><span class="wu-name">Analyze</span><span class="sr-only" data-i18n="wu.done"></span></li>
@@ -413,7 +406,6 @@
       </section>
 
       <section id="example-wu3" class="story" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.example"></p>
         <ol class="wu-track" data-id="track">
           <li class="wu-chip is-step is-done" data-id="step-brief"><span class="wu-name">Brief</span><span class="sr-only" data-i18n="wu.done"></span></li>
           <li class="wu-chip is-step is-done" data-id="step-analyze"><span class="wu-name">Analyze</span><span class="sr-only" data-i18n="wu.done"></span></li>
@@ -433,7 +425,6 @@
       </section>
 
       <section id="example-wu4" class="story" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.example"></p>
         <ol class="wu-track" data-id="track">
           <li class="wu-chip is-step is-done" data-id="step-brief"><span class="wu-name">Brief</span><span class="sr-only" data-i18n="wu.done"></span></li>
           <li class="wu-chip is-step is-done" data-id="step-analyze"><span class="wu-name">Analyze</span><span class="sr-only" data-i18n="wu.done"></span></li>
@@ -453,7 +444,6 @@
       </section>
 
       <section id="example-review" class="story" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.example"></p>
         <ol class="wu-track" data-id="track">
           <li class="wu-chip is-step is-done" data-id="step-brief"><span class="wu-name">Brief</span><span class="sr-only" data-i18n="wu.done"></span></li>
           <li class="wu-chip is-step is-done" data-id="step-analyze"><span class="wu-name">Analyze</span><span class="sr-only" data-i18n="wu.done"></span></li>
@@ -475,7 +465,6 @@
       </section>
 
       <section id="example-debrief" class="story" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.example"></p>
         <ol class="wu-track" data-id="track">
           <li class="wu-chip is-step is-done" data-id="step-brief"><span class="wu-name">Brief</span><span class="sr-only" data-i18n="wu.done"></span></li>
           <li class="wu-chip is-step is-done" data-id="step-analyze"><span class="wu-name">Analyze</span><span class="sr-only" data-i18n="wu.done"></span></li>
@@ -501,7 +490,6 @@
       </section>
 
       <section id="cases" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.cases"></p>
         <h2 class="section-title" data-id="toc-4" data-i18n="toc.cases"></h2>
         <p class="lead" data-i18n="cases.lead"></p>
         <div class="cards">
@@ -522,7 +510,6 @@
       </section>
 
       <section id="cases-habit-loop">
-        <p class="eyebrow" data-i18n="eyebrow.cases"></p>
         <h2 data-i18n="cases-habit-loop.title"></h2>
         <div class="case">
           <div class="case-text">
@@ -546,7 +533,6 @@
       </section>
 
       <section id="cases-checklister">
-        <p class="eyebrow" data-i18n="eyebrow.cases"></p>
         <h2 data-i18n="cases-checklister.title"></h2>
         <div class="case">
           <div class="case-text">
@@ -571,7 +557,6 @@
       </section>
 
       <section id="cases-mordovorot">
-        <p class="eyebrow" data-i18n="eyebrow.cases"></p>
         <h2 data-i18n="cases-mordovorot.title"></h2>
         <div class="case">
           <div class="case-text">
@@ -594,7 +579,6 @@
       </section>
 
       <section id="cases-codex">
-        <p class="eyebrow" data-i18n="eyebrow.cases"></p>
         <h2 data-i18n="cases-codex.title"></h2>
         <p class="lead" data-i18n="cases-codex.lead"></p>
         <ul class="points">
@@ -606,7 +590,6 @@
       </section>
 
       <section id="limits" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.limits"></p>
         <h2 class="section-title" data-id="toc-5" data-i18n="toc.limits"></h2>
         <p class="lead" data-i18n="limits.lead"></p>
         <ul class="points">
@@ -618,7 +601,6 @@
       </section>
 
       <section id="limits-tools">
-        <p class="eyebrow" data-i18n="eyebrow.limits"></p>
         <h2 data-i18n="limits-tools.title"></h2>
         <ul class="points">
           <li class="fragment" data-i18n="limits-tools.claude"></li>
@@ -630,7 +612,6 @@
       </section>
 
       <section id="limits-next">
-        <p class="eyebrow" data-i18n="eyebrow.limits"></p>
         <h2 data-i18n="limits-next.title"></h2>
         <div class="cards">
           <p class="card fragment" data-i18n="limits-next.sync"></p>
@@ -639,7 +620,6 @@
       </section>
 
       <section id="get-yab" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.get-yab"></p>
         <h2 class="section-title" data-id="toc-6" data-i18n="toc.get-yab"></h2>
         <a class="big-link" href="https://github.com/lutsenko-yuriy/yuriys-agentic-boyz"
            target="_blank" rel="noopener">github.com/lutsenko-yuriy/yuriys-agentic-boyz</a>

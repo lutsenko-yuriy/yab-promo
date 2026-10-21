@@ -456,6 +456,19 @@ class MarkupTest(unittest.TestCase):
         list_id = re.search(r'aria-controls="([^"]+)"', toggle).group(1)
         self.assertRegex(menu, rf'id="{list_id}"[^>]*hidden')
 
+    def test_section_label_sits_beside_the_menu(self):
+        html = (DECK / "index.html").read_text(encoding="utf-8")
+        label = re.search(r'<p class="yab-section".*?</p>', html, re.DOTALL)
+        self.assertIsNotNone(label, "no fixed section label")
+        self.assertEqual(
+            re.findall(r'data-section="([^"]+)" data-i18n="eyebrow\.\1"', label.group(0)),
+            TOC_TARGETS,
+        )
+        for slide in self.deck.slides:
+            with self.subTest(slide=slide["id"]):
+                eyebrows = [k for k in slide["i18n"] if k.startswith("eyebrow.")]
+                self.assertEqual(eyebrows, [], "the section label is no longer on the slides")
+
     def test_no_code_on_slides(self):
         self.assertEqual(self.deck.code_tags, 0)
 

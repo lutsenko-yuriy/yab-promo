@@ -87,15 +87,6 @@ body {
   color: var(--yab-muted);
 }
 
-.reveal .eyebrow {
-  margin: 0 0 8px;
-  font-size: 0.6em;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--yab-primary);
-}
-
 .reveal .card {
   display: block;
   padding: 18px 24px;
@@ -859,6 +850,24 @@ body {
   background: var(--yab-growth);
   color: var(--yab-primary-dark);
   font-size: 14px;
+}
+
+/* The current section's name, beside the menu button */
+
+.yab-section {
+  position: fixed;
+  top: 14px;
+  left: 84px;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  height: 56px;
+  margin: 0;
+  font: 600 15px var(--yab-font);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--yab-primary);
+  pointer-events: none;
 }
 
 /* Language switch and full-screen button */

@@ -86,7 +86,10 @@
     if (event.relatedTarget && !menu.contains(event.relatedTarget)) setMenuOpen(false);
   });
 
-  // A section runs from its opener to the slide before the next section's opener.
+  const sectionLabels = Array.from(document.querySelectorAll('.yab-section [data-section]'));
+
+  // A section runs from its opener to the slide before the next section's opener. The menu
+  // marks it, and the label beside the menu names it (nothing on the contents slide).
   function markCurrentSection() {
     // Reveal.getSlides() also works in the scroll view reveal.js uses on narrow screens.
     const slides = window.Reveal.getSlides();
@@ -98,6 +101,10 @@
       link.removeAttribute('aria-current');
     });
     if (section) section.setAttribute('aria-current', 'location');
+    const name = section ? section.hash.slice(2) : null;
+    sectionLabels.forEach((label) => {
+      label.hidden = label.dataset.section !== name;
+    });
   }
 
   window.Reveal.on('ready', markCurrentSection);

@@ -44,7 +44,7 @@ local assets); it sits outside `deck/` so the published site carries no Python.
 
 String-table keys are `<slide-id>.<part>` for text that belongs to one slide, plus six
 shared groups: `meta.*` (page title), `controls.*` (language switch, full screen),
-`eyebrow.<section>` (the section label repeated on every slide of a section),
+`eyebrow.<section>` (the section label fixed beside the menu, naming the section being shown),
 `toc.<section>` (each section's name, used on its contents card and as its opener's
 title, so Auto-Animate morphs one into the other), `flow.<step>` (the lifecycle
 steps, shown on both `purpose-flow` and `purpose-human`) and `wu.<unit>` (the labels on

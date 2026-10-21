@@ -16,7 +16,7 @@ Content repo: Markdown copy plus static HTML/CSS pages, with the YAB tooling scr
 .claude/            # Slash-command stubs and onboarding gate hooks
 .github/workflows/  # CI: tooling and deck tests (tests.yml), deck publishing (pages.yml)
 deck/               # The YAB presentation deck, published to GitHub Pages as is
-  index.html        #   All slides; visible text referenced by data-i18n keys
+  index.html        #   All slides; visible text and alt text referenced by i18n keys
   css/              #   Theme (Habit Loop palette) and deck components
   js/               #   Deck start-up, controls, language switching
   i18n/             #   String tables, one per language (en.js, de.js)
@@ -48,7 +48,9 @@ shared groups: `meta.*` (page title), `controls.*` (language switch, full screen
 `toc.<section>` (each section's name, used on its contents card and as its opener's
 title, so Auto-Animate morphs one into the other), `flow.<step>` (the lifecycle
 steps, shown on both `purpose-flow` and `purpose-human`) and `wu.<unit>` (the labels on
-the work-unit track that runs through the example section).
+the work-unit tracks: the one that runs through the example section, and CheL-36's on
+`cases-checklister`). Elements name their key in `data-i18n` (inner HTML),
+`data-i18n-aria` (`aria-label` and tooltip) or `data-i18n-alt` (an image's `alt`).
 
 The example section's slides (`class="story"`) share one height so the work-unit track
 stays in place while Auto-Animate recolours its chips from slide to slide: the work units

@@ -192,6 +192,131 @@ body {
   color: var(--yab-primary-dark);
 }
 
+/* Purpose section */
+
+.reveal .pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reveal .pills li {
+  padding: 10px 26px;
+  border-radius: 999px;
+  background: var(--yab-surface);
+  border: 2px solid var(--yab-growth);
+  font-weight: 600;
+  color: var(--yab-primary-dark);
+}
+
+.reveal .flow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 36px 44px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reveal .flow-node {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 18px;
+  background: var(--yab-surface);
+  border: 2px solid var(--yab-border);
+  border-radius: var(--yab-radius);
+  box-shadow: var(--yab-shadow);
+}
+
+/* Arrows between neighbours in a row; the reading order carries row 1 into row 2. */
+.reveal .flow-node:not(:nth-child(4n))::after {
+  content: "→";
+  position: absolute;
+  top: 50%;
+  right: -36px;
+  transform: translateY(-50%);
+  color: var(--yab-growth);
+  font-weight: 700;
+}
+
+.reveal .flow-node.is-gate {
+  border-color: var(--yab-sunrise);
+}
+
+.reveal .flow-step {
+  font-weight: 700;
+  color: var(--yab-primary-dark);
+}
+
+.reveal .flow-role {
+  font-size: 0.6em;
+  line-height: 1.25;
+}
+
+.reveal .flow-skill {
+  font-size: 0.5em;
+  color: var(--yab-muted);
+}
+
+.reveal .human {
+  position: absolute;
+  top: -18px;
+  right: -12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px 4px 8px;
+  border-radius: 999px;
+  background: var(--yab-sunrise);
+  color: var(--yab-primary-dark);
+  font-size: 0.5em;
+  font-weight: 700;
+  box-shadow: var(--yab-shadow);
+}
+
+.reveal .human svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.reveal section.present .human {
+  animation: yab-drop 0.45s cubic-bezier(0.3, 1.4, 0.6, 1) both;
+  animation-delay: calc(0.5s + var(--i) * 0.2s);
+}
+
+@keyframes yab-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-28px);
+  }
+}
+
+.reveal .chain {
+  display: flex;
+  align-items: stretch;
+  gap: 24px;
+}
+
+.reveal .chain .card {
+  flex: 1;
+  font-size: 0.8em;
+}
+
+.reveal .chain-arrow {
+  align-self: center;
+  font-size: 1.4em;
+  color: var(--yab-growth);
+}
+
 /* The pact mock-up on the example opener */
 
 .reveal .pact-chain {
@@ -346,5 +471,9 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .reveal .toc .card {
     transition: none;
+  }
+
+  .reveal section.present .human {
+    animation: none;
   }
 }

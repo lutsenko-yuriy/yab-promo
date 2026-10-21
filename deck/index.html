@@ -10,6 +10,21 @@
   <link rel="stylesheet" href="css/theme.css">
 </head>
 <body>
+  <nav class="yab-menu" data-i18n-aria="controls.sections">
+    <button type="button" class="yab-menu-toggle" aria-expanded="false" aria-controls="yab-menu-list"
+            data-i18n-aria="controls.menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <ol id="yab-menu-list" class="yab-menu-list" hidden>
+      <li><a href="#/purpose"><span class="toc-num">1</span><span data-i18n="toc.purpose"></span></a></li>
+      <li><a href="#/values"><span class="toc-num">2</span><span data-i18n="toc.values"></span></a></li>
+      <li><a href="#/example"><span class="toc-num">3</span><span data-i18n="toc.example"></span></a></li>
+      <li><a href="#/cases"><span class="toc-num">4</span><span data-i18n="toc.cases"></span></a></li>
+      <li><a href="#/limits"><span class="toc-num">5</span><span data-i18n="toc.limits"></span></a></li>
+      <li><a href="#/get-yab"><span class="toc-num">6</span><span data-i18n="toc.get-yab"></span></a></li>
+    </ol>
+  </nav>
+
   <div class="yab-controls">
     <div class="yab-lang" role="group" data-i18n-aria="controls.language">
       <button type="button" data-lang="en" data-i18n="controls.lang-en">EN</button>
@@ -35,17 +50,17 @@
           <li><a href="#/purpose" class="card" data-id="toc-1">
             <span class="toc-num">1</span><span data-i18n="toc.purpose"></span>
           </a></li>
-          <li><a href="#/example" class="card" data-id="toc-2">
-            <span class="toc-num">2</span><span data-i18n="toc.example"></span>
+          <li><a href="#/values" class="card" data-id="toc-2">
+            <span class="toc-num">2</span><span data-i18n="toc.values"></span>
           </a></li>
-          <li><a href="#/cases" class="card" data-id="toc-3">
-            <span class="toc-num">3</span><span data-i18n="toc.cases"></span>
+          <li><a href="#/example" class="card" data-id="toc-3">
+            <span class="toc-num">3</span><span data-i18n="toc.example"></span>
           </a></li>
-          <li><a href="#/limits" class="card" data-id="toc-4">
-            <span class="toc-num">4</span><span data-i18n="toc.limits"></span>
+          <li><a href="#/cases" class="card" data-id="toc-4">
+            <span class="toc-num">4</span><span data-i18n="toc.cases"></span>
           </a></li>
-          <li><a href="#/values" class="card" data-id="toc-5">
-            <span class="toc-num">5</span><span data-i18n="toc.values"></span>
+          <li><a href="#/limits" class="card" data-id="toc-5">
+            <span class="toc-num">5</span><span data-i18n="toc.limits"></span>
           </a></li>
           <li><a href="#/get-yab" class="card" data-id="toc-6">
             <span class="toc-num">6</span><span data-i18n="toc.get-yab"></span>
@@ -198,9 +213,60 @@
         </div>
       </section>
 
+      <section id="values" data-auto-animate>
+        <p class="eyebrow" data-i18n="eyebrow.values"></p>
+        <h2 class="section-title" data-id="toc-2" data-i18n="toc.values"></h2>
+        <p class="lead" data-i18n="values.lead"></p>
+        <ol class="toc values-list">
+          <li><a href="#/values-human" class="card fragment" data-id="value-human">
+            <span class="toc-num">1</span><span data-i18n="values-human.title"></span>
+          </a></li>
+          <li><a href="#/values-safe" class="card fragment" data-id="value-safe">
+            <span class="toc-num">2</span><span data-i18n="values-safe.title"></span>
+          </a></li>
+          <li><a href="#/values-understanding" class="card fragment" data-id="value-understanding">
+            <span class="toc-num">3</span><span data-i18n="values-understanding.title"></span>
+          </a></li>
+        </ol>
+      </section>
+
+      <section id="values-human" data-auto-animate>
+        <p class="eyebrow" data-i18n="eyebrow.values"></p>
+        <h2 class="value-title" data-id="value-human" data-i18n="values-human.title"></h2>
+        <blockquote class="quote" data-i18n="values-human.quote"></blockquote>
+        <ul class="points">
+          <li class="fragment" data-i18n="values-human.plans"></li>
+          <li class="fragment" data-i18n="values-human.testing"></li>
+          <li class="fragment" data-i18n="values-human.owner"></li>
+        </ul>
+        <p class="note fragment" data-i18n="values-human.note"></p>
+      </section>
+
+      <section id="values-safe" data-auto-animate>
+        <p class="eyebrow" data-i18n="eyebrow.values"></p>
+        <h2 class="value-title" data-id="value-safe" data-i18n="values-safe.title"></h2>
+        <p class="lead" data-i18n="values-safe.lead"></p>
+        <ul class="points">
+          <li class="fragment" data-i18n="values-safe.pressure"></li>
+          <li class="fragment" data-i18n="values-safe.help"></li>
+          <li class="fragment" data-i18n="values-safe.lessons"></li>
+        </ul>
+      </section>
+
+      <section id="values-understanding" data-auto-animate>
+        <p class="eyebrow" data-i18n="eyebrow.values"></p>
+        <h2 class="value-title" data-id="value-understanding" data-i18n="values-understanding.title"></h2>
+        <p class="lead" data-i18n="values-understanding.lead"></p>
+        <ul class="points">
+          <li class="fragment" data-i18n="values-understanding.one"></li>
+          <li class="fragment" data-i18n="values-understanding.mirror"></li>
+          <li class="fragment" data-i18n="values-understanding.options"></li>
+        </ul>
+      </section>
+
       <section id="example" data-auto-animate>
         <p class="eyebrow" data-i18n="eyebrow.example"></p>
-        <h2 class="section-title" data-id="toc-2" data-i18n="toc.example"></h2>
+        <h2 class="section-title" data-id="toc-3" data-i18n="toc.example"></h2>
         <p class="lead" data-i18n="example.lead"></p>
         <div class="pact-chain">
           <div class="card pact">
@@ -436,23 +502,23 @@
 
       <section id="cases" data-auto-animate>
         <p class="eyebrow" data-i18n="eyebrow.cases"></p>
-        <h2 class="section-title" data-id="toc-3" data-i18n="toc.cases"></h2>
+        <h2 class="section-title" data-id="toc-4" data-i18n="toc.cases"></h2>
         <p class="lead" data-i18n="cases.lead"></p>
         <div class="cards">
-          <div class="card fragment">
+          <div class="card">
             <span class="card-title">Habit Loop</span>
             <span data-i18n="cases.habit-loop"></span>
           </div>
-          <div class="card fragment">
+          <div class="card">
             <span class="card-title">CheckLister</span>
             <span data-i18n="cases.checklister"></span>
           </div>
-          <div class="card fragment">
+          <div class="card">
             <span class="card-title">Mordovorot</span>
             <span data-i18n="cases.mordovorot"></span>
           </div>
         </div>
-        <p class="note fragment" data-i18n="cases.note"></p>
+        <p class="note" data-i18n="cases.note"></p>
       </section>
 
       <section id="cases-habit-loop">
@@ -541,7 +607,7 @@
 
       <section id="limits" data-auto-animate>
         <p class="eyebrow" data-i18n="eyebrow.limits"></p>
-        <h2 class="section-title" data-id="toc-4" data-i18n="toc.limits"></h2>
+        <h2 class="section-title" data-id="toc-5" data-i18n="toc.limits"></h2>
         <p class="lead" data-i18n="limits.lead"></p>
         <ul class="points">
           <li class="fragment" data-i18n="limits.team"></li>
@@ -570,57 +636,6 @@
           <p class="card fragment" data-i18n="limits-next.cost"></p>
           <p class="card fragment" data-i18n="limits-next.sync"></p>
         </div>
-      </section>
-
-      <section id="values" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.values"></p>
-        <h2 class="section-title" data-id="toc-5" data-i18n="toc.values"></h2>
-        <p class="lead" data-i18n="values.lead"></p>
-        <ol class="toc values-list">
-          <li><a href="#/values-human" class="card fragment" data-id="value-human">
-            <span class="toc-num">1</span><span data-i18n="values-human.title"></span>
-          </a></li>
-          <li><a href="#/values-safe" class="card fragment" data-id="value-safe">
-            <span class="toc-num">2</span><span data-i18n="values-safe.title"></span>
-          </a></li>
-          <li><a href="#/values-understanding" class="card fragment" data-id="value-understanding">
-            <span class="toc-num">3</span><span data-i18n="values-understanding.title"></span>
-          </a></li>
-        </ol>
-      </section>
-
-      <section id="values-human" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.values"></p>
-        <h2 class="value-title" data-id="value-human" data-i18n="values-human.title"></h2>
-        <blockquote class="quote" data-i18n="values-human.quote"></blockquote>
-        <ul class="points">
-          <li class="fragment" data-i18n="values-human.plans"></li>
-          <li class="fragment" data-i18n="values-human.testing"></li>
-          <li class="fragment" data-i18n="values-human.owner"></li>
-        </ul>
-        <p class="note fragment" data-i18n="values-human.note"></p>
-      </section>
-
-      <section id="values-safe" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.values"></p>
-        <h2 class="value-title" data-id="value-safe" data-i18n="values-safe.title"></h2>
-        <p class="lead" data-i18n="values-safe.lead"></p>
-        <ul class="points">
-          <li class="fragment" data-i18n="values-safe.pressure"></li>
-          <li class="fragment" data-i18n="values-safe.help"></li>
-          <li class="fragment" data-i18n="values-safe.lessons"></li>
-        </ul>
-      </section>
-
-      <section id="values-understanding" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.values"></p>
-        <h2 class="value-title" data-id="value-understanding" data-i18n="values-understanding.title"></h2>
-        <p class="lead" data-i18n="values-understanding.lead"></p>
-        <ul class="points">
-          <li class="fragment" data-i18n="values-understanding.one"></li>
-          <li class="fragment" data-i18n="values-understanding.mirror"></li>
-          <li class="fragment" data-i18n="values-understanding.options"></li>
-        </ul>
       </section>
 
       <section id="get-yab" data-auto-animate>

@@ -1,4 +1,4 @@
-// Starts reveal.js and wires the language switch and the full-screen button.
+// Starts reveal.js and wires the section menu, the language switch and the full-screen button.
 (function () {
   'use strict';
 
@@ -44,9 +44,58 @@
     fullscreen.hidden = true;
   }
 
+  // The section menu: a list of the sections, the one being shown marked as current.
+  const menu = document.querySelector('.yab-menu');
+  const menuToggle = menu.querySelector('.yab-menu-toggle');
+  const menuList = menu.querySelector('.yab-menu-list');
+  const menuLinks = Array.from(menuList.querySelectorAll('a'));
+
+  function setMenuOpen(open) {
+    menuList.hidden = !open;
+    menuToggle.setAttribute('aria-expanded', String(open));
+  }
+
+  menuToggle.addEventListener('click', (event) => {
+    const open = menuList.hidden;
+    setMenuOpen(open);
+    if (open && event.detail === 0) menuLinks[0].focus();
+    if (!open) releaseFocus(event, menuToggle);
+  });
+  menuLinks.forEach((link) => {
+    link.addEventListener('click', (event) => {
+      setMenuOpen(false);
+      releaseFocus(event, link);
+    });
+  });
+  menu.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape' || menuList.hidden) return;
+    setMenuOpen(false);
+    menuToggle.focus();
+  });
+  document.addEventListener('click', (event) => {
+    if (!menu.contains(event.target)) setMenuOpen(false);
+  });
+
+  // A section runs from its opener to the slide before the next section's opener.
+  function markCurrentSection() {
+    const slides = Array.from(document.querySelectorAll('.reveal .slides > section'));
+    const current = slides.indexOf(window.Reveal.getCurrentSlide());
+    let section = null;
+    menuLinks.forEach((link) => {
+      const opener = document.getElementById(link.hash.slice(2));
+      if (opener && slides.indexOf(opener) <= current) section = link;
+      link.removeAttribute('aria-current');
+    });
+    if (section) section.setAttribute('aria-current', 'location');
+  }
+
+  window.Reveal.on('ready', markCurrentSection);
+  window.Reveal.on('slidechanged', markCurrentSection);
+
   window.Reveal.initialize({
-    // Leave keys on the language switch and full-screen button to the buttons.
-    keyboardCondition: (event) => !event.target.closest('.yab-controls'),
+    // Leave keys on the menu, language switch and full-screen button to those controls.
+    keyboardCondition: (event) =>
+      !event.target.closest('.yab-controls, .yab-menu'),
     hash: true,
     width: 1280,
     height: 720,

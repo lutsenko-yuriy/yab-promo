@@ -160,6 +160,17 @@ body {
   list-style: none;
 }
 
+/* The first and last sections open and close the deck, so they span both columns. */
+.reveal .toc:not(.values-list) li:first-child,
+.reveal .toc:not(.values-list) li:last-child {
+  grid-column: 1 / -1;
+}
+
+.reveal .toc:not(.values-list) li:first-child .card,
+.reveal .toc:not(.values-list) li:last-child .card {
+  justify-content: center;
+}
+
 /* The core values as a single column of links, one per value slide. */
 .reveal .values-list {
   grid-template-columns: 1fr;
@@ -760,6 +771,94 @@ body {
   background: transparent;
   color: var(--yab-muted);
   font-family: var(--yab-font);
+}
+
+/* Section menu, top left */
+
+.yab-menu {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 40;
+  font-family: var(--yab-font);
+}
+
+.yab-menu-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: var(--yab-shadow);
+  color: var(--yab-primary-dark);
+  cursor: pointer;
+}
+
+.yab-menu-toggle svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.yab-menu-toggle:hover,
+.yab-menu-toggle[aria-expanded="true"] {
+  background: var(--yab-surface);
+}
+
+.yab-menu-toggle:focus-visible,
+.yab-menu-list a:focus-visible {
+  outline: 3px solid var(--yab-primary);
+  outline-offset: 2px;
+}
+
+.yab-menu-list {
+  margin: 10px 0 0;
+  padding: 8px;
+  min-width: 280px;
+  list-style: none;
+  background: var(--yab-surface);
+  border: 2px solid var(--yab-border);
+  border-radius: var(--yab-radius);
+  box-shadow: var(--yab-shadow);
+}
+
+.yab-menu-list a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font: 600 16px var(--yab-font);
+  color: var(--yab-primary-dark);
+  text-decoration: none;
+}
+
+.yab-menu-list a:hover {
+  background: var(--yab-background);
+}
+
+.yab-menu-list a[aria-current] {
+  background: var(--yab-primary);
+  color: var(--yab-surface);
+}
+
+.yab-menu-list .toc-num {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--yab-growth);
+  color: var(--yab-primary-dark);
+  font-size: 14px;
 }
 
 /* Language switch and full-screen button */

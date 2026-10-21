@@ -15,7 +15,7 @@ DECK = REPO / "deck"
 LANGS = ("en", "de")
 
 # Sections the table-of-contents slide links to, in order.
-TOC_TARGETS = ["purpose", "example", "cases", "limits", "values", "get-yab"]
+TOC_TARGETS = ["purpose", "values", "example", "cases", "limits", "get-yab"]
 
 # Slides of the purpose section, in order. The flow and human slides share one lifecycle.
 PURPOSE_SLIDES = ["purpose", "purpose-what", "purpose-flow", "purpose-human", "purpose-memory"]
@@ -259,7 +259,7 @@ class MarkupTest(unittest.TestCase):
         ids = [slide["id"] for slide in self.deck.slides]
         start = ids.index("purpose")
         self.assertEqual(ids[start:start + len(PURPOSE_SLIDES)], PURPOSE_SLIDES)
-        self.assertEqual(ids[start + len(PURPOSE_SLIDES)], "example")
+        self.assertEqual(ids[start + len(PURPOSE_SLIDES)], "values")
 
     def test_example_section_order(self):
         ids = [slide["id"] for slide in self.deck.slides]
@@ -277,14 +277,14 @@ class MarkupTest(unittest.TestCase):
         ids = [slide["id"] for slide in self.deck.slides]
         start = ids.index("limits")
         self.assertEqual(ids[start:start + len(LIMITS_SLIDES)], LIMITS_SLIDES)
-        self.assertEqual(ids[start + len(LIMITS_SLIDES)], "values")
+        self.assertEqual(ids[start + len(LIMITS_SLIDES)], "get-yab")
+        self.assertEqual(ids[-1], "get-yab")
 
     def test_values_section_order(self):
         ids = [slide["id"] for slide in self.deck.slides]
         start = ids.index("values")
         self.assertEqual(ids[start:start + len(VALUES_SLIDES)], VALUES_SLIDES)
-        self.assertEqual(ids[start + len(VALUES_SLIDES)], "get-yab")
-        self.assertEqual(ids[-1], "get-yab")
+        self.assertEqual(ids[start + len(VALUES_SLIDES)], "example")
 
     def test_values_opener_names_each_value(self):
         opener = self._slide("values")
@@ -441,6 +441,20 @@ class MarkupTest(unittest.TestCase):
         self.assertEqual([i for i in human["data_ids"] if i.startswith("flow-")], steps)
         self.assertEqual([i for i in flow["data_ids"] if i.startswith("human-")], [])
         self.assertEqual([i for i in human["data_ids"] if i.startswith("human-")], gates)
+
+    def test_section_menu_links_every_section(self):
+        html = (DECK / "index.html").read_text(encoding="utf-8")
+        menu = re.search(r'<nav class="yab-menu".*?</nav>', html, re.DOTALL)
+        self.assertIsNotNone(menu, "no section menu")
+        menu = menu.group(0)
+        self.assertEqual(re.findall(r'href="([^"]+)"', menu), [f"#/{t}" for t in TOC_TARGETS])
+        self.assertEqual(
+            re.findall(r'data-i18n="(toc\.[^"]+)"', menu), [f"toc.{t}" for t in TOC_TARGETS]
+        )
+        toggle = re.search(r'<button[^>]*class="yab-menu-toggle"[^>]*>', menu).group(0)
+        self.assertIn('aria-expanded="false"', toggle)
+        list_id = re.search(r'aria-controls="([^"]+)"', toggle).group(1)
+        self.assertRegex(menu, rf'id="{list_id}"[^>]*hidden')
 
     def test_no_code_on_slides(self):
         self.assertEqual(self.deck.code_tags, 0)

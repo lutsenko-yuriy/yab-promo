@@ -93,8 +93,9 @@
 
   const sectionLabels = Array.from(document.querySelectorAll('.yab-section [data-section]'));
 
-  // A section runs from its opener to the slide before the next section's opener. The menu
-  // marks it, and the label beside the menu names it (nothing on the contents slide).
+  // A section runs from its opener to the slide before the next section's opener; the
+  // contents slide counts as its own. The menu marks it, and the label beside the menu
+  // names it (nothing on the contents slide, which has no label).
   function markCurrentSection() {
     // Reveal.getSlides() also works in the scroll view reveal.js uses on narrow screens.
     const slides = window.Reveal.getSlides();

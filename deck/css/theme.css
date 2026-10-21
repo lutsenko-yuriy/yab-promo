@@ -819,6 +819,26 @@ body {
   box-shadow: var(--yab-shadow);
 }
 
+/* The contents slide leads the menu, set apart from the numbered sections. */
+.yab-menu-contents {
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--yab-border);
+}
+
+.yab-menu-contents .toc-num {
+  background: var(--yab-background);
+}
+
+.yab-menu-contents svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
 .yab-menu-list a {
   display: flex;
   align-items: center;

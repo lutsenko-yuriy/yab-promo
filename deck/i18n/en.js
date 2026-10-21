@@ -6,6 +6,7 @@ window.YAB_I18N.en = {
   "controls.lang-de": "DE",
   "controls.fullscreen": "Full screen (F)",
   "controls.menu": "Go to a section",
+  "controls.contents": "Contents",
   "controls.rotate": "Turn your phone sideways to see the slides at full size.",
   "controls.rotate-dismiss": "Continue anyway",
 

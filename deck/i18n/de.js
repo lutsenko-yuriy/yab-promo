@@ -6,6 +6,7 @@ window.YAB_I18N.de = {
   "controls.lang-de": "DE",
   "controls.fullscreen": "Vollbild (F)",
   "controls.menu": "Zu einem Abschnitt springen",
+  "controls.contents": "Inhalt",
   "controls.rotate": "Das Handy quer halten, um die Folien in voller Größe zu sehen.",
   "controls.rotate-dismiss": "Trotzdem weiter",
 

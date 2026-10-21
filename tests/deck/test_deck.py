@@ -447,9 +447,13 @@ class MarkupTest(unittest.TestCase):
         menu = re.search(r'<nav class="yab-menu".*?</nav>', html, re.DOTALL)
         self.assertIsNotNone(menu, "no section menu")
         menu = menu.group(0)
-        self.assertEqual(re.findall(r'href="([^"]+)"', menu), [f"#/{t}" for t in TOC_TARGETS])
+        # The contents slide first, then every section.
         self.assertEqual(
-            re.findall(r'data-i18n="(toc\.[^"]+)"', menu), [f"toc.{t}" for t in TOC_TARGETS]
+            re.findall(r'href="([^"]+)"', menu), ["#/toc"] + [f"#/{t}" for t in TOC_TARGETS]
+        )
+        self.assertEqual(
+            re.findall(r'data-i18n="((?:toc|controls)\.[^"]+)"', menu),
+            ["controls.contents"] + [f"toc.{t}" for t in TOC_TARGETS],
         )
         toggle = re.search(r'<button[^>]*class="yab-menu-toggle"[^>]*>', menu).group(0)
         self.assertIn('aria-expanded="false"', toggle)

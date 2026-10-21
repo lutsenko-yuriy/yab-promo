@@ -54,7 +54,7 @@ behaviour beyond a literal value, it is not trivial — use the full workflow in
    5. **Create the feature branch** from the latest default branch, before writing any code. Always include the ticket number after `feature/`:
       ```
       git fetch origin
-      git checkout -b feature/YP-XX-<short-description> origin/main
+      git checkout -b feature/YP-XX-<short-description> --no-track origin/main
       ```
       If the branch already exists, rebase it onto `origin/main` first so the PR/MR diff contains only the new work. **Before merging**, rebase onto `origin/main` again so the branch is current and the merge lands cleanly.
    6. **Draft scenarios.** For every ticket with user-facing flows: invoke `draft-scenarios` and wait for approval.

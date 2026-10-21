@@ -617,6 +617,111 @@ body {
   color: var(--yab-primary);
 }
 
+/* Cases: what the app is and its numbers on the left, its screenshots on the right */
+
+.reveal .case {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+
+.reveal .case-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.reveal .case .lead {
+  margin-bottom: 20px;
+  font-size: 0.85em;
+}
+
+.reveal .stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 28px;
+  margin: 0 0 12px;
+  font-size: 0.65em;
+}
+
+.reveal .stat-grid .stat {
+  line-height: 1.15;
+}
+
+.reveal .stat-grid .stat-num {
+  font-size: 1.7em;
+}
+
+.reveal .as-of {
+  margin: 0 0 16px;
+  font-size: 0.5em;
+  color: var(--yab-muted);
+}
+
+.reveal .repo-link {
+  font-size: 0.55em;
+  font-weight: 700;
+  border-bottom: 2px solid var(--yab-growth);
+}
+
+.reveal .case .card {
+  margin: 0 0 20px;
+  font-size: 0.65em;
+}
+
+.reveal .wu-track-compact {
+  margin: 0 0 20px;
+}
+
+.reveal .wu-track-compact .wu-chip {
+  min-width: 0;
+  font-size: 0.5em;
+}
+
+.reveal .shots {
+  display: flex;
+  flex: none;
+  gap: 14px;
+  align-items: center;
+}
+
+/* Phone screenshots keep their phone shape; reveal.css caps images at the slide's width. */
+.reveal .shots .shot {
+  height: 440px;
+  margin: 0;
+  border-radius: 18px;
+  box-shadow: var(--yab-shadow);
+}
+
+.reveal .shots .shot-wide {
+  height: auto;
+  width: 420px;
+  border-radius: 10px;
+}
+
+.reveal #cases-checklister .shot {
+  height: 360px;
+}
+
+.reveal #cases-mordovorot .shot:not(.shot-wide) {
+  height: 380px;
+}
+
+/* Limits: the human's part, a core value rather than a limit */
+
+.reveal .quote {
+  width: auto;
+  margin: 0 0 28px;
+  padding: 20px 28px;
+  border-left: 8px solid var(--yab-growth);
+  border-radius: 0 var(--yab-radius) var(--yab-radius) 0;
+  background: var(--yab-surface);
+  box-shadow: var(--yab-shadow);
+  font-size: 1.05em;
+  font-style: normal;
+  font-weight: 700;
+  color: var(--yab-primary-dark);
+}
+
 /* Get YAB */
 
 .reveal .big-link {

@@ -65,6 +65,32 @@ CURRENT_CHIP = {
     "example-debrief": None,
 }
 
+# Slides of the cases section, in order: one per app, then the CheckLister tickets run on Codex.
+CASES_SLIDES = [
+    "cases",
+    "cases-habit-loop",
+    "cases-checklister",
+    "cases-mordovorot",
+    "cases-codex",
+]
+# The public repository each app slide links to; its screenshots live in img/cases/<app>/.
+CASE_REPOS = {
+    "cases-habit-loop": "https://github.com/lutsenko-yuriy/habit-loop",
+    "cases-checklister": "https://github.com/lutsenko-yuriy/CheckLister",
+    "cases-mordovorot": "https://github.com/lutsenko-yuriy/mordovorot",
+}
+# App slides with numbers; each states the date they were counted on.
+CASES_WITH_STATS = ["cases-habit-loop", "cases-mordovorot"]
+# CheL-36, the CheckLister feature on its slide, ran in four work units.
+CHECKLISTER_TRACK = ["wu-1", "wu-2", "wu-3", "wu-4"]
+# Screenshots are resized for the web before they are committed.
+MAX_IMAGE_BYTES = 250 * 1024
+
+# Slides of the limits section, in order; the last one is the human's part, not a limit.
+LIMITS_SLIDES = ["limits", "limits-tools", "limits-next", "limits-human"]
+
+PAGES_WORKFLOW = REPO / ".github" / "workflows" / "pages.yml"
+
 # A German value may equal its English one only for these keys (proper nouns and the like).
 SAME_IN_BOTH = {
     "toc.title",
@@ -91,12 +117,13 @@ class _DeckParser(HTMLParser):
     def __init__(self):
         super().__init__()
         # [{"id": str, "attrs": dict, "data_ids": [str], "classes": {data_id: set},
-        #   "id_attrs": {data_id: dict}, "links": [str]}]
+        #   "id_attrs": {data_id: dict}, "links": [str], "i18n": [str], "images": [dict]}]
         self.slides = []
         self.nested_sections = 0
         self.i18n_keys = []
         self.code_tags = 0
         self.asset_refs = []  # (tag, url)
+        self.anchors = []  # attrs of every <a href>
         self._section_depth = 0
 
     def handle_starttag(self, tag, attrs):
@@ -113,18 +140,26 @@ class _DeckParser(HTMLParser):
                     "classes": {},
                     "id_attrs": {},
                     "links": [],
+                    "i18n": [],
+                    "images": [],
                 }
             )
         slide = self.slides[-1] if self._section_depth else None
-        for name in ("data-i18n", "data-i18n-aria"):
+        for name in ("data-i18n", "data-i18n-aria", "data-i18n-alt"):
             if name in attrs:
                 self.i18n_keys.append(attrs[name])
+                if slide is not None:
+                    slide["i18n"].append(attrs[name])
         if slide is not None and "data-id" in attrs:
             slide["data_ids"].append(attrs["data-id"])
             slide["classes"][attrs["data-id"]] = set((attrs.get("class") or "").split())
             slide["id_attrs"][attrs["data-id"]] = attrs
-        if slide is not None and tag == "a" and "href" in attrs:
-            slide["links"].append(attrs["href"])
+        if tag == "a" and "href" in attrs:
+            self.anchors.append(attrs)
+            if slide is not None:
+                slide["links"].append(attrs["href"])
+        if slide is not None and tag == "img":
+            slide["images"].append(attrs)
         if tag in ("code", "pre"):
             self.code_tags += 1
         if tag in ("script", "img") and "src" in attrs:
@@ -227,6 +262,60 @@ class MarkupTest(unittest.TestCase):
         start = ids.index("example")
         self.assertEqual(ids[start:start + len(EXAMPLE_SLIDES)], EXAMPLE_SLIDES)
         self.assertEqual(ids[start + len(EXAMPLE_SLIDES)], "cases")
+
+    def test_cases_section_order(self):
+        ids = [slide["id"] for slide in self.deck.slides]
+        start = ids.index("cases")
+        self.assertEqual(ids[start:start + len(CASES_SLIDES)], CASES_SLIDES)
+        self.assertEqual(ids[start + len(CASES_SLIDES)], "limits")
+
+    def test_limits_section_order(self):
+        ids = [slide["id"] for slide in self.deck.slides]
+        start = ids.index("limits")
+        self.assertEqual(ids[start:start + len(LIMITS_SLIDES)], LIMITS_SLIDES)
+        self.assertEqual(ids[start + len(LIMITS_SLIDES)], "get-yab")
+        self.assertEqual(ids[-1], "get-yab")
+
+    def test_case_slides_link_their_repo(self):
+        for slide_id, repo in CASE_REPOS.items():
+            with self.subTest(slide=slide_id):
+                self.assertIn(repo, self._slide(slide_id)["links"])
+
+    def test_case_slides_show_their_screenshots(self):
+        for slide_id in CASE_REPOS:
+            app = slide_id.removeprefix("cases-")
+            images = self._slide(slide_id)["images"]
+            with self.subTest(slide=slide_id):
+                self.assertTrue(images, "no screenshots")
+            for image in images:
+                with self.subTest(slide=slide_id, src=image.get("src")):
+                    self.assertTrue(image.get("src", "").startswith(f"img/cases/{app}/"))
+                    self.assertIn("data-i18n-alt", image, "alt text comes from the tables")
+
+    def test_screenshots_are_web_sized(self):
+        images = sorted((DECK / "img").rglob("*.*"))
+        self.assertTrue(images, "no images under deck/img")
+        for path in images:
+            with self.subTest(image=str(path.relative_to(DECK))):
+                self.assertLessEqual(path.stat().st_size, MAX_IMAGE_BYTES)
+
+    def test_case_stats_state_when_they_were_counted(self):
+        for slide_id in CASES_WITH_STATS:
+            with self.subTest(slide=slide_id):
+                self.assertIn(f"{slide_id}.as-of", self._slide(slide_id)["i18n"])
+
+    def test_checklister_shows_its_work_units(self):
+        slide = self._slide("cases-checklister")
+        chips = [i for i in slide["data_ids"] if i.startswith("wu-")]
+        self.assertEqual(chips, CHECKLISTER_TRACK)
+
+    def test_external_links_open_in_a_new_tab(self):
+        external = [a for a in self.deck.anchors if a["href"].startswith("http")]
+        self.assertTrue(external)
+        for anchor in external:
+            with self.subTest(href=anchor["href"]):
+                self.assertEqual(anchor.get("target"), "_blank")
+                self.assertIn("noopener", (anchor.get("rel") or "").split())
 
     def test_work_unit_track_persists_across_example(self):
         for slide_id in CURRENT_CHIP:
@@ -345,6 +434,28 @@ class MarkupTest(unittest.TestCase):
     def test_vendored_reveal_has_licence(self):
         licences = list((DECK / "vendor").glob("reveal.js-*/LICENSE"))
         self.assertEqual(len(licences), 1)
+
+
+class PagesWorkflowTest(unittest.TestCase):
+    """The deck, and only the deck, is published to GitHub Pages from main."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.text = PAGES_WORKFLOW.read_text(encoding="utf-8")
+
+    def test_runs_on_deck_changes_to_main(self):
+        self.assertRegex(self.text, r"branches:\s*\[\s*main\s*\]")
+        self.assertIn('"deck/**"', self.text)
+        self.assertIn("workflow_dispatch", self.text)
+
+    def test_publishes_only_the_deck_folder(self):
+        self.assertIn("actions/upload-pages-artifact@v3", self.text)
+        self.assertRegex(self.text, r"\n\s+path: deck\n")
+        self.assertIn("actions/deploy-pages@v4", self.text)
+
+    def test_has_pages_permissions(self):
+        self.assertIn("pages: write", self.text)
+        self.assertIn("id-token: write", self.text)
 
 
 if __name__ == "__main__":

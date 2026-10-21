@@ -23,6 +23,10 @@
       el.setAttribute('aria-label', value);
       el.title = value;
     });
+    document.querySelectorAll('[data-i18n-alt]').forEach((el) => {
+      const value = table[el.dataset.i18nAlt];
+      if (value !== undefined) el.alt = value;
+    });
     document.documentElement.lang = lang;
     document.querySelectorAll('[data-lang]').forEach((button) => {
       button.setAttribute('aria-pressed', String(button.dataset.lang === lang));

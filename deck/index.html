@@ -10,6 +10,34 @@
   <link rel="stylesheet" href="css/theme.css">
 </head>
 <body>
+  <nav class="yab-menu" aria-labelledby="yab-menu-toggle">
+    <button type="button" id="yab-menu-toggle" class="yab-menu-toggle" aria-expanded="false"
+            aria-controls="yab-menu-list" data-i18n-aria="controls.menu">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <ol id="yab-menu-list" class="yab-menu-list" hidden>
+      <li class="yab-menu-contents"><a href="#/toc"><span class="toc-num" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M8 7h10M8 12h10M8 17h10M5 7h.01M5 12h.01M5 17h.01"/></svg>
+      </span><span data-i18n="controls.contents"></span></a></li>
+      <li><a href="#/purpose"><span class="toc-num">1</span><span data-i18n="toc.purpose"></span></a></li>
+      <li><a href="#/values"><span class="toc-num">2</span><span data-i18n="toc.values"></span></a></li>
+      <li><a href="#/example"><span class="toc-num">3</span><span data-i18n="toc.example"></span></a></li>
+      <li><a href="#/cases"><span class="toc-num">4</span><span data-i18n="toc.cases"></span></a></li>
+      <li><a href="#/limits"><span class="toc-num">5</span><span data-i18n="toc.limits"></span></a></li>
+      <li><a href="#/get-yab"><span class="toc-num">6</span><span data-i18n="toc.get-yab"></span></a></li>
+    </ol>
+  </nav>
+
+  <!-- The section being shown, beside the menu; deck.js shows the matching part. -->
+  <p class="yab-section">
+      <span data-section="purpose" data-i18n="eyebrow.purpose" hidden></span>
+      <span data-section="values" data-i18n="eyebrow.values" hidden></span>
+      <span data-section="example" data-i18n="eyebrow.example" hidden></span>
+      <span data-section="cases" data-i18n="eyebrow.cases" hidden></span>
+      <span data-section="limits" data-i18n="eyebrow.limits" hidden></span>
+      <span data-section="get-yab" data-i18n="eyebrow.get-yab" hidden></span>
+  </p>
+
   <div class="yab-controls">
     <div class="yab-lang" role="group" data-i18n-aria="controls.language">
       <button type="button" data-lang="en" data-i18n="controls.lang-en">EN</button>
@@ -25,6 +53,19 @@
     </button>
   </div>
 
+  <!-- Shown only on phones held upright (see theme.css); the deck still works if dismissed. -->
+  <div class="yab-rotate">
+    <svg viewBox="0 0 48 48" aria-hidden="true">
+      <g class="yab-rotate-phone">
+        <rect x="16" y="10" width="16" height="28" rx="3"/>
+        <path d="M22 34h4"/>
+      </g>
+      <path d="M24 4a20 20 0 0 1 20 20M41 20l3 4 3-4"/>
+    </svg>
+    <p data-i18n="controls.rotate"></p>
+    <button type="button" class="yab-rotate-dismiss" data-i18n="controls.rotate-dismiss"></button>
+  </div>
+
   <div class="reveal">
     <div class="slides">
 
@@ -35,23 +76,25 @@
           <li><a href="#/purpose" class="card" data-id="toc-1">
             <span class="toc-num">1</span><span data-i18n="toc.purpose"></span>
           </a></li>
-          <li><a href="#/example" class="card" data-id="toc-2">
-            <span class="toc-num">2</span><span data-i18n="toc.example"></span>
+          <li><a href="#/values" class="card" data-id="toc-2">
+            <span class="toc-num">2</span><span data-i18n="toc.values"></span>
           </a></li>
-          <li><a href="#/cases" class="card" data-id="toc-3">
-            <span class="toc-num">3</span><span data-i18n="toc.cases"></span>
+          <li><a href="#/example" class="card" data-id="toc-3">
+            <span class="toc-num">3</span><span data-i18n="toc.example"></span>
           </a></li>
-          <li><a href="#/limits" class="card" data-id="toc-4">
-            <span class="toc-num">4</span><span data-i18n="toc.limits"></span>
+          <li><a href="#/cases" class="card" data-id="toc-4">
+            <span class="toc-num">4</span><span data-i18n="toc.cases"></span>
           </a></li>
-          <li><a href="#/get-yab" class="card" data-id="toc-5">
-            <span class="toc-num">5</span><span data-i18n="toc.get-yab"></span>
+          <li><a href="#/limits" class="card" data-id="toc-5">
+            <span class="toc-num">5</span><span data-i18n="toc.limits"></span>
+          </a></li>
+          <li><a href="#/get-yab" class="card" data-id="toc-6">
+            <span class="toc-num">6</span><span data-i18n="toc.get-yab"></span>
           </a></li>
         </ol>
       </section>
 
       <section id="purpose" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.purpose"></p>
         <h2 class="section-title" data-id="toc-1" data-i18n="toc.purpose"></h2>
         <p class="lead" data-i18n="purpose.lead"></p>
         <ul class="points">
@@ -62,7 +105,6 @@
       </section>
 
       <section id="purpose-what" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.purpose"></p>
         <h2 data-i18n="purpose-what.title"></h2>
         <p class="lead" data-i18n="purpose-what.lead"></p>
         <ul class="pills">
@@ -75,7 +117,6 @@
       </section>
 
       <section id="purpose-flow" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.purpose"></p>
         <h2 data-id="purpose-flow-title" data-i18n="purpose-flow.title"></h2>
         <ol class="flow">
           <li class="flow-node" data-id="flow-idea">
@@ -121,7 +162,6 @@
       </section>
 
       <section id="purpose-human" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.purpose"></p>
         <h2 data-id="purpose-flow-title" data-i18n="purpose-human.title"></h2>
         <ol class="flow">
           <li class="flow-node" data-id="flow-idea">
@@ -183,7 +223,6 @@
       </section>
 
       <section id="purpose-memory" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.purpose"></p>
         <h2 data-i18n="purpose-memory.title"></h2>
         <p class="lead" data-i18n="purpose-memory.lead"></p>
         <div class="chain">
@@ -195,9 +234,55 @@
         </div>
       </section>
 
+      <section id="values" data-auto-animate>
+        <h2 class="section-title" data-id="toc-2" data-i18n="toc.values"></h2>
+        <p class="lead" data-i18n="values.lead"></p>
+        <ol class="toc values-list">
+          <li><a href="#/values-human" class="card fragment" data-id="value-human">
+            <span class="toc-num">1</span><span data-i18n="values-human.title"></span>
+          </a></li>
+          <li><a href="#/values-safe" class="card fragment" data-id="value-safe">
+            <span class="toc-num">2</span><span data-i18n="values-safe.title"></span>
+          </a></li>
+          <li><a href="#/values-understanding" class="card fragment" data-id="value-understanding">
+            <span class="toc-num">3</span><span data-i18n="values-understanding.title"></span>
+          </a></li>
+        </ol>
+      </section>
+
+      <section id="values-human" data-auto-animate>
+        <h2 class="value-title" data-id="value-human" data-i18n="values-human.title"></h2>
+        <blockquote class="quote" data-i18n="values-human.quote"></blockquote>
+        <ul class="points">
+          <li class="fragment" data-i18n="values-human.plans"></li>
+          <li class="fragment" data-i18n="values-human.testing"></li>
+          <li class="fragment" data-i18n="values-human.owner"></li>
+        </ul>
+        <p class="note fragment" data-i18n="values-human.note"></p>
+      </section>
+
+      <section id="values-safe" data-auto-animate>
+        <h2 class="value-title" data-id="value-safe" data-i18n="values-safe.title"></h2>
+        <p class="lead" data-i18n="values-safe.lead"></p>
+        <ul class="points">
+          <li class="fragment" data-i18n="values-safe.pressure"></li>
+          <li class="fragment" data-i18n="values-safe.help"></li>
+          <li class="fragment" data-i18n="values-safe.lessons"></li>
+        </ul>
+      </section>
+
+      <section id="values-understanding" data-auto-animate>
+        <h2 class="value-title" data-id="value-understanding" data-i18n="values-understanding.title"></h2>
+        <p class="lead" data-i18n="values-understanding.lead"></p>
+        <ul class="points">
+          <li class="fragment" data-i18n="values-understanding.one"></li>
+          <li class="fragment" data-i18n="values-understanding.mirror"></li>
+          <li class="fragment" data-i18n="values-understanding.options"></li>
+        </ul>
+      </section>
+
       <section id="example" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.example"></p>
-        <h2 class="section-title" data-id="toc-2" data-i18n="toc.example"></h2>
+        <h2 class="section-title" data-id="toc-3" data-i18n="toc.example"></h2>
         <p class="lead" data-i18n="example.lead"></p>
         <div class="pact-chain">
           <div class="card pact">
@@ -216,7 +301,6 @@
       </section>
 
       <section id="example-brief" class="story" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.example"></p>
         <ol class="wu-track" data-id="track">
           <li class="wu-chip is-step is-current" aria-current="step" data-id="step-brief"><span class="wu-name">Brief</span></li>
           <li class="wu-chip is-step" data-id="step-analyze"><span class="wu-name">Analyze</span></li>
@@ -233,7 +317,6 @@
       </section>
 
       <section id="example-analyze" class="story" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.example"></p>
         <ol class="wu-track" data-id="track">
           <li class="wu-chip is-step is-done" data-id="step-brief"><span class="wu-name">Brief</span><span class="sr-only" data-i18n="wu.done"></span></li>
           <li class="wu-chip is-step is-current" aria-current="step" data-id="step-analyze"><span class="wu-name">Analyze</span></li>
@@ -249,7 +332,6 @@
       </section>
 
       <section id="example-plan" class="story" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.example"></p>
         <ol class="wu-track" data-id="track">
           <li class="wu-chip is-step is-done" data-id="step-brief"><span class="wu-name">Brief</span><span class="sr-only" data-i18n="wu.done"></span></li>
           <li class="wu-chip is-step is-done" data-id="step-analyze"><span class="wu-name">Analyze</span><span class="sr-only" data-i18n="wu.done"></span></li>
@@ -265,7 +347,6 @@
       </section>
 
       <section id="example-wu0" class="story" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.example"></p>
         <ol class="wu-track" data-id="track">
           <li class="wu-chip is-step is-done" data-id="step-brief"><span class="wu-name">Brief</span><span class="sr-only" data-i18n="wu.done"></span></li>
           <li class="wu-chip is-step is-done" data-id="step-analyze"><span class="wu-name">Analyze</span><span class="sr-only" data-i18n="wu.done"></span></li>
@@ -287,7 +368,6 @@
       </section>
 
       <section id="example-correction" class="story" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.example"></p>
         <ol class="wu-track" data-id="track">
           <li class="wu-chip is-step is-done" data-id="step-brief"><span class="wu-name">Brief</span><span class="sr-only" data-i18n="wu.done"></span></li>
           <li class="wu-chip is-step is-done" data-id="step-analyze"><span class="wu-name">Analyze</span><span class="sr-only" data-i18n="wu.done"></span></li>
@@ -305,7 +385,6 @@
       </section>
 
       <section id="example-wu1" class="story" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.example"></p>
         <ol class="wu-track" data-id="track">
           <li class="wu-chip is-step is-done" data-id="step-brief"><span class="wu-name">Brief</span><span class="sr-only" data-i18n="wu.done"></span></li>
           <li class="wu-chip is-step is-done" data-id="step-analyze"><span class="wu-name">Analyze</span><span class="sr-only" data-i18n="wu.done"></span></li>
@@ -323,7 +402,6 @@
       </section>
 
       <section id="example-wu2" class="story" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.example"></p>
         <ol class="wu-track" data-id="track">
           <li class="wu-chip is-step is-done" data-id="step-brief"><span class="wu-name">Brief</span><span class="sr-only" data-i18n="wu.done"></span></li>
           <li class="wu-chip is-step is-done" data-id="step-analyze"><span class="wu-name">Analyze</span><span class="sr-only" data-i18n="wu.done"></span></li>
@@ -344,7 +422,6 @@
       </section>
 
       <section id="example-wu3" class="story" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.example"></p>
         <ol class="wu-track" data-id="track">
           <li class="wu-chip is-step is-done" data-id="step-brief"><span class="wu-name">Brief</span><span class="sr-only" data-i18n="wu.done"></span></li>
           <li class="wu-chip is-step is-done" data-id="step-analyze"><span class="wu-name">Analyze</span><span class="sr-only" data-i18n="wu.done"></span></li>
@@ -364,7 +441,6 @@
       </section>
 
       <section id="example-wu4" class="story" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.example"></p>
         <ol class="wu-track" data-id="track">
           <li class="wu-chip is-step is-done" data-id="step-brief"><span class="wu-name">Brief</span><span class="sr-only" data-i18n="wu.done"></span></li>
           <li class="wu-chip is-step is-done" data-id="step-analyze"><span class="wu-name">Analyze</span><span class="sr-only" data-i18n="wu.done"></span></li>
@@ -384,7 +460,6 @@
       </section>
 
       <section id="example-review" class="story" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.example"></p>
         <ol class="wu-track" data-id="track">
           <li class="wu-chip is-step is-done" data-id="step-brief"><span class="wu-name">Brief</span><span class="sr-only" data-i18n="wu.done"></span></li>
           <li class="wu-chip is-step is-done" data-id="step-analyze"><span class="wu-name">Analyze</span><span class="sr-only" data-i18n="wu.done"></span></li>
@@ -406,7 +481,6 @@
       </section>
 
       <section id="example-debrief" class="story" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.example"></p>
         <ol class="wu-track" data-id="track">
           <li class="wu-chip is-step is-done" data-id="step-brief"><span class="wu-name">Brief</span><span class="sr-only" data-i18n="wu.done"></span></li>
           <li class="wu-chip is-step is-done" data-id="step-analyze"><span class="wu-name">Analyze</span><span class="sr-only" data-i18n="wu.done"></span></li>
@@ -432,36 +506,137 @@
       </section>
 
       <section id="cases" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.cases"></p>
-        <h2 class="section-title" data-id="toc-3" data-i18n="toc.cases"></h2>
+        <h2 class="section-title" data-id="toc-4" data-i18n="toc.cases"></h2>
         <p class="lead" data-i18n="cases.lead"></p>
         <div class="cards">
-          <div class="card fragment">
+          <div class="card">
             <span class="card-title">Habit Loop</span>
             <span data-i18n="cases.habit-loop"></span>
           </div>
-          <div class="card fragment">
+          <div class="card">
             <span class="card-title">CheckLister</span>
             <span data-i18n="cases.checklister"></span>
           </div>
+          <div class="card">
+            <span class="card-title">Mordovorot</span>
+            <span data-i18n="cases.mordovorot"></span>
+          </div>
         </div>
-        <p class="note fragment" data-i18n="cases.note"></p>
+        <p class="note" data-i18n="cases.note"></p>
+      </section>
+
+      <section id="cases-habit-loop">
+        <h2 data-i18n="cases-habit-loop.title"></h2>
+        <div class="case">
+          <div class="case-text">
+            <p class="lead" data-i18n="cases-habit-loop.lead"></p>
+            <div class="stats stat-grid fragment">
+              <p class="stat"><span class="stat-num">241</span><span data-i18n="cases-habit-loop.releases"></span></p>
+              <p class="stat"><span class="stat-num">471</span><span data-i18n="cases-habit-loop.prs"></span></p>
+              <p class="stat"><span class="stat-num">112</span><span data-i18n="cases-habit-loop.notes"></span></p>
+              <p class="stat"><span class="stat-num">4</span><span data-i18n="cases-habit-loop.languages"></span></p>
+            </div>
+            <p class="as-of fragment" data-i18n="cases-habit-loop.as-of"></p>
+          <a class="repo-link" href="https://github.com/lutsenko-yuriy/habit-loop" target="_blank"
+             rel="noopener">github.com/lutsenko-yuriy/habit-loop</a>
+          </div>
+          <div class="shots">
+          <img class="shot" src="img/cases/habit-loop/today.jpg" alt="" data-i18n-alt="cases-habit-loop.today-alt">
+          <img class="shot" src="img/cases/habit-loop/pact.jpg" alt="" data-i18n-alt="cases-habit-loop.pact-alt">
+          <img class="shot" src="img/cases/habit-loop/timeline.jpg" alt="" data-i18n-alt="cases-habit-loop.timeline-alt">
+          </div>
+        </div>
+      </section>
+
+      <section id="cases-checklister">
+        <h2 data-i18n="cases-checklister.title"></h2>
+        <div class="case">
+          <div class="case-text">
+            <p class="lead" data-i18n="cases-checklister.lead"></p>
+            <ol class="wu-track wu-track-compact">
+          <li class="wu-chip is-done" data-id="wu-1"><span class="wu-name">WU1</span> <span class="wu-label" data-i18n="wu.contract"></span><span class="sr-only" data-i18n="wu.done"></span></li>
+          <li class="wu-chip is-done" data-id="wu-2"><span class="wu-name">WU2</span> <span class="wu-label" data-i18n="wu.routing"></span><span class="sr-only" data-i18n="wu.done"></span></li>
+          <li class="wu-chip is-done" data-id="wu-3"><span class="wu-name">WU3</span> <span class="wu-label" data-i18n="wu.results"></span><span class="sr-only" data-i18n="wu.done"></span></li>
+          <li class="wu-chip is-done" data-id="wu-4"><span class="wu-name">WU4</span> <span class="wu-label" data-i18n="wu.deep-links"></span><span class="sr-only" data-i18n="wu.done"></span></li>
+            </ol>
+            <p class="card fragment" data-i18n="cases-checklister.races"></p>
+          <a class="repo-link" href="https://github.com/lutsenko-yuriy/CheckLister" target="_blank"
+             rel="noopener">github.com/lutsenko-yuriy/CheckLister</a>
+          </div>
+          <div class="shots">
+          <img class="shot" src="img/cases/checklister/lists.jpg" alt="" data-i18n-alt="cases-checklister.lists-alt">
+          <img class="shot" src="img/cases/checklister/run.jpg" alt="" data-i18n-alt="cases-checklister.run-alt">
+          <img class="shot" src="img/cases/checklister/checked.jpg" alt="" data-i18n-alt="cases-checklister.checked-alt">
+          <img class="shot" src="img/cases/checklister/history.jpg" alt="" data-i18n-alt="cases-checklister.history-alt">
+          </div>
+        </div>
+      </section>
+
+      <section id="cases-mordovorot">
+        <h2 data-i18n="cases-mordovorot.title"></h2>
+        <div class="case">
+          <div class="case-text">
+            <p class="lead" data-i18n="cases-mordovorot.lead"></p>
+            <div class="stats stat-grid fragment">
+              <p class="stat"><span class="stat-num">31</span><span data-i18n="cases-mordovorot.releases"></span></p>
+              <p class="stat"><span class="stat-num">101</span><span data-i18n="cases-mordovorot.prs"></span></p>
+              <p class="stat"><span class="stat-num">34</span><span data-i18n="cases-mordovorot.notes"></span></p>
+              <p class="stat"><span class="stat-num">2</span><span data-i18n="cases-mordovorot.clients"></span></p>
+            </div>
+            <p class="as-of fragment" data-i18n="cases-mordovorot.as-of"></p>
+          <a class="repo-link" href="https://github.com/lutsenko-yuriy/mordovorot" target="_blank"
+             rel="noopener">github.com/lutsenko-yuriy/mordovorot</a>
+          </div>
+          <div class="shots">
+          <img class="shot shot-wide" src="img/cases/mordovorot/desktop.jpg" alt="" data-i18n-alt="cases-mordovorot.desktop-alt">
+          <img class="shot" src="img/cases/mordovorot/phone.jpg" alt="" data-i18n-alt="cases-mordovorot.phone-alt">
+          </div>
+        </div>
+      </section>
+
+      <section id="cases-codex">
+        <h2 data-i18n="cases-codex.title"></h2>
+        <p class="lead" data-i18n="cases-codex.lead"></p>
+        <ul class="points">
+          <li class="fragment" data-i18n="cases-codex.works"></li>
+          <li class="fragment" data-i18n="cases-codex.tokens"></li>
+          <li class="fragment" data-i18n="cases-codex.mapping"></li>
+        </ul>
+        <p class="note fragment" data-i18n="cases-codex.note"></p>
       </section>
 
       <section id="limits" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.limits"></p>
-        <h2 class="section-title" data-id="toc-4" data-i18n="toc.limits"></h2>
+        <h2 class="section-title" data-id="toc-5" data-i18n="toc.limits"></h2>
         <p class="lead" data-i18n="limits.lead"></p>
         <ul class="points">
           <li class="fragment" data-i18n="limits.team"></li>
           <li class="fragment" data-i18n="limits.stacks"></li>
+          <li class="fragment" data-i18n="limits.brownfield"></li>
           <li class="fragment" data-i18n="limits.repos"></li>
         </ul>
       </section>
 
+      <section id="limits-tools">
+        <h2 data-i18n="limits-tools.title"></h2>
+        <ul class="points">
+          <li class="fragment" data-i18n="limits-tools.claude"></li>
+          <li class="fragment" data-i18n="limits-tools.codex"></li>
+          <li class="fragment" data-i18n="limits-tools.opencode"></li>
+          <li class="fragment" data-i18n="limits-tools.pm"></li>
+          <li class="fragment" data-i18n="limits-tools.python"></li>
+        </ul>
+      </section>
+
+      <section id="limits-next">
+        <h2 data-i18n="limits-next.title"></h2>
+        <div class="cards">
+          <p class="card fragment" data-i18n="limits-next.sync"></p>
+          <p class="card fragment" data-i18n="limits-next.cost"></p>
+        </div>
+      </section>
+
       <section id="get-yab" data-auto-animate>
-        <p class="eyebrow" data-i18n="eyebrow.get-yab"></p>
-        <h2 class="section-title" data-id="toc-5" data-i18n="toc.get-yab"></h2>
+        <h2 class="section-title" data-id="toc-6" data-i18n="toc.get-yab"></h2>
         <a class="big-link" href="https://github.com/lutsenko-yuriy/yuriys-agentic-boyz"
            target="_blank" rel="noopener">github.com/lutsenko-yuriy/yuriys-agentic-boyz</a>
         <ol class="steps">
@@ -469,7 +644,7 @@
           <li class="fragment" data-i18n="get-yab.open"></li>
           <li class="fragment" data-i18n="get-yab.onboard"></li>
         </ol>
-        <p class="thanks fragment" data-i18n="get-yab.thanks"></p>
+        <p class="closer fragment" data-i18n="get-yab.closer"></p>
       </section>
 
     </div>

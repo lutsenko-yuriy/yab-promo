@@ -26,7 +26,7 @@ docs/               # Project docs, knowledge base, workflows
 scripts/            # YAB tooling (onboard, skill_router, notes, checkup) in Python
 skills/             # YAB skills: configure, design, build, verify, manage
 styles/             # Communication styles
-tests/deck/         # Structural tests for the deck (Python standard library)
+tests/deck/         # Structural and contrast tests for the deck (Python standard library)
 skill_router.toml   # Project config and provider mapping
 ```
 
@@ -40,7 +40,9 @@ The deck (`deck/`) is a reveal.js presentation with no build step. One markup fi
 (`deck/i18n/<lang>.js`) and are swapped in place by `deck/js/i18n.js`, so switching
 language keeps the current slide. Everything it loads is local, so it also runs offline
 from a clone over `file://`. `tests/deck/` checks its structure (language parity, links,
-local assets); it sits outside `deck/` so the published site carries no Python.
+local assets) and the theme's colour contrast (`test_contrast.py`: 4.5:1 for text, 3:1 for
+arrows, with list markers and the progress bar exempt as decoration); it sits outside
+`deck/` so the published site carries no Python.
 
 String-table keys are `<slide-id>.<part>` for text that belongs to one slide, plus six
 shared groups: `meta.*` (page title), `controls.*` (language switch, full screen),

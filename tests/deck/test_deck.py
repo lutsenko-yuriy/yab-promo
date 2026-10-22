@@ -65,6 +65,14 @@ CURRENT_CHIP = {
     "example-debrief": None,
 }
 
+# Slides that carry the switch panel (the pact chaining feature switch): from the first work
+# unit through the debrief. The switch stays off until the debrief's last click turns it on.
+SWITCH_SLIDES = EXAMPLE_SLIDES[EXAMPLE_SLIDES.index("example-wu0"):]
+SWITCH_PANEL = ["switch-panel", "toggle", "toggle-knob", "switch-name", "switch-purpose"]
+SWITCH_KEYS = {"switch.off", "switch.on", "switch.name", "switch.purpose"}
+# Habit Loop's Remote Config key for the feature, shown with spaces for readability.
+SWITCH_FLAG = "pact_chaining_enabled"
+
 # Slides of the cases section, in order: one per app, then the CheckLister tickets run on Codex.
 CASES_SLIDES = [
     "cases",
@@ -98,6 +106,8 @@ PAGES_WORKFLOW = REPO / ".github" / "workflows" / "pages.yml"
 # A German value may equal its English one only for these keys (proper nouns and the like).
 SAME_IN_BOTH = {
     "toc.title",
+    "toc.subtitle",
+    "switch.name",
     "controls.lang-en",
     "controls.lang-de",
     "purpose-what.tickets",
@@ -121,7 +131,8 @@ class _DeckParser(HTMLParser):
     def __init__(self):
         super().__init__()
         # [{"id": str, "attrs": dict, "data_ids": [str], "classes": {data_id: set},
-        #   "id_attrs": {data_id: dict}, "links": [str], "i18n": [str], "images": [dict]}]
+        #   "id_attrs": {data_id: dict}, "links": [str], "i18n": [str], "images": [dict],
+        #   "i18n_attrs": {key: dict}, "fragments": [dict]}]
         self.slides = []
         self.nested_sections = 0
         self.i18n_keys = []
@@ -146,6 +157,8 @@ class _DeckParser(HTMLParser):
                     "links": [],
                     "i18n": [],
                     "images": [],
+                    "i18n_attrs": {},
+                    "fragments": [],
                 }
             )
         slide = self.slides[-1] if self._section_depth else None
@@ -154,6 +167,9 @@ class _DeckParser(HTMLParser):
                 self.i18n_keys.append(attrs[name])
                 if slide is not None:
                     slide["i18n"].append(attrs[name])
+                    slide["i18n_attrs"][attrs[name]] = attrs
+        if slide is not None and "fragment" in (attrs.get("class") or "").split():
+            slide["fragments"].append(attrs)
         if slide is not None and "data-id" in attrs:
             slide["data_ids"].append(attrs["data-id"])
             slide["classes"][attrs["data-id"]] = set((attrs.get("class") or "").split())
@@ -425,11 +441,73 @@ class MarkupTest(unittest.TestCase):
                                      slide["classes"][DEBRIEF_STEP])
                 self.assertEqual(slide["id_attrs"][DEBRIEF_STEP].get("aria-current"), "step")
 
-    def test_kill_switch_turns_on_in_last_work_unit(self):
-        off, on = self._slide("example-wu3"), self._slide("example-wu4")
-        self.assertIn("toggle", off["classes"]["toggle"])
-        self.assertNotIn("is-on", off["classes"]["toggle"])
-        self.assertIn("is-on", on["classes"]["toggle"])
+    def _key_classes(self, slide, key):
+        return set((slide["i18n_attrs"][key].get("class") or "").split())
+
+    def test_contents_title_puts_the_name_on_its_own_line(self):
+        toc = self._slide("toc")
+        keys = toc["i18n"]
+        self.assertEqual(keys[keys.index("toc.title") + 1], "toc.subtitle")
+        self.assertIn("subtitle", self._key_classes(toc, "toc.subtitle"))
+        for lang in LANGS:
+            with self.subTest(lang=lang):
+                self.assertEqual(_load_table(lang)["toc.title"], "YAB")
+                self.assertEqual(_load_table(lang)["toc.subtitle"], "Yuriy's agentic boyz")
+
+    def test_analyze_question_shows_under_the_title(self):
+        analyze = self._slide("example-analyze")
+        keys = analyze["i18n"]
+        self.assertEqual(keys[keys.index("example-analyze.title") + 1],
+                         "example-analyze.question")
+        question = self._key_classes(analyze, "example-analyze.question")
+        self.assertIn("subtitle", question)
+        self.assertNotIn("fragment", question)
+        for card in ("button", "links", "changes"):
+            with self.subTest(card=card):
+                self.assertIn("fragment",
+                              self._key_classes(analyze, f"example-analyze.{card}"))
+        for lang in LANGS:
+            with self.subTest(lang=lang):
+                self.assertNotIn(":", _load_table(lang)["example-analyze.question"])
+
+    def test_switch_panel_from_wu0_to_debrief(self):
+        for slide in self.deck.slides:
+            with self.subTest(slide=slide["id"]):
+                panel = [data_id for data_id in slide["data_ids"] if data_id in SWITCH_PANEL]
+                if slide["id"] not in SWITCH_SLIDES:
+                    self.assertEqual(panel, [])
+                    self.assertFalse(SWITCH_KEYS & set(slide["i18n"]))
+                    continue
+                self.assertEqual(panel, SWITCH_PANEL)
+                last_chip = max(i for i, data_id in enumerate(slide["data_ids"])
+                                if data_id.startswith(("wu-", "step-")))
+                self.assertGreater(slide["data_ids"].index("switch-panel"), last_chip)
+                self.assertLessEqual(SWITCH_KEYS, set(slide["i18n"]))
+
+    def test_switch_is_off_until_the_debrief_has_shown(self):
+        for slide_id in SWITCH_SLIDES[:-1]:
+            with self.subTest(slide=slide_id):
+                toggle = self._slide(slide_id)["classes"]["toggle"]
+                self.assertNotIn("fragment", toggle)
+                self.assertNotIn("is-on", toggle)
+        debrief = self._slide("example-debrief")
+        self.assertLessEqual({"toggle", "fragment", "custom"}, debrief["classes"]["toggle"])
+        indexes = [int(fragment["data-fragment-index"]) for fragment in debrief["fragments"]
+                   if "data-fragment-index" in fragment]
+        self.assertEqual(len(indexes), len(debrief["fragments"]),
+                         "every fragment on the debrief needs an index")
+        flip = int(debrief["id_attrs"]["toggle"]["data-fragment-index"])
+        self.assertEqual(indexes.count(flip), 1)
+        self.assertEqual(flip, max(indexes), "turning the switch on is the last click")
+
+    def test_switch_name_is_the_habit_loop_flag(self):
+        for lang in LANGS:
+            with self.subTest(lang=lang):
+                name = _load_table(lang)["switch.name"]
+                self.assertEqual(name.replace(" ", "_"), SWITCH_FLAG)
+
+    def test_wu4_ships_the_whole_feature(self):
+        self.assertEqual(_load_table("en")["example-wu4.title"], "The pact chaining ships")
 
     def test_lifecycle_flow_auto_animates_into_human_gates(self):
         steps = [f"flow-{step}" for step in LIFECYCLE_STEPS]

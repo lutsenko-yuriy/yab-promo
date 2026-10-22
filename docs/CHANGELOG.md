@@ -4,6 +4,11 @@ A record of all versioned releases. For planned work and known issues, see @docs
 
 ---
 
+## [0.2.1] — 2026-10-22 (PR #13 merged)
+
+### Added
+- [test] YP-12: deck test for the theme's colour contrast — 4.5:1 for text, 3:1 for arrows, list markers and progress bar exempt as decoration (PR #13)
+
 ## [0.2.0] — 2026-10-22 (PR #10 merged)
 
 ### Added

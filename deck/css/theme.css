@@ -82,6 +82,16 @@ body {
   font-size: 1.15em;
 }
 
+/* A smaller line right under a title: the full name on the contents slide, the question
+   behind the analytics plan. */
+.reveal .subtitle {
+  margin: -8px 0 24px;
+  font-size: 1.3em;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--yab-primary);
+}
+
 .reveal .note {
   margin-top: 32px;
   font-size: 0.8em;
@@ -553,17 +563,41 @@ body {
   border-color: var(--yab-danger);
 }
 
-/* The switch sits left of the slide title, in the same spot on WU3 and WU4, so only the
-   knob and the colour change between them. */
-.reveal .toggle-row {
+/* From WU0 to the debrief the feature switch has its own column left of the story, in the
+   same spot on every slide, so Auto-Animate keeps it still while the story changes.
+   A fixed height keeps the divider the same length on every slide. */
+.reveal .story-body {
   display: flex;
-  align-items: center;
   gap: 28px;
-  margin: 0 0 24px;
+  min-height: 440px;
 }
 
-.reveal .toggle-row h2 {
+.reveal .switch-panel {
+  flex: none;
+  width: 170px;
+  padding-right: 28px;
+  border-right: 2px solid var(--yab-border);
+}
+
+.reveal .story-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.reveal .switch-name {
+  margin: 16px 0 8px;
+  font-size: 0.5em;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+  color: var(--yab-primary-dark);
+}
+
+.reveal .switch-purpose {
   margin: 0;
+  font-size: 0.5em;
+  line-height: 1.3;
+  color: var(--yab-muted);
 }
 
 .reveal .toggle {
@@ -581,11 +615,21 @@ body {
   font-weight: 700;
 }
 
-.reveal .toggle.is-on {
+/* Off on every slide; on the debrief its last click turns the switch on. */
+.reveal .toggle.fragment.visible {
   flex-direction: row-reverse;
   padding: 8px 8px 8px 26px;
   background: var(--yab-success);
   color: var(--yab-surface);
+}
+
+.reveal .toggle-on,
+.reveal .toggle.fragment.visible .toggle-off {
+  display: none;
+}
+
+.reveal .toggle.fragment.visible .toggle-on {
+  display: inline;
 }
 
 .reveal .toggle-knob {
@@ -1037,6 +1081,10 @@ body {
 
   .reveal .wu-chip.fragment.visible {
     transition-delay: 0s;
+  }
+
+  .reveal .toggle.fragment {
+    transition: none;
   }
 
   .yab-rotate-phone {

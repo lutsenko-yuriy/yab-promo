@@ -25,6 +25,6 @@
 ## Tooling
 
 - **Build / package manager:** none (static files)
-- **Test runner:** Python `unittest` for the YAB tooling and for the deck's structure (`tests/deck/`)
+- **Test runner:** Python `unittest` for the YAB tooling and for the deck's structure and colour contrast (`tests/deck/`)
 - **Linter / formatter:** none configured
 - **CI:** GitHub Actions (`.github/workflows/tests.yml`)

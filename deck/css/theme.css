@@ -5,6 +5,7 @@
   --yab-primary: #00796b;
   --yab-primary-dark: #004d40;
   --yab-growth: #8bc34a;
+  --yab-growth-dark: #558b2f; /* arrows: 3:1 on the background, unlike --yab-growth */
   --yab-sunrise: #ffb74d;
   --yab-success: #2e7d32;
   --yab-danger: #c62828;
@@ -255,7 +256,7 @@ body {
   top: 50%;
   right: -36px;
   transform: translateY(-50%);
-  color: var(--yab-growth);
+  color: var(--yab-growth-dark);
   font-weight: 700;
 }
 
@@ -329,7 +330,7 @@ body {
 .reveal .chain-arrow {
   align-self: center;
   font-size: 1.4em;
-  color: var(--yab-growth);
+  color: var(--yab-growth-dark);
 }
 
 /* The pact mock-up on the example opener */
@@ -378,7 +379,7 @@ body {
 
 .reveal .pact-arrow {
   font-size: 1.6em;
-  color: var(--yab-growth);
+  color: var(--yab-growth-dark);
 }
 
 /* Example section: the work-unit track and its story */

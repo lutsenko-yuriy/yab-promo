@@ -12,4 +12,8 @@ _(nothing in progress)_
 
 ---
 
-<!-- Milestone sections and unscheduled items are regenerated here by the product-owner-merge skill after every merged PR/MR. -->
+<!-- Milestone sections and unscheduled items are maintained here; the ship skill removes shipped tickets after every merged PR/MR. -->
+
+## Unscheduled
+
+- YP-5: Privacy-friendly view tracking for the YAB presentation deck

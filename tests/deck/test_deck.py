@@ -68,10 +68,12 @@ CURRENT_CHIP = {
 # Slides that carry the switch panel (the pact chaining feature switch): from the first work
 # unit through the debrief. The switch stays off until the debrief's last click turns it on.
 SWITCH_SLIDES = EXAMPLE_SLIDES[EXAMPLE_SLIDES.index("example-wu0"):]
-SWITCH_PANEL = ["switch-panel", "toggle", "toggle-knob", "switch-name", "switch-purpose"]
+# Every part of the panel, the switch's labels included, has a data-id: Auto-Animate fades
+# in anything unmatched, so a label without one would blink on every slide.
+SWITCH_PANEL = ["switch-panel", "toggle", "toggle-knob", "toggle-off", "toggle-on",
+                "switch-name", "switch-purpose"]
 SWITCH_KEYS = {"switch.off", "switch.on", "switch.name", "switch.purpose"}
-# Habit Loop's Remote Config key for the feature, shown with spaces for readability.
-SWITCH_FLAG = "pact_chaining_enabled"
+SWITCH_NAME = "pact chaining feature flag"
 
 # Slides of the cases section, in order: one per app, then the CheckLister tickets run on Codex.
 CASES_SLIDES = [
@@ -500,11 +502,10 @@ class MarkupTest(unittest.TestCase):
         self.assertEqual(indexes.count(flip), 1)
         self.assertEqual(flip, max(indexes), "turning the switch on is the last click")
 
-    def test_switch_name_is_the_habit_loop_flag(self):
+    def test_switch_is_named_as_a_feature_flag(self):
         for lang in LANGS:
             with self.subTest(lang=lang):
-                name = _load_table(lang)["switch.name"]
-                self.assertEqual(name.replace(" ", "_"), SWITCH_FLAG)
+                self.assertEqual(_load_table(lang)["switch.name"], SWITCH_NAME)
 
     def test_wu4_ships_the_whole_feature(self):
         self.assertEqual(_load_table("en")["example-wu4.title"], "The pact chaining ships")

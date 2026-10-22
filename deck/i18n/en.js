@@ -153,7 +153,7 @@ window.YAB_I18N.en = {
   "example-debrief.ticket": "ticket",
   "switch.off": "Off",
   "switch.on": "On",
-  "switch.name": "pact chaining enabled",
+  "switch.name": "pact chaining feature flag",
   "switch.purpose": "Ships hidden, turns on from 0.53.0, turns off without a release.",
 
   "cases.lead": "Three real apps, three different stacks.",

@@ -25,9 +25,10 @@ tweak, an asset swap, a single literal value). No logic, no new/changed screen,
 no architecture surface. Tag it `[trivial]` and take the short path instead of the full
 workflow above:
 
-1. Ticket created (via `/brief` or directly).
-2. Change made directly on a feature branch — skip `analyze`/`plan`/`draft-scenarios`,
-   same as any change with no user-facing flow.
+1. Ticket created (via `/brief` or directly) — before touching any file, even when the
+   change was asked for in passing in conversation.
+2. Change made directly on a feature branch cut from the latest `origin/main` — skip
+   `analyze`/`plan`/`draft-scenarios`, same as any change with no user-facing flow.
 3. PR/MR opened.
 4. `/debrief` — skip the review loop (step 10) entirely; a trivial diff doesn't carry
    architectural or runtime risk worth two review passes.

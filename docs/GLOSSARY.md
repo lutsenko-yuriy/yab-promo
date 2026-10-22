@@ -35,7 +35,7 @@ When a new term is introduced during a `brief` session, add it here before creat
 | Case | A real project built with YAB, shown with screenshots and a link to its repo | `cases-<app>` |
 | Work-unit track | The row of chips showing workflow steps and work units, kept in place across the example section | `.wu-track`, `.wu-chip` |
 | Pact chaining | The whole HAB-202 feature in the example: restarting a finished pact as a new, linked one, plus the links between them; behind the flag `pact_chaining_enabled` | `pact_chaining_enabled` |
-| Switch panel | The left part of each example slide from WU0 to the debrief: the feature switch, its name and purpose, set off by a thin divider | — |
+| Switch panel | The left part of each example slide from WU0 to the debrief: the feature switch, its name and purpose, set off by a thin divider | `.switch-panel`, `switch.*` keys |
 | String table | The per-language file holding every visible deck string by key | `deck/i18n/<lang>.js` |
 
 ## Known aliases to avoid

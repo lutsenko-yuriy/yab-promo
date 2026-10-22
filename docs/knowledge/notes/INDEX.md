@@ -16,3 +16,7 @@ Generated from `bookmarks:` frontmatter in `docs/knowledge/notes/*.md`. Run `pyt
 
 ### upstream-candidate
 - [Onboarding guide (PR #4): Claude Code onboarding guide for new teammates](onboarding-guide.md)
+
+## Reviewed — nothing noteworthy
+
+- [YP-12: Deck test for the theme's colour contrast](YP-12.md)

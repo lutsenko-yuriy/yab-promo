@@ -101,7 +101,7 @@ LIMITS_SLIDES = ["limits", "limits-tools", "limits-next"]
 
 # Slides of the core-values section, in order: the opener names each value, and each value
 # then gets its own slide.
-VALUES_SLIDES = ["values", "values-human", "values-safe", "values-understanding"]
+VALUES_SLIDES = ["values", "values-safe", "values-understanding", "values-human"]
 
 PAGES_WORKFLOW = REPO / ".github" / "workflows" / "pages.yml"
 

@@ -44,14 +44,15 @@ local assets) and the theme's colour contrast (`test_contrast.py`: 4.5:1 for tex
 arrows, with list markers and the progress bar exempt as decoration); it sits outside
 `deck/` so the published site carries no Python.
 
-String-table keys are `<slide-id>.<part>` for text that belongs to one slide, plus six
+String-table keys are `<slide-id>.<part>` for text that belongs to one slide, plus seven
 shared groups: `meta.*` (page title), `controls.*` (language switch, full screen),
 `eyebrow.<section>` (the section label fixed beside the menu, naming the section being shown),
 `toc.<section>` (each section's name, used on its contents card and as its opener's
 title, so Auto-Animate morphs one into the other), `flow.<step>` (the lifecycle
-steps, shown on both `purpose-flow` and `purpose-human`) and `wu.<unit>` (the labels on
+steps, shown on both `purpose-flow` and `purpose-human`), `wu.<unit>` (the labels on
 the work-unit tracks: the one that runs through the example section, and CheL-36's on
-`cases-checklister`). Elements name their key in `data-i18n` (inner HTML),
+`cases-checklister`) and `switch.*` (the feature switch shown in the example section, its
+name and its purpose). Elements name their key in `data-i18n` (inner HTML),
 `data-i18n-aria` (`aria-label` and tooltip) or `data-i18n-alt` (an image's `alt`).
 
 The example section's slides (`class="story"`) share one height so the work-unit track
@@ -59,6 +60,11 @@ stays in place while Auto-Animate recolours its chips from slide to slide: the w
 (`data-id="wu-<n>"`) between the workflow steps around them (`data-id="step-<skill>"`:
 brief, analyze and plan before, debrief after). The
 brief and analytics slides show only those steps; the work units appear once the plan makes them.
+From WU0 to the debrief, everything below the track sits in `.story-body`: a switch panel
+(`.switch-panel`, with stable `data-id`s for the switch, its name and its purpose, so it
+stays put too) beside the slide's own content (`.story-main`). The switch is off on every
+one of those slides; it is a `fragment custom` with the highest `data-fragment-index` on
+the debrief, so the debrief's last click turns it on.
 
 `.github/workflows/pages.yml` publishes `deck/` alone to GitHub Pages on every push to `main`
 that changes it, so the site carries neither the docs nor the tooling.

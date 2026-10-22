@@ -6,8 +6,8 @@ Generated from `bookmarks:` frontmatter in `docs/knowledge/notes/*.md`. Run `pyt
 
 ## Top themes
 
+- **upstream-candidate** (2)
 - **scope-growth** (1)
-- **upstream-candidate** (1)
 
 ## By bookmark
 
@@ -15,4 +15,9 @@ Generated from `bookmarks:` frontmatter in `docs/knowledge/notes/*.md`. Run `pyt
 - [YP-2: Animated YAB presentation deck](YP-2.md)
 
 ### upstream-candidate
+- [YP-14: Deck polish: YAB title, the analytics question, and the feature switch from WU0 to after the debrief](YP-14.md)
 - [Onboarding guide (PR #4): Claude Code onboarding guide for new teammates](onboarding-guide.md)
+
+## Reviewed — nothing noteworthy
+
+- [YP-12: Deck test for the theme's colour contrast](YP-12.md)

@@ -20,12 +20,16 @@ https://lutsenko-yuriy.github.io/yab-promo/ (source: `deck/`).
   with reduced motion turned on, they are not.
 - The viewer can switch between English and German at any time; the current slide stays. A
   `?lang=de` link opens the deck in German.
-- The first slide is a table of contents linking to six sections:
+- The first slide is a table of contents under the title YAB, with the full name, Yuriy's
+  agentic boyz, on its own smaller line. It links to six sections:
   1. Purpose of YAB: what it is, the ticket lifecycle with its human gates, and its memory.
   2. Core values: the human stays in charge, a safe space to think, and understanding before
      decisions.
   3. An example: Habit Loop's HAB-202, from the brief, analytics and plan through six work
-     units and the review to the debrief, on a work-unit track that stays in place.
+     units and the review to the debrief, on a work-unit track that stays in place. From the
+     first work unit on, a panel beside the story shows the feature switch (pact chaining
+     enabled) and what it is for; it stays off until the debrief has been shown, then one
+     more click turns it on.
   4. Cases: Habit Loop (Flutter), CheckLister (React Native) and Mordovorot (Kotlin
      Multiplatform), each with screenshots, a link to its public repo and, where it has them,
      numbers with the date they were counted; then CheckLister on Codex.

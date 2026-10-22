@@ -4,6 +4,12 @@ A record of all versioned releases. For planned work and known issues, see @docs
 
 ---
 
+## [0.3.0] — 2026-10-22 (PR #15 merged)
+
+### Changed
+- [user] YP-14: the presentation's example now shows its feature switch from the first work unit on, beside the story, with what it is for; it stays off until the retrospective has been shown, then turns on. The title slide shows YAB on its own with the full name below it, and the analytics slide asks its question right under the title (PR #15)
+- [non-user] YP-14: switch panel with stable Auto-Animate ids (the switch labels included, so they no longer fade in on every slide), shared `.subtitle` style, shorter German analytics copy so the slide keeps the shared story height, deck tests for all of it
+
 ## [0.2.1] — 2026-10-22 (PR #13 merged)
 
 ### Added

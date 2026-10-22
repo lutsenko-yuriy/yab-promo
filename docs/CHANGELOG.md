@@ -4,6 +4,12 @@ A record of all versioned releases. For planned work and known issues, see @docs
 
 ---
 
+## [0.3.1] — 2026-10-23 (PR #17 merged)
+
+### Changed
+- [user] YP-16: the core values now read as a chain — a safe space to think, understanding before decisions, and the human stays in charge (PR #17)
+- [meta] YP-16: trivial changes start with the ticket and a branch from the latest `origin/main`, before any file is touched (PR #17)
+
 ## [0.3.0] — 2026-10-22 (PR #15 merged)
 
 ### Changed

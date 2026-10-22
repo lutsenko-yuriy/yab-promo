@@ -23,8 +23,8 @@ https://lutsenko-yuriy.github.io/yab-promo/ (source: `deck/`).
 - The first slide is a table of contents under the title YAB, with the full name, Yuriy's
   agentic boyz, on its own smaller line. It links to six sections:
   1. Purpose of YAB: what it is, the ticket lifecycle with its human gates, and its memory.
-  2. Core values: the human stays in charge, a safe space to think, and understanding before
-     decisions.
+  2. Core values: a safe space to think, understanding before decisions, and the human stays
+     in charge.
   3. An example: Habit Loop's HAB-202, from the brief, analytics and plan through six work
      units and the review to the debrief, on a work-unit track that stays in place. From the
      first work unit on, a panel beside the story shows the feature switch (pact chaining

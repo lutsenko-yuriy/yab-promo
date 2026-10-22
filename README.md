@@ -12,7 +12,9 @@ The presentation deck is `deck/index.html`. It works opened straight from the fi
 
 ```bash
 python3 -m unittest discover -s scripts/onboard/tests -t .
-python3 -m unittest discover -s scripts/skill_router/tests -t scripts
+python3 -m unittest discover -s scripts/skill_router -t scripts
+python3 -m unittest discover -s scripts/checkup/tests -t scripts
+python3 -m unittest discover -s scripts/notes/tests -t .
 python3 -m unittest discover -s tests -t .
 ```
 

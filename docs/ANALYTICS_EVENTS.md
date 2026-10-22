@@ -1,6 +1,6 @@
 # Analytics Events
 
-All events are sent via the analytics service abstraction (a thin wrapper around the underlying analytics SDK).
+The deck ships without tracking: no analytics script and no events. Cookie-free view tracking is planned in YP-5.
 
 ---
 

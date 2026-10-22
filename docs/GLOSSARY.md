@@ -20,3 +20,26 @@ When a new term is introduced during a `brief` session, add it here before creat
 | commitment | pact |
 
 -->
+
+## Presentation deck
+
+| Term | Definition | Code symbol |
+|---|---|---|
+| Deck | The animated YAB presentation published on GitHub Pages | `deck/` |
+| Contents slide | The first slide: a card per section, linking to its opener | `#toc`, `toc.*` keys |
+| Section | One of the deck's six parts, listed on the contents slide and in the section menu | `toc.<section>` |
+| Section opener | The first slide of a section; its title morphs from the section's contents card | `id="<section>"` |
+| Section menu | The menu at the top left that jumps to any section and marks the one being shown | `.yab-menu` |
+| Section label | The fixed text beside the section menu naming the section being shown | `.yab-section`, `eyebrow.<section>` keys |
+| Plans for the future | Section 5: what YAB has not proven yet and what comes next | `limits` |
+| Case | A real project built with YAB, shown with screenshots and a link to its repo | `cases-<app>` |
+| Work-unit track | The row of chips showing workflow steps and work units, kept in place across the example section | `.wu-track`, `.wu-chip` |
+| String table | The per-language file holding every visible deck string by key | `deck/i18n/<lang>.js` |
+
+## Known aliases to avoid
+
+| Avoid | Use instead |
+|---|---|
+| Eyebrow (outside the `eyebrow.*` keys) | Section label |
+| Limits, Not proven yet | Plans for the future |
+| TOC (in copy) | Contents slide |

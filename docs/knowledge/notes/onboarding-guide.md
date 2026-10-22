@@ -1,3 +1,7 @@
+---
+bookmarks: [upstream-candidate]
+---
+
 # Onboarding guide (PR #4): Claude Code onboarding guide for new teammates
 
 ## Notes

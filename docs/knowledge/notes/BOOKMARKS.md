@@ -14,3 +14,4 @@ surfaces a recurring theme worth tagging; re-validated quarterly as part of the 
 | Bookmark | Meaning |
 |---|---|
 | scope-growth | Scope added after planning, often once the running result could be seen |
+| upstream-candidate | A fix to a YAB framework file that should also go to yuriys-agentic-boyz |

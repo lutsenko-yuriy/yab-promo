@@ -29,4 +29,4 @@ Explain why, not what, in one concise line. No comments in promo copy.
 
 - No code on slides: the audience includes POs and PMs. `tests/deck/` rejects `<code>` and `<pre>`.
 - One idea per slide, at most about 25 visible words.
-- All visible text goes through the string tables in `deck/i18n/`; German is translated, not copied from English.
+- All visible text goes through the string tables in `deck/i18n/`; German is translated, not copied from English. The one exception is the chip names on the work-unit tracks (`Brief`, `Plan`, `WU1`, …): they name skills and work units, so they stay in the markup, the same in both languages.

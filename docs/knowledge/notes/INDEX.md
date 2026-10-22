@@ -6,9 +6,13 @@ Generated from `bookmarks:` frontmatter in `docs/knowledge/notes/*.md`. Run `pyt
 
 ## Top themes
 
+- **scope-growth** (1)
+- **upstream-candidate** (1)
 
 ## By bookmark
 
-## Not yet reviewed
+### scope-growth
+- [YP-2: Animated YAB presentation deck](YP-2.md)
 
+### upstream-candidate
 - [Onboarding guide (PR #4): Claude Code onboarding guide for new teammates](onboarding-guide.md)

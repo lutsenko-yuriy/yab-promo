@@ -19,12 +19,10 @@ Findings needing human decision or larger effort, each carrying an explicit dead
 |---|---|---|---|---|---|---|---|
 | CHK-2026-10-22-light-1 | 2026-10-22 | light | Scenario quality | prudent-inadvertent | `onboard` reads origin with `git remote get-url`, so host `insteadOf` rewrites break `test_url_sets_origin` in cloud containers (upstream) | 2026-12-01 | [CHK-2026-10-22-light](CHK-2026-10-22-light.md) |
 | CHK-2026-10-22-light-2 | 2026-10-22 | light | Doc-reality drift | prudent-inadvertent | No skill adds new tickets to BACKLOG.md, so it drifts from GitHub Issues (upstream) | 2026-12-01 | [CHK-2026-10-22-light](CHK-2026-10-22-light.md) |
-| CHK-2026-10-22-heavy-1 | 2026-10-22 | heavy | Accessibility | prudent-inadvertent | Light-green deck arrows and markers at 1.93:1, under the 3:1 for meaningful graphics | 2027-01-14 | [CHK-2026-10-22-heavy](CHK-2026-10-22-heavy.md) |
-
 ## Resolved findings
 
 Archive of findings once fixed or otherwise closed out.
 
 | ID | Opened | Resolved | Tier | Dimension | Summary | Write-up |
 |---|---|---|---|---|---|---|
-| _none yet_ | | | | | | |
+| CHK-2026-10-22-heavy-1 | 2026-10-22 | 2026-10-22 | heavy | Accessibility | Light-green deck arrows at 1.93:1; arrows now use `#558b2f` (3.78:1) | [CHK-2026-10-22-heavy](CHK-2026-10-22-heavy.md) |

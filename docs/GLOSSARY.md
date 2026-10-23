@@ -33,7 +33,9 @@ When a new term is introduced during a `brief` session, add it here before creat
 | Section label | The fixed text beside the section menu naming the section being shown | `.yab-section`, `eyebrow.<section>` keys |
 | Plans for the future | Section 5: what YAB has not proven yet and what comes next | `limits` |
 | Case | A real project built with YAB, shown with screenshots and a link to its repo | `cases-<app>` |
-| Work-unit track | The row of chips showing workflow steps and work units, kept in place across the example section | `.wu-track`, `.wu-chip` |
+| Work-unit track | The row of chips showing workflow steps and work units, on the brief, analytics and plan slides of the example and on `cases-checklister` | `.wu-track`, `.wu-chip` |
+| Branch diagram | The top of each development slide in the example (WU0 to the debrief): a `main` line with one branch per work unit, merged back once done; each label links to that unit's pull request | — |
+| Loosely trunk-based | YAB's way of branching: one branch and pull request per work unit, each merged straight into `main` | — |
 | Pact chaining | The whole HAB-202 feature in the example: restarting a finished pact as a new, linked one, plus the links between them; behind the flag `pact_chaining_enabled`, shown on the slides as "pact chaining feature flag" | `pact_chaining_enabled` |
 | Switch panel | The left part of each example slide from WU0 to the debrief: the feature switch, its name and purpose, set off by a thin divider | `.switch-panel`, `switch.*` keys |
 | String table | The per-language file holding every visible deck string by key | `deck/i18n/<lang>.js` |

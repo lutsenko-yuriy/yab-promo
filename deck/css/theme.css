@@ -742,8 +742,9 @@ body {
   font-weight: 700;
 }
 
-/* Both labels are always laid out and only swap by opacity, and the knob moves by margin:
-   while a slide auto-animates, reveal.js reserves transform for itself. */
+/* Both labels are always laid out and swap by opacity, and the knob moves by margin: while
+   a slide auto-animates, reveal.js reserves transform for itself. The hidden label is also
+   visibility: hidden, so screen readers hear one state at a time. */
 .reveal .toggle-label {
   position: absolute;
   top: 0;
@@ -759,6 +760,7 @@ body {
 .reveal .toggle-on {
   left: 26px;
   opacity: 0;
+  visibility: hidden;
 }
 
 .reveal .toggle-knob {
@@ -813,13 +815,15 @@ body {
 
 .reveal .toggle.fragment.visible .toggle-off {
   opacity: 0 !important;
-  transition: opacity 0.3s ease 0.7s !important;
+  visibility: hidden;
+  transition: opacity 0.3s ease 0.7s, visibility 0s linear 1s !important;
 }
 
 .reveal .toggle.fragment.visible .toggle-on {
   color: var(--yab-surface) !important;
   opacity: 1 !important;
-  transition: opacity 0.3s ease 0.7s !important;
+  visibility: visible;
+  transition: opacity 0.3s ease 0.7s, visibility 0s linear 0.7s !important;
 }
 
 .reveal .verdict {

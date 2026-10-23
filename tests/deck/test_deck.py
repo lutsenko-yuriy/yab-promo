@@ -631,6 +631,21 @@ class MarkupTest(unittest.TestCase):
         self.assertEqual(len(done), 1)
         self.assertIn("sr-only", done[0].get("class", "").split())
 
+    def test_switch_reads_one_state_at_a_time(self):
+        # Both labels stay laid out so the switch can animate; the inactive one must also
+        # leave the accessibility tree, which opacity alone does not do.
+        css = (DECK / "css" / "theme.css").read_text(encoding="utf-8")
+        rules = {
+            ".reveal .toggle-on": "visibility: hidden",
+            ".reveal .toggle.fragment.visible .toggle-on": "visibility: visible",
+            ".reveal .toggle.fragment.visible .toggle-off": "visibility: hidden",
+        }
+        for selector, declaration in rules.items():
+            block = re.search(rf"^{re.escape(selector)} \{{(.*?)\}}", css, re.M | re.S)
+            with self.subTest(selector=selector):
+                self.assertIsNotNone(block)
+                self.assertIn(declaration, block.group(1))
+
     def test_switch_is_named_as_a_feature_flag(self):
         for lang in LANGS:
             with self.subTest(lang=lang):

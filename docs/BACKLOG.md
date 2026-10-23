@@ -17,4 +17,3 @@ _(nothing in progress)_
 ## Unscheduled
 
 - YP-5: Privacy-friendly view tracking for the YAB presentation deck
-- YP-19: German brief slide overflows the shared story height

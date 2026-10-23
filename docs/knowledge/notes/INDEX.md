@@ -24,3 +24,4 @@ Generated from `bookmarks:` frontmatter in `docs/knowledge/notes/*.md`. Run `pyt
 
 - [YP-12: Deck test for the theme's colour contrast](YP-12.md)
 - [YP-16: Reorder core values into a logical chain](YP-16.md)
+- [YP-19: German brief slide overflows the shared story height](YP-19.md)

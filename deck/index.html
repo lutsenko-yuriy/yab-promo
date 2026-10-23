@@ -839,7 +839,7 @@
             </div>
             <div class="lane is-open" data-id="lane-wu-4">
               <span class="branch-line" data-id="branch-wu-4"></span>
-              <span class="merge-line" data-id="merge-wu-4"></span>
+              <span class="merge-line fragment custom" data-id="merge-wu-4" data-fragment-index="4"></span>
               <span class="branch-tip" data-id="tip-wu-4"></span>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/341" target="_blank" rel="noopener" data-id="label-wu-4" aria-current="step"><span class="wu-name">WU4</span> · <span data-i18n="wu.button"></span></a>
             </div>
@@ -847,17 +847,36 @@
         </div>
         <div class="story-body">
           <div class="switch-panel" data-id="switch-panel">
-            <p class="toggle fragment custom" data-id="toggle" data-fragment-index="3"><span class="toggle-knob" data-id="toggle-knob"></span><span class="toggle-label toggle-off" data-id="toggle-off" data-i18n="switch.off"></span><span class="toggle-label toggle-on" data-id="toggle-on" data-i18n="switch.on"></span></p>
+            <p class="toggle fragment custom" data-id="toggle" data-fragment-index="4"><span class="toggle-knob" data-id="toggle-knob"></span><span class="toggle-label toggle-off" data-id="toggle-off" data-i18n="switch.off"></span><span class="toggle-label toggle-on" data-id="toggle-on" data-i18n="switch.on"></span></p>
             <p class="switch-name" data-id="switch-name" data-i18n="switch.name"></p>
             <p class="switch-purpose" data-id="switch-purpose" data-i18n="switch.purpose"></p>
           </div>
           <div class="story-main">
             <h2 data-i18n="example-debrief.title"></h2>
-            <div class="cards">
-              <p class="card fragment" data-fragment-index="0" data-i18n="example-debrief.review"></p>
-              <p class="card fragment" data-fragment-index="1" data-i18n="example-debrief.timeouts"></p>
+            <div class="cards retro">
+              <div class="card fragment" data-fragment-index="0">
+                <span class="card-title" data-i18n="example-debrief.noted"></span>
+                <ul class="retro-list">
+                  <li data-i18n="example-debrief.noted-hang"></li>
+                  <li data-i18n="example-debrief.noted-swipe"></li>
+                </ul>
+              </div>
+              <div class="card fragment" data-fragment-index="1">
+                <span class="card-title" data-i18n="example-debrief.learned"></span>
+                <ul class="retro-list">
+                  <li data-i18n="example-debrief.learned-taste"></li>
+                  <li data-i18n="example-debrief.learned-rerun"></li>
+                </ul>
+              </div>
+              <div class="card fragment" data-fragment-index="2">
+                <span class="card-title" data-i18n="example-debrief.changed"></span>
+                <ul class="retro-list">
+                  <li data-i18n="example-debrief.changed-review"></li>
+                  <li data-i18n="example-debrief.changed-timeout"></li>
+                </ul>
+              </div>
             </div>
-            <div class="stats fragment" data-fragment-index="2">
+            <div class="stats is-compact fragment" data-fragment-index="3">
               <p class="stat"><span class="stat-num">6</span><span data-i18n="example-debrief.units"></span></p>
               <p class="stat"><span class="stat-num">7</span><span data-i18n="example-debrief.scenarios"></span></p>
               <p class="stat"><span class="stat-num">1</span><span data-i18n="example-debrief.ticket"></span></p>

@@ -6,18 +6,21 @@ Generated from `bookmarks:` frontmatter in `docs/knowledge/notes/*.md`. Run `pyt
 
 ## Top themes
 
-- **upstream-candidate** (2)
-- **scope-growth** (1)
+- **upstream-candidate** (3)
+- **scope-growth** (2)
 
 ## By bookmark
 
 ### scope-growth
+- [YP-18: Example: one branch and PR per work unit as a growing branch diagram (loosely trunk-based), plus the branching limit](YP-18.md)
 - [YP-2: Animated YAB presentation deck](YP-2.md)
 
 ### upstream-candidate
 - [YP-14: Deck polish: YAB title, the analytics question, and the feature switch from WU0 to after the debrief](YP-14.md)
+- [YP-18: Example: one branch and PR per work unit as a growing branch diagram (loosely trunk-based), plus the branching limit](YP-18.md)
 - [Onboarding guide (PR #4): Claude Code onboarding guide for new teammates](onboarding-guide.md)
 
 ## Reviewed — nothing noteworthy
 
 - [YP-12: Deck test for the theme's colour contrast](YP-12.md)
+- [YP-16: Reorder core values into a logical chain](YP-16.md)

@@ -18,9 +18,11 @@ GRAPHIC_MINIMUM = 3.0  # WCAG 1.4.11, graphics needed to follow the slide
 
 PAGE_BACKGROUND = "yab-background"
 
-# Arrows show the order of steps, so they are graphics; everything else that sets a
-# colour is text.
-GRAPHIC_SELECTOR = re.compile(r"arrow|::after|::before")
+# Arrows show the order of steps and the branch diagram's lines and commits show each work
+# unit's branch, so they are graphics; everything else that sets a colour is text.
+GRAPHIC_SELECTOR = re.compile(
+    r"arrow|main-line|branch-line|merge-line|commit|main-node|::after|::before"
+)
 
 # Kept light green on purpose (checkup heavy-1, PR #11): list markers and the progress
 # bar only decorate, the slide reads the same without them.
@@ -86,6 +88,7 @@ class ContrastTest(unittest.TestCase):
         selectors = [selector for selector, _, _ in self.rules]
         self.assertIn(".reveal h1, .reveal h2", selectors)
         self.assertIn(".reveal .chain-arrow", selectors)
+        self.assertTrue([s for s in selectors if "branch-line" in s], "no branch line colour")
         self.assertLessEqual(DECORATIVE_SELECTORS, set(selectors), "stale exception")
 
     def test_text_and_graphics_stand_out_from_their_background(self):

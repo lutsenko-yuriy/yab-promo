@@ -434,66 +434,12 @@ body {
   border-color: var(--yab-sunrise);
 }
 
-/* Brief, analytics, plan and debrief are workflow steps, not work units: name-only chips
-   in a sunrise border, set apart from the units. */
+/* Brief, analytics and plan are workflow steps, not work units: name-only chips in a
+   sunrise border. */
 .reveal .wu-chip.is-step {
   justify-content: center;
   min-width: 0;
   border-color: var(--yab-sunrise);
-}
-
-/* Dividers set the scoping steps and the debrief apart from the work units: a line centred
-   in the widened gap (12px track gap + 12px margin; 2px border, 2px line). */
-.reveal .wu-chip[data-id="step-plan"] {
-  position: relative;
-  margin-right: 12px;
-}
-
-.reveal .wu-chip[data-id="step-debrief"] {
-  position: relative;
-  margin-left: 12px;
-}
-
-.reveal .wu-chip[data-id="step-plan"]:not(:last-child)::after,
-.reveal .wu-chip[data-id="step-debrief"]::before {
-  content: "";
-  position: absolute;
-  top: -2px;
-  bottom: -2px;
-  width: 2px;
-  border-radius: 1px;
-  background: var(--yab-border);
-}
-
-.reveal .wu-chip[data-id="step-plan"]::after {
-  right: -15px;
-}
-
-.reveal .wu-chip[data-id="step-debrief"]::before {
-  left: -15px;
-}
-
-/* On the plan slide the line waits for the first work unit to appear. */
-.reveal .wu-chip[data-id="step-plan"]:has(+ .fragment:not(.visible))::after {
-  display: none;
-}
-
-/* On the plan slide the work units appear on one click, one after another. Steps fill the
-   first three places; delays only on the way in, so stepping back hides them at once. */
-.reveal .wu-chip.fragment.visible:nth-child(5) {
-  transition-delay: 0.12s;
-}
-
-.reveal .wu-chip.fragment.visible:nth-child(6) {
-  transition-delay: 0.24s;
-}
-
-.reveal .wu-chip.fragment.visible:nth-child(7) {
-  transition-delay: 0.36s;
-}
-
-.reveal .wu-chip.fragment.visible:nth-child(8) {
-  transition-delay: 0.48s;
 }
 
 .reveal .wu-chip.is-current {
@@ -512,16 +458,197 @@ body {
   border-color: var(--yab-sunrise);
 }
 
-/* The regression on WU4: the current chip flashes red once the callout shows. */
-.reveal section.present:has(.regression.visible) .wu-chip.is-current {
-  animation: yab-flash 1.8s ease-in-out both;
+/* Brief to debrief: a fixed band at the top holds the branch diagram, so Auto-Animate keeps
+   it still while the story below changes. Loosely trunk-based: one branch per work unit,
+   forking from main where the previous one merged and merged back through its own pull
+   request. Main runs faintly behind the scoping steps; the units join on the plan.
+   Every part has the same box on every slide; states only fade parts in and out and
+   recolour them, since Auto-Animate morphs neither shapes nor sizes. The drawings are SVG,
+   stroked and filled with currentColor. */
+.reveal .story-head {
+  position: relative;
+  display: flow-root; /* the steps' margin stays inside, so main sits alike everywhere */
+  height: 88px;
+  margin-bottom: 18px;
 }
 
-@keyframes yab-flash {
+/* The scoping steps sit on main like stations; WU0 keeps a hidden copy of them so they fade
+   out rather than vanish. */
+.reveal .story-head .wu-track {
+  position: relative;
+  z-index: 1;
+  margin: 4px 0 0;
+}
+
+.reveal .wu-track.is-leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.reveal .branches {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(6, 200px);
+  padding-left: 16px;
+}
+
+.reveal .main-line {
+  position: absolute;
+  top: 34px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+.reveal .main-line,
+.reveal .main-label {
+  color: var(--yab-primary-dark);
+}
+
+/* Barely there while the ticket is scoped: nothing has branched yet. */
+.reveal .branches.is-scoping .main-line,
+.reveal .branches.is-scoping .main-label {
+  color: var(--yab-muted);
+  opacity: 0.12;
+}
+
+.reveal .main-label {
+  position: absolute;
+  top: 6px;
+  right: 0;
+  font-size: 0.45em;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.reveal .lane {
+  position: relative;
+  height: 88px;
+}
+
+.reveal .branch-art {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: visible;
+}
+
+/* The branch leaves main at an angle and runs under it; the merge climbs back. */
+.reveal .branch-line,
+.reveal .merge-line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+}
+
+.reveal .commit,
+.reveal .main-node {
+  fill: currentColor;
+  stroke: var(--yab-background);
+  stroke-width: 2;
+  opacity: 0;
+}
+
+/* Commits on main: where a branch forks, and where it merges. A branch forks where the one
+   before it merged, so the two share one commit. */
+.reveal .main-node {
+  color: var(--yab-primary-dark);
+}
+
+.reveal .lane.is-inserted .branch-line,
+.reveal .lane.is-inserted .merge-line {
+  stroke-dasharray: 7 6;
+}
+
+.reveal .lane.is-open .branch-line,
+.reveal .lane.is-open .commit {
+  color: var(--yab-primary);
+  opacity: 1;
+}
+
+.reveal .lane.is-merged .branch-line,
+.reveal .lane.is-merged .merge-line,
+.reveal .lane.is-merged .commit {
+  color: var(--yab-growth-dark);
+  opacity: 1;
+}
+
+.reveal .lane.is-open .fork-node,
+.reveal .lane.is-merged .main-node {
+  opacity: 1;
+}
+
+.reveal .branch-label {
+  position: absolute;
+  top: 70px;
+  left: 10px;
+  font-size: 0.45em;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.reveal .lane.is-planned .branch-label {
+  color: var(--yab-muted);
+}
+
+.reveal .lane.is-open .branch-label {
+  color: var(--yab-primary);
+}
+
+.reveal .lane.is-merged .branch-label {
+  color: var(--yab-primary-dark);
+}
+
+/* The debrief happens on WU4's branch: its label names it on the debrief only, but the
+   words are laid out on every slide so the label keeps its size. */
+.reveal .label-debrief {
+  opacity: 0;
+}
+
+.reveal .lane.with-debrief .label-debrief {
+  opacity: 1;
+}
+
+.reveal .branch-label[href]:hover {
+  text-decoration: underline;
+}
+
+/* !important: reveal.js pins outline and transition on auto-animated elements. */
+.reveal .branch-label[href]:focus-visible {
+  outline: 3px solid var(--yab-primary) !important;
+  outline-offset: 2px !important;
+  border-radius: 4px;
+  transition: none !important;
+}
+
+/* The regression on WU4: the open branch flashes red once the callout shows. It animates
+   stroke and fill, which reveal.js leaves alone, rather than the pinned colour. */
+.reveal section.present:has(.regression.visible) .lane.is-open .branch-line {
+  animation: yab-flash-stroke 1.8s ease-in-out both;
+}
+
+.reveal section.present:has(.regression.visible) .lane.is-open .commit {
+  animation: yab-flash-fill 1.8s ease-in-out both;
+}
+
+@keyframes yab-flash-stroke {
   25%,
   60% {
-    border-color: var(--yab-danger);
-    background: var(--yab-danger);
+    stroke: var(--yab-danger);
+  }
+}
+
+@keyframes yab-flash-fill {
+  25%,
+  60% {
+    fill: var(--yab-danger);
   }
 }
 
@@ -601,43 +728,102 @@ body {
 }
 
 .reveal .toggle {
+  position: relative;
   display: flex;
   flex: none;
   align-items: center;
-  justify-content: space-between;
   width: 170px;
   box-sizing: border-box;
   margin: 0;
-  padding: 8px 26px 8px 8px;
+  padding: 8px;
   border-radius: 999px;
   background: var(--yab-border);
   color: var(--yab-primary-dark);
   font-weight: 700;
 }
 
-/* Off on every slide; on the debrief its last click turns the switch on. */
-.reveal .toggle.fragment.visible {
-  flex-direction: row-reverse;
-  padding: 8px 8px 8px 26px;
-  background: var(--yab-success);
-  color: var(--yab-surface);
+/* Both labels are always laid out and swap by opacity, and the knob moves by margin: while
+   a slide auto-animates, reveal.js reserves transform for itself. The hidden label is also
+   visibility: hidden, so screen readers hear one state at a time. */
+.reveal .toggle-label {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
 }
 
-.reveal .toggle-on,
-.reveal .toggle.fragment.visible .toggle-off {
-  display: none;
+.reveal .toggle-off {
+  right: 26px;
 }
 
-.reveal .toggle.fragment.visible .toggle-on {
-  display: inline;
+.reveal .toggle-on {
+  left: 26px;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .reveal .toggle-knob {
+  position: relative;
+  z-index: 1;
   width: 48px;
   height: 48px;
+  margin-left: 0;
   border-radius: 50%;
   background: var(--yab-surface);
   box-shadow: var(--yab-shadow);
+}
+
+/* Off on every slide. The debrief's last click merges WU4 into main and then turns the
+   switch on. After a slide auto-animates, reveal.js pins its matched elements' colours and
+   opacity with !important until the slide is left; only a transition outranks that, so the
+   end states are !important and only the way in is animated (stepping back is instant). */
+.reveal .toggle.fragment,
+.reveal .merge-line.fragment,
+.reveal .merge-node.fragment {
+  transition: none;
+}
+
+.reveal .lane .merge-line.fragment.visible,
+.reveal .lane .merge-node.fragment.visible {
+  opacity: 1 !important;
+  transition: opacity 0.4s ease !important;
+}
+
+.reveal .lane:has(.merge-line.visible) .branch-line,
+.reveal .lane:has(.merge-line.visible) .merge-line,
+.reveal .lane:has(.merge-line.visible) .commit {
+  color: var(--yab-growth-dark) !important;
+  transition: color 0.4s ease, opacity 0.4s ease !important;
+}
+
+.reveal .lane:has(.merge-line.visible) .branch-label {
+  color: var(--yab-primary-dark) !important;
+  transition: color 0.4s ease !important;
+}
+
+.reveal .toggle.fragment.visible {
+  background: var(--yab-success) !important;
+  color: var(--yab-surface) !important;
+  transition: background-color 0.3s ease 0.7s, color 0.3s ease 0.7s !important;
+}
+
+.reveal .toggle.fragment.visible .toggle-knob {
+  margin-left: 106px;
+  transition: margin-left 0.3s ease 0.7s !important;
+}
+
+.reveal .toggle.fragment.visible .toggle-off {
+  opacity: 0 !important;
+  visibility: hidden;
+  transition: opacity 0.3s ease 0.7s, visibility 0s linear 1s !important;
+}
+
+.reveal .toggle.fragment.visible .toggle-on {
+  color: var(--yab-surface) !important;
+  opacity: 1 !important;
+  visibility: visible;
+  transition: opacity 0.3s ease 0.7s, visibility 0s linear 0.7s !important;
 }
 
 .reveal .verdict {
@@ -651,6 +837,34 @@ body {
   display: flex;
   gap: 56px;
   margin-top: 32px;
+}
+
+.reveal .stats.is-compact {
+  margin-top: 20px;
+}
+
+.reveal .stats.is-compact .stat-num {
+  font-size: 1.3em;
+}
+
+/* The debrief's three columns: noted, learned, changed in the workflow. */
+.reveal .retro {
+  gap: 20px;
+}
+
+.reveal .retro .card {
+  padding: 12px 16px;
+  font-size: 0.5em;
+  line-height: 1.3;
+}
+
+.reveal .retro-list {
+  margin: 8px 0 0 1.1em;
+  padding: 0;
+}
+
+.reveal .retro-list li {
+  margin: 0 0 6px;
 }
 
 .reveal .stat {
@@ -1075,16 +1289,21 @@ body {
   }
 
   .reveal section.present .human,
-  .reveal section.present:has(.regression.visible) .wu-chip.is-current {
+  .reveal section.present:has(.regression.visible) .lane.is-open .branch-line,
+  .reveal section.present:has(.regression.visible) .lane.is-open .commit {
     animation: none;
   }
 
-  .reveal .wu-chip.fragment.visible {
-    transition-delay: 0s;
-  }
-
-  .reveal .toggle.fragment {
-    transition: none;
+  .reveal .toggle.fragment.visible,
+  .reveal .toggle.fragment.visible .toggle-knob,
+  .reveal .toggle.fragment.visible .toggle-label,
+  .reveal .lane .merge-line.fragment.visible,
+  .reveal .lane .merge-node.fragment.visible,
+  .reveal .lane:has(.merge-line.visible) .branch-line,
+  .reveal .lane:has(.merge-line.visible) .merge-line,
+  .reveal .lane:has(.merge-line.visible) .commit,
+  .reveal .lane:has(.merge-line.visible) .branch-label {
+    transition: none !important;
   }
 
   .yab-rotate-phone {

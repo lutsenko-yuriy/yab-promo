@@ -26,15 +26,22 @@ https://lutsenko-yuriy.github.io/yab-promo/ (source: `deck/`).
   2. Core values: a safe space to think, understanding before decisions, and the human stays
      in charge.
   3. An example: Habit Loop's HAB-202, from the brief, analytics and plan through six work
-     units and the review to the debrief, on a work-unit track that stays in place. From the
-     first work unit on, a panel beside the story shows the feature switch (pact chaining
-     enabled) and what it is for; it stays off until the debrief has been shown, then one
-     more click turns it on.
+     units and the review to the debrief. The brief, analytics and plan carry the workflow
+     steps; the plan says YAB is loosely trunk-based and why units stay small and unfinished
+     parts stay behind a switch. A branch diagram stays in place at the top: a faint `main`
+     behind the steps while the ticket is scoped; from WU0, once the steps have faded out,
+     one branch per work unit across the width with its commits, each forking where the
+     previous one merged, each label linking to its pull request. The debrief happens on
+     WU4's branch. From the first work unit on, a panel beside the story shows the feature
+     switch (pact chaining feature flag) and what it is for. The debrief shows what was noted,
+     learned and changed in the workflow, then the numbers; its last click merges WU4 into
+     main and then turns the switch on.
   4. Cases: Habit Loop (Flutter), CheckLister (React Native) and Mordovorot (Kotlin
      Multiplatform), each with screenshots, a link to its public repo and, where it has them,
      numbers with the date they were counted; then CheckLister on Codex.
   5. Plans for the future: what is not proven yet (scale, giant brownfield codebases,
-     runtimes and tools) and what comes in the next updates.
+     runtimes and tools, branching models other than trunk-based) and what comes in the next
+     updates.
   6. Get YAB: the link to the template, three steps to start, and what YAB gives in return.
 - From any slide, the viewer can open the section menu (top left) and jump to a section; the
   menu marks the section being shown.

@@ -49,22 +49,40 @@ shared groups: `meta.*` (page title), `controls.*` (language switch, full screen
 `eyebrow.<section>` (the section label fixed beside the menu, naming the section being shown),
 `toc.<section>` (each section's name, used on its contents card and as its opener's
 title, so Auto-Animate morphs one into the other), `flow.<step>` (the lifecycle
-steps, shown on both `purpose-flow` and `purpose-human`), `wu.<unit>` (the labels on
-the work-unit tracks: the one that runs through the example section, and CheL-36's on
-`cases-checklister`) and `switch.*` (the feature switch shown in the example section, its
-name and its purpose). Elements name their key in `data-i18n` (inner HTML),
+steps, shown on both `purpose-flow` and `purpose-human`), `wu.<unit>` (the work-unit
+labels, on the example's branch diagram and on CheL-36's track on `cases-checklister`) and
+`switch.*` (the feature switch shown in the example section, its name and its purpose).
+Elements name their key in `data-i18n` (inner HTML),
 `data-i18n-aria` (`aria-label` and tooltip) or `data-i18n-alt` (an image's `alt`).
 
-The example section's slides (`class="story"`) share one height so the work-unit track
-stays in place while Auto-Animate recolours its chips from slide to slide: the work units
-(`data-id="wu-<n>"`) between the workflow steps around them (`data-id="step-<skill>"`:
-brief, analyze and plan before, debrief after). The
-brief and analytics slides show only those steps; the work units appear once the plan makes them.
-From WU0 to the debrief, everything below the track sits in `.story-body`: a switch panel
+The example section's slides (`class="story"`) share one height so what runs across them
+stays in place while Auto-Animate recolours it. From the brief to the debrief a fixed band
+at the top (`.story-head`) holds the branch diagram (`.branches`). On the brief, analytics
+and plan slides the workflow steps (`data-id="step-<skill>"`) sit on a faint `main`
+(`.branches.is-scoping`). WU0 keeps a hidden copy of the steps (`.wu-track.is-leaving`) so
+they fade out instead of vanishing, and only then do the work units appear: one lane per
+unit (`data-id="lane-<unit>"`) across the full width, whose `data-auto-animate-delay` on WU0
+holds them back until the steps' 0.7s fade is over. Each lane holds a small inline SVG (`art-<unit>`): the branch leaving main at an
+angle, the merge leg climbing back, the unit's commits (its pull request's real count,
+capped at three) and the fork and merge commits on main (`branch-`, `merge-`,
+`commit-<unit>-<n>`, `fork-`, `mnode-<unit>`), then the label (`label-<unit>`). Each branch
+forks where the one before it merged, so the two share one commit. The debrief happens on
+WU4's branch, so its label adds "+ debrief" there (`.lane.with-debrief`); the words are laid
+out, hidden, on every slide so the label keeps its size. Lanes are `is-planned`,
+`is-open` or `is-merged`; every part keeps the same box on every slide and only fades or
+recolours, because Auto-Animate morphs neither shapes nor sizes. Every element inside the
+diagram and the switch panel has a `data-id`, links' inner text aside: Auto-Animate fades in
+anything unmatched, so a part without one would blink on every slide.
+From WU0 to the debrief, everything below the band sits in `.story-body`: a switch panel
 (`.switch-panel`, with stable `data-id`s for the switch, its name and its purpose, so it
 stays put too) beside the slide's own content (`.story-main`). The switch is off on every
-one of those slides; it is a `fragment custom` with the highest `data-fragment-index` on
-the debrief, so the debrief's last click turns it on.
+one of those slides. On the debrief, WU4's merge leg, its merge commit on main and the switch
+are `fragment custom` sharing the highest `data-fragment-index`, so its last click merges
+WU4 and, 0.7s later, turns the switch on. After a slide auto-animates, reveal.js pins its
+matched elements' colours, opacity, outline and transition with `!important` until the slide
+is left; only CSS transitions outrank that, so the last click uses transitions to
+`!important` end states, and the WU4 regression flash animates `stroke` and `fill`, which
+reveal.js leaves alone.
 
 `.github/workflows/pages.yml` publishes `deck/` alone to GitHub Pages on every push to `main`
 that changes it, so the site carries neither the docs nor the tooling.

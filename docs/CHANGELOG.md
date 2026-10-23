@@ -4,6 +4,13 @@ A record of all versioned releases. For planned work and known issues, see @docs
 
 ---
 
+## [0.4.0] — 2026-10-23 (PR #20 merged)
+
+### Changed
+- [user] YP-18: the presentation's example shows that YAB is loosely trunk-based. The plan states the rule and its two principles (units small enough to review in one sitting; unfinished parts behind a switch until the last unit ships). From WU0 on, a branch diagram stays at the top: one branch per work unit leaving main at an angle, its commits as dots, merged back where the next one forks, each label linking to its Habit Loop pull request. The debrief shows what was noted, learned and changed in the workflow; its last click merges WU4, then turns the switch on. Runtimes and tools adds branching: other models work but cost more, trunk-based is recommended (PR #20)
+- [non-user] YP-18: the WU4 regression flash now also fires when WU4 is reached from WU3 (reveal.js pins auto-animated colours); the switch reads one state at a time to screen readers; deck tests for the diagram, debrief and limit (PR #20)
+- [meta] YP-18: in the review loop, visual ideas get the user's sketch or two or three rough mock-ups before implementing (PR #20)
+
 ## [0.3.1] — 2026-10-23 (PR #17 merged)
 
 ### Changed

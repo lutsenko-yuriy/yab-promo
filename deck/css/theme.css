@@ -512,7 +512,7 @@ body {
 .reveal .branches.is-scoping .main-line,
 .reveal .branches.is-scoping .main-label {
   color: var(--yab-muted);
-  opacity: 0.25;
+  opacity: 0.12;
 }
 
 .reveal .main-label {

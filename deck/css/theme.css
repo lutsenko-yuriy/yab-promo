@@ -604,10 +604,12 @@ body {
   text-decoration: underline;
 }
 
+/* !important: reveal.js pins outline and transition on auto-animated elements. */
 .reveal .branch-label[href]:focus-visible {
-  outline: 3px solid var(--yab-primary);
-  outline-offset: 2px;
+  outline: 3px solid var(--yab-primary) !important;
+  outline-offset: 2px !important;
   border-radius: 4px;
+  transition: none !important;
 }
 
 /* The regression on WU4: the open branch flashes red once the callout shows. The red is

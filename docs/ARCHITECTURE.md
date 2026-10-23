@@ -59,13 +59,16 @@ The example section's slides (`class="story"`) share one height so what runs acr
 stays in place while Auto-Animate recolours it. From the brief to the debrief a fixed band
 at the top (`.story-head`) holds the branch diagram (`.branches`). On the brief, analytics
 and plan slides the workflow steps (`data-id="step-<skill>"`) sit on a faint `main`
-(`.branches.is-scoping`); the plan adds one lane per work unit (`data-id="lane-<unit>"`), and
-WU0 keeps a hidden copy of the steps (`.wu-track.is-leaving`) so they fade out instead of
-vanishing. Each lane holds a small inline SVG (`art-<unit>`): the branch leaving main at an
+(`.branches.is-scoping`). WU0 keeps a hidden copy of the steps (`.wu-track.is-leaving`) so
+they fade out instead of vanishing, and only then do the work units appear: one lane per
+unit (`data-id="lane-<unit>"`) across the full width, whose `data-auto-animate-delay` on WU0
+holds them back until the steps' 0.7s fade is over. Each lane holds a small inline SVG (`art-<unit>`): the branch leaving main at an
 angle, the merge leg climbing back, the unit's commits (its pull request's real count,
 capped at three) and the fork and merge commits on main (`branch-`, `merge-`,
 `commit-<unit>-<n>`, `fork-`, `mnode-<unit>`), then the label (`label-<unit>`). Each branch
-forks where the one before it merged, so the two share one commit. Lanes are `is-planned`,
+forks where the one before it merged, so the two share one commit. The debrief happens on
+WU4's branch, so its label adds "+ debrief" there (`.lane.with-debrief`); the words are laid
+out, hidden, on every slide so the label keeps its size. Lanes are `is-planned`,
 `is-open` or `is-merged`; every part keeps the same box on every slide and only fades or
 recolours, because Auto-Animate morphs neither shapes nor sizes. Every element inside the
 diagram and the switch panel has a `data-id`, links' inner text aside: Auto-Animate fades in

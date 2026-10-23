@@ -200,13 +200,6 @@ window.YAB_I18N.en = {
   "cases-mordovorot.desktop-alt": "Mordovorot in a desktop browser: the board, moves and Mordie’s comment",
   "cases-mordovorot.phone-alt": "Mordovorot in a phone browser",
 
-  "cases-codex.title": "CheckLister also ran on Codex",
-  "cases-codex.lead": "CheL-26 and other CheckLister tickets were built with OpenAI’s Codex instead of Claude Code.",
-  "cases-codex.works": "It works: the same skills, the same workflow, the same human gates.",
-  "cases-codex.tokens": "But it is token-heavy, even with smaller models.",
-  "cases-codex.mapping": "Matching OpenAI’s models to YAB’s effort levels is less mature than for Claude.",
-  "cases-codex.note": "Which brings us to what is still ahead.",
-
   "limits.lead": "Scale is still an open question.",
   "limits.team": "Proven by one developer working with agents, never by a team.",
   "limits.stacks": "Proven on Flutter, React Native, Kotlin Multiplatform and a small Spring Boot backend.",
@@ -215,11 +208,10 @@ window.YAB_I18N.en = {
 
   "limits-tools.title": "Runtimes and tools",
   "limits-tools.claude": "<strong>Claude Code</strong>: the main runtime, proven on every project here.",
-  "limits-tools.codex": "<strong>Codex</strong>: works, but token-heavy, and its model mapping is less mature.",
+  "limits-tools.codex": "<strong>Codex</strong>: works, but token-heavy, and its model mapping is less mature (checked on CheckLister).",
   "limits-tools.opencode": "<strong>OpenCode</strong>: not tried yet.",
   "limits-tools.pm": "<strong>Ticket tracking</strong>: tried with Linear and GitHub Issues only.",
   "limits-tools.branching": "<strong>Branching</strong>: works with git flow and other models, but costs more time, energy and tokens. We recommend trunk-based.",
-  "limits-tools.python": "<strong>Python 3.11 or newer</strong> is needed for the full tooling.",
 
   "limits-next.title": "Coming in the next updates",
   "limits-next.sync": "<span class=\"card-title\">Template sync</span>Projects that already use YAB get template updates automatically.",

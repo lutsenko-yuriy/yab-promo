@@ -4,6 +4,11 @@ A record of all versioned releases. For planned work and known issues, see @docs
 
 ---
 
+## [0.4.2] — 2026-10-23 (PR #23 merged)
+
+### Changed
+- [user] YP-22: the presentation drops the "CheckLister also ran on Codex" slide, since Runtimes and tools already covers Codex; its Codex point now ends with "(checked on CheckLister)". The Python 3.11 point is gone from Runtimes and tools (PR #23)
+
 ## [0.4.1] — 2026-10-23 (PR #21 merged)
 
 ### Fixed

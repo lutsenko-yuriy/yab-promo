@@ -99,13 +99,12 @@ SWITCH_PANEL = ["switch-panel", "toggle", "toggle-knob", "toggle-off", "toggle-o
 SWITCH_KEYS = {"switch.off", "switch.on", "switch.name", "switch.purpose"}
 SWITCH_NAME = "pact chaining feature flag"
 
-# Slides of the cases section, in order: one per app, then the CheckLister tickets run on Codex.
+# Slides of the cases section, in order: the opener, then one per app.
 CASES_SLIDES = [
     "cases",
     "cases-habit-loop",
     "cases-checklister",
     "cases-mordovorot",
-    "cases-codex",
 ]
 # The public repository each app slide links to; its screenshots live in img/cases/<app>/.
 CASE_REPOS = {

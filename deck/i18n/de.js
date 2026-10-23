@@ -200,13 +200,6 @@ window.YAB_I18N.de = {
   "cases-mordovorot.desktop-alt": "Mordovorot im Desktop-Browser: das Spielfeld, die Züge und Mordies Kommentar",
   "cases-mordovorot.phone-alt": "Mordovorot im Browser auf dem Handy",
 
-  "cases-codex.title": "CheckLister lief auch mit Codex",
-  "cases-codex.lead": "CheL-26 und weitere CheckLister-Tickets entstanden mit Codex von OpenAI statt mit Claude Code.",
-  "cases-codex.works": "Es funktioniert: dieselben Skills, derselbe Workflow, dieselben menschlichen Freigaben.",
-  "cases-codex.tokens": "Aber es verbraucht viele Tokens, selbst mit kleineren Modellen.",
-  "cases-codex.mapping": "Die Zuordnung der OpenAI-Modelle zu YABs Aufwandsstufen ist weniger ausgereift als bei Claude.",
-  "cases-codex.note": "Und damit zu dem, was noch vor uns liegt.",
-
   "limits.lead": "Skalierung ist noch eine offene Frage.",
   "limits.team": "Bewährt bei einem Entwickler mit Agenten, noch nie in einem Team.",
   "limits.stacks": "Bewährt mit Flutter, React Native, Kotlin Multiplatform und einem kleinen Spring-Boot-Backend.",
@@ -215,11 +208,10 @@ window.YAB_I18N.de = {
 
   "limits-tools.title": "Laufzeitumgebungen und Werkzeuge",
   "limits-tools.claude": "<strong>Claude Code</strong>: die wichtigste Umgebung, bewährt in jedem Projekt hier.",
-  "limits-tools.codex": "<strong>Codex</strong>: funktioniert, verbraucht aber viele Tokens, und die Modellzuordnung ist weniger ausgereift.",
+  "limits-tools.codex": "<strong>Codex</strong>: funktioniert, verbraucht aber viele Tokens, und die Modellzuordnung ist weniger ausgereift (an CheckLister geprüft).",
   "limits-tools.opencode": "<strong>OpenCode</strong>: noch nicht ausprobiert.",
   "limits-tools.pm": "<strong>Ticket-Verwaltung</strong>: nur mit Linear und GitHub Issues erprobt.",
   "limits-tools.branching": "<strong>Branching</strong>: klappt mit Git Flow und anderen Modellen, kostet aber mehr Zeit, Energie und Tokens. Wir empfehlen trunk-basierte Entwicklung.",
-  "limits-tools.python": "Das volle Tooling braucht <strong>Python 3.11 oder neuer</strong>.",
 
   "limits-next.title": "Kommt in den nächsten Updates",
   "limits-next.sync": "<span class=\"card-title\">Template-Abgleich</span>Projekte, die YAB schon nutzen, bekommen Template-Updates automatisch.",

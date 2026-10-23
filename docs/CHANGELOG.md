@@ -4,6 +4,11 @@ A record of all versioned releases. For planned work and known issues, see @docs
 
 ---
 
+## [0.4.1] — 2026-10-23 (PR #21 merged)
+
+### Fixed
+- [user] YP-19: the German brief slide fits the shared story height, so the step labels no longer jump between the brief and the analytics slides in German (PR #21)
+
 ## [0.4.0] — 2026-10-23 (PR #20 merged)
 
 ### Changed

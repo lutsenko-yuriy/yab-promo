@@ -209,6 +209,7 @@ window.YAB_I18N.de = {
   "limits-tools.codex": "<strong>Codex</strong>: funktioniert, verbraucht aber viele Tokens, und die Modellzuordnung ist weniger ausgereift.",
   "limits-tools.opencode": "<strong>OpenCode</strong>: noch nicht ausprobiert.",
   "limits-tools.pm": "<strong>Ticket-Verwaltung</strong>: nur mit Linear und GitHub Issues erprobt.",
+  "limits-tools.branching": "<strong>Branching</strong>: klappt mit Git Flow und anderen Modellen, kostet aber mehr Zeit, Energie und Tokens. Wir empfehlen trunk-basierte Entwicklung.",
   "limits-tools.python": "Das volle Tooling braucht <strong>Python 3.11 oder neuer</strong>.",
 
   "limits-next.title": "Kommt in den nächsten Updates",

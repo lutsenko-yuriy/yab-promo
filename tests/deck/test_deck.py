@@ -56,10 +56,9 @@ HABIT_LOOP_PULLS = "https://github.com/lutsenko-yuriy/habit-loop/pull/"
 PULL_REQUESTS = {unit: f"{HABIT_LOOP_PULLS}{number}"
                  for unit, number in zip(WORK_UNITS, range(336, 342))}
 # The branch open on each slide of the branch diagram; branches before it are merged, those
-# after it only planned. None: the plan, where every branch is still planned. WU4 stays open
-# through the review and the debrief, whose last click merges it.
+# after it only planned. The units join on WU0, once the scoping steps have faded out. WU4
+# stays open through the review and the debrief, whose last click merges it.
 OPEN_BRANCH = {
-    "example-plan": None,
     "example-wu0": "wu-0",
     "example-correction": "wu-0c",
     "example-wu1": "wu-1",
@@ -70,11 +69,13 @@ OPEN_BRANCH = {
     "example-debrief": "wu-4",
 }
 DIAGRAM_SLIDES = list(OPEN_BRANCH)
-DEVELOPMENT_SLIDES = DIAGRAM_SLIDES[1:]
+DEVELOPMENT_SLIDES = DIAGRAM_SLIDES
+# The units wait on WU0 until the scoping steps have faded out (Auto-Animate's 0.7s).
+UNITS_DELAY = "0.7"
 # Commits drawn on each branch: the real count of each pull request, capped at three
 # (#336 and #337 had one each; #338 to #341 had 9, 10, 14 and 15).
 COMMITS = {"wu-0": 1, "wu-0c": 1, "wu-1": 3, "wu-2": 3, "wu-3": 3, "wu-4": 3}
-# Main runs faintly behind the scoping steps, from the brief on; the units join on the plan.
+# Main runs faintly behind the scoping steps, from the brief to the plan.
 MAIN_IDS = ["branches", "main-line", "main-label"]
 # Every part of the diagram, in markup order. Auto-Animate fades in anything unmatched, so
 # each part needs a data-id to stay put from slide to slide. Per unit: the lane, its drawing,
@@ -440,19 +441,19 @@ class MarkupTest(unittest.TestCase):
             with self.subTest(slide=slide_id):
                 self.assertEqual("is-scoping" in slide["classes"]["branches"],
                                  slide_id in SCOPING_STEP)
-        for slide_id in SCOPING_STEP.keys() - DIAGRAM_SLIDES:
+        for slide_id in SCOPING_STEP:
             slide = self._slide(slide_id)
             with self.subTest(slide=slide_id):
                 self.assertEqual([i for i in slide["data_ids"] if i in DIAGRAM_IDS], MAIN_IDS)
                 self.assertLess(slide["data_ids"].index("step-plan"),
                                 slide["data_ids"].index("branches"))
 
-    def test_branch_diagram_persists_from_plan_to_debrief(self):
-        plan = self._slide("example-plan")
+    def test_branch_diagram_persists_from_wu0_to_debrief(self):
+        first = self._slide(DIAGRAM_SLIDES[0])
         for slide in self.deck.slides:
             parts = [i for i in slide["data_ids"] if i in DIAGRAM_IDS]
             with self.subTest(slide=slide["id"]):
-                if slide["id"] in SCOPING_STEP.keys() - DIAGRAM_SLIDES:
+                if slide["id"] in SCOPING_STEP:
                     continue
                 if slide["id"] not in DIAGRAM_SLIDES:
                     self.assertEqual(parts, [])
@@ -461,7 +462,7 @@ class MarkupTest(unittest.TestCase):
                 self.assertIn("story", slide["attrs"].get("class", "").split())
                 self.assertEqual(parts, DIAGRAM_IDS)
                 self.assertEqual({i: slide["tags"][i] for i in parts},
-                                 {i: plan["tags"][i] for i in parts},
+                                 {i: first["tags"][i] for i in parts},
                                  "Auto-Animate only matches elements with the same tag")
                 for unit in WORK_UNITS:
                     self.assertIn("lane", slide["classes"][f"lane-{unit}"])
@@ -487,12 +488,27 @@ class MarkupTest(unittest.TestCase):
                     aria = slide["id_attrs"][f"label-{unit}"].get("aria-current")
                     self.assertEqual(aria, "step" if unit == current else None)
 
+    def test_units_appear_once_the_steps_have_gone(self):
+        for slide_id in DIAGRAM_SLIDES:
+            slide = self._slide(slide_id)
+            for unit in WORK_UNITS:
+                delay = slide["id_attrs"][f"lane-{unit}"].get("data-auto-animate-delay")
+                with self.subTest(slide=slide_id, unit=unit):
+                    self.assertEqual(delay, UNITS_DELAY if slide_id == "example-wu0" else None)
+
+    def test_debrief_happens_on_wu4s_branch(self):
+        html = (DECK / "index.html").read_text(encoding="utf-8")
+        for slide_id in DIAGRAM_SLIDES:
+            section = re.search(rf'<section id="{slide_id}".*?</section>', html, re.DOTALL)
+            label = re.search(r'<a [^>]*data-id="label-wu-4"[^>]*>(.*?)</a>', section.group(0))
+            with self.subTest(slide=slide_id):
+                # Laid out on every slide, so the label keeps its size; shown on the debrief.
+                self.assertIn('class="label-debrief"', label.group(1))
+                self.assertEqual(
+                    "with-debrief" in self._slide(slide_id)["classes"]["lane-wu-4"],
+                    slide_id == "example-debrief")
+
     def test_branch_labels_link_their_pull_requests(self):
-        plan = self._slide("example-plan")
-        for unit in WORK_UNITS:
-            with self.subTest(slide="example-plan", unit=unit):
-                self.assertNotIn("href", plan["id_attrs"][f"label-{unit}"],
-                                 "no pull request exists yet when the plan is made")
         for slide_id in DEVELOPMENT_SLIDES:
             for unit in WORK_UNITS:
                 label = self._slide(slide_id)["id_attrs"][f"label-{unit}"]

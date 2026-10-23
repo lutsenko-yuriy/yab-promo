@@ -434,66 +434,12 @@ body {
   border-color: var(--yab-sunrise);
 }
 
-/* Brief, analytics, plan and debrief are workflow steps, not work units: name-only chips
-   in a sunrise border, set apart from the units. */
+/* Brief, analytics and plan are workflow steps, not work units: name-only chips in a
+   sunrise border. */
 .reveal .wu-chip.is-step {
   justify-content: center;
   min-width: 0;
   border-color: var(--yab-sunrise);
-}
-
-/* Dividers set the scoping steps and the debrief apart from the work units: a line centred
-   in the widened gap (12px track gap + 12px margin; 2px border, 2px line). */
-.reveal .wu-chip[data-id="step-plan"] {
-  position: relative;
-  margin-right: 12px;
-}
-
-.reveal .wu-chip[data-id="step-debrief"] {
-  position: relative;
-  margin-left: 12px;
-}
-
-.reveal .wu-chip[data-id="step-plan"]:not(:last-child)::after,
-.reveal .wu-chip[data-id="step-debrief"]::before {
-  content: "";
-  position: absolute;
-  top: -2px;
-  bottom: -2px;
-  width: 2px;
-  border-radius: 1px;
-  background: var(--yab-border);
-}
-
-.reveal .wu-chip[data-id="step-plan"]::after {
-  right: -15px;
-}
-
-.reveal .wu-chip[data-id="step-debrief"]::before {
-  left: -15px;
-}
-
-/* On the plan slide the line waits for the first work unit to appear. */
-.reveal .wu-chip[data-id="step-plan"]:has(+ .fragment:not(.visible))::after {
-  display: none;
-}
-
-/* On the plan slide the work units appear on one click, one after another. Steps fill the
-   first three places; delays only on the way in, so stepping back hides them at once. */
-.reveal .wu-chip.fragment.visible:nth-child(5) {
-  transition-delay: 0.12s;
-}
-
-.reveal .wu-chip.fragment.visible:nth-child(6) {
-  transition-delay: 0.24s;
-}
-
-.reveal .wu-chip.fragment.visible:nth-child(7) {
-  transition-delay: 0.36s;
-}
-
-.reveal .wu-chip.fragment.visible:nth-child(8) {
-  transition-delay: 0.48s;
 }
 
 .reveal .wu-chip.is-current {
@@ -512,16 +458,168 @@ body {
   border-color: var(--yab-sunrise);
 }
 
-/* The regression on WU4: the current chip flashes red once the callout shows. */
-.reveal section.present:has(.regression.visible) .wu-chip.is-current {
-  animation: yab-flash 1.8s ease-in-out both;
+/* Plan to debrief: a fixed band at the top holds the branch diagram, so Auto-Animate keeps
+   it still while the story below changes. Loosely trunk-based: one branch per work unit,
+   each merged back into main through its own pull request.
+   Every part has the same box on every slide; states only fade parts in and out and
+   recolour them (border-color follows currentColor), since Auto-Animate morphs neither
+   shapes nor sizes cleanly. */
+.reveal .story-head {
+  position: relative;
+  display: flow-root; /* the plan's track margin stays inside, so main sits alike everywhere */
+  height: 88px;
+  margin-bottom: 18px;
 }
 
-@keyframes yab-flash {
+/* On the plan the scoping steps sit on main like stations; WU0 keeps a hidden copy of them
+   so they fade out rather than vanish. */
+.reveal .story-head .wu-track {
+  position: relative;
+  z-index: 1;
+  margin: 4px 0 0;
+}
+
+.reveal .wu-track.is-leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.reveal .branches {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  padding-left: 300px;
+}
+
+.reveal .main-line {
+  position: absolute;
+  top: 34px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+.reveal .main-line,
+.reveal .main-label {
+  color: var(--yab-primary-dark);
+}
+
+.reveal .main-label {
+  position: absolute;
+  top: 6px;
+  right: 0;
+  font-size: 0.45em;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.reveal .lane {
+  position: relative;
+  height: 88px;
+}
+
+/* The branch: down from main, then along under it. */
+.reveal .branch-line,
+.reveal .merge-line {
+  position: absolute;
+  top: 36px;
+  height: 28px;
+  box-sizing: border-box;
+  border: 0 solid currentColor;
+  opacity: 0;
+}
+
+.reveal .branch-line {
+  left: 8px;
+  right: 22px;
+  border-left-width: 4px;
+  border-bottom-width: 4px;
+  border-bottom-left-radius: 14px;
+}
+
+/* The merge: back up into main. */
+.reveal .merge-line {
+  right: 8px;
+  width: 28px;
+  border-right-width: 4px;
+  border-bottom-width: 4px;
+  border-bottom-right-radius: 14px;
+}
+
+/* The open end of a branch still being worked on. */
+.reveal .branch-tip {
+  position: absolute;
+  top: 56px;
+  right: 16px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0;
+}
+
+.reveal .lane.is-inserted .branch-line,
+.reveal .lane.is-inserted .merge-line {
+  border-style: dashed;
+}
+
+.reveal .lane.is-open .branch-line,
+.reveal .lane.is-open .branch-tip {
+  color: var(--yab-primary);
+  opacity: 1;
+}
+
+.reveal .lane.is-merged .branch-line,
+.reveal .lane.is-merged .merge-line {
+  color: var(--yab-growth-dark);
+  opacity: 1;
+}
+
+.reveal .branch-label {
+  position: absolute;
+  top: 66px;
+  left: 8px;
+  font-size: 0.45em;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.reveal .lane.is-planned .branch-label {
+  color: var(--yab-muted);
+}
+
+.reveal .lane.is-open .branch-label {
+  color: var(--yab-primary);
+}
+
+.reveal .lane.is-merged .branch-label {
+  color: var(--yab-primary-dark);
+}
+
+.reveal .branch-label[href]:hover {
+  text-decoration: underline;
+}
+
+.reveal .branch-label[href]:focus-visible {
+  outline: 3px solid var(--yab-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* The regression on WU4: the open branch flashes red once the callout shows. */
+.reveal section.present:has(.regression.visible) .lane.is-open .branch-line,
+.reveal section.present:has(.regression.visible) .lane.is-open .branch-tip {
+  animation: yab-flash-line 1.8s ease-in-out both;
+}
+
+@keyframes yab-flash-line {
   25%,
   60% {
-    border-color: var(--yab-danger);
-    background: var(--yab-danger);
+    color: var(--yab-danger);
   }
 }
 
@@ -1075,12 +1173,9 @@ body {
   }
 
   .reveal section.present .human,
-  .reveal section.present:has(.regression.visible) .wu-chip.is-current {
+  .reveal section.present:has(.regression.visible) .lane.is-open .branch-line,
+  .reveal section.present:has(.regression.visible) .lane.is-open .branch-tip {
     animation: none;
-  }
-
-  .reveal .wu-chip.fragment.visible {
-    transition-delay: 0s;
   }
 
   .reveal .toggle.fragment {

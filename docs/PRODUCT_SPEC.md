@@ -38,7 +38,7 @@ https://lutsenko-yuriy.github.io/yab-promo/ (source: `deck/`).
      main and then turns the switch on.
   4. Cases: Habit Loop (Flutter), CheckLister (React Native) and Mordovorot (Kotlin
      Multiplatform), each with screenshots, a link to its public repo and, where it has them,
-     numbers with the date they were counted; then CheckLister on Codex.
+     numbers with the date they were counted.
   5. Plans for the future: what is not proven yet (scale, giant brownfield codebases,
      runtimes and tools, branching models other than trunk-based) and what comes in the next
      updates.

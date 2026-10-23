@@ -108,7 +108,7 @@ window.YAB_I18N.en = {
   "wu.deep-links": "deep links",
 
   "example-brief.title": "The brief turns an idea into a ticket",
-  "example-brief.lead": "A short back-and-forth pins down what the feature is, and what it is not.",
+  "example-brief.lead": "A short back-and-forth pins down what the feature is and isn’t.",
   "example-brief.link": "The new pact starts prefilled from a finished one and links back to it",
   "example-brief.single": "Each pact gets at most one follow-up: no branching",
   "example-brief.name": "The default name is the first pact’s name plus a version, such as “(v2)”",

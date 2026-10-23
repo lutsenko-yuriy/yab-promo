@@ -302,11 +302,17 @@
       </section>
 
       <section id="example-brief" class="story" data-auto-animate>
-        <ol class="wu-track" data-id="track">
-          <li class="wu-chip is-step is-current" aria-current="step" data-id="step-brief"><span class="wu-name">Brief</span></li>
-          <li class="wu-chip is-step" data-id="step-analyze"><span class="wu-name">Analyze</span></li>
-          <li class="wu-chip is-step" data-id="step-plan"><span class="wu-name">Plan</span></li>
-        </ol>
+        <div class="story-head">
+          <ol class="wu-track" data-id="track">
+            <li class="wu-chip is-step is-current" aria-current="step" data-id="step-brief"><span class="wu-name">Brief</span></li>
+            <li class="wu-chip is-step" data-id="step-analyze"><span class="wu-name">Analyze</span></li>
+            <li class="wu-chip is-step" data-id="step-plan"><span class="wu-name">Plan</span></li>
+          </ol>
+          <div class="branches is-scoping" data-id="branches">
+            <span class="main-line" data-id="main-line"></span>
+            <span class="main-label" data-id="main-label">main</span>
+          </div>
+        </div>
         <h2 data-i18n="example-brief.title"></h2>
         <p class="lead" data-i18n="example-brief.lead"></p>
         <ul class="points">
@@ -318,11 +324,17 @@
       </section>
 
       <section id="example-analyze" class="story" data-auto-animate>
-        <ol class="wu-track" data-id="track">
-          <li class="wu-chip is-step is-done" data-id="step-brief"><span class="wu-name">Brief</span><span class="sr-only" data-i18n="wu.done"></span></li>
-          <li class="wu-chip is-step is-current" aria-current="step" data-id="step-analyze"><span class="wu-name">Analyze</span></li>
-          <li class="wu-chip is-step" data-id="step-plan"><span class="wu-name">Plan</span></li>
-        </ol>
+        <div class="story-head">
+          <ol class="wu-track" data-id="track">
+            <li class="wu-chip is-step is-done" data-id="step-brief"><span class="wu-name">Brief</span><span class="sr-only" data-i18n="wu.done"></span></li>
+            <li class="wu-chip is-step is-current" aria-current="step" data-id="step-analyze"><span class="wu-name">Analyze</span></li>
+            <li class="wu-chip is-step" data-id="step-plan"><span class="wu-name">Plan</span></li>
+          </ol>
+          <div class="branches is-scoping" data-id="branches">
+            <span class="main-line" data-id="main-line"></span>
+            <span class="main-label" data-id="main-label">main</span>
+          </div>
+        </div>
         <h2 data-i18n="example-analyze.title"></h2>
         <p class="subtitle" data-i18n="example-analyze.question"></p>
         <div class="cards">
@@ -339,43 +351,75 @@
             <li class="wu-chip is-step is-done" data-id="step-analyze"><span class="wu-name">Analyze</span><span class="sr-only" data-i18n="wu.done"></span></li>
             <li class="wu-chip is-step is-current" aria-current="step" data-id="step-plan"><span class="wu-name">Plan</span></li>
           </ol>
-          <div class="branches" data-id="branches">
+          <div class="branches is-scoping" data-id="branches">
             <span class="main-line" data-id="main-line"></span>
             <span class="main-label" data-id="main-label">main</span>
             <div class="lane is-planned" data-id="lane-wu-0">
-              <span class="branch-line" data-id="branch-wu-0"></span>
-              <span class="merge-line" data-id="merge-wu-0"></span>
-              <span class="branch-tip" data-id="tip-wu-0"></span>
+              <svg class="branch-art" data-id="art-wu-0" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-0" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-0" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-0-1" cx="75" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-0" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-0" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" data-id="label-wu-0"><span class="wu-name">WU0</span> · <span data-i18n="wu.scenarios"></span></a>
             </div>
             <div class="lane is-planned is-inserted" data-id="lane-wu-0c">
-              <span class="branch-line" data-id="branch-wu-0c"></span>
-              <span class="merge-line" data-id="merge-wu-0c"></span>
-              <span class="branch-tip" data-id="tip-wu-0c"></span>
+              <svg class="branch-art" data-id="art-wu-0c" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-0c" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-0c" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-0c-1" cx="75" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-0c" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-0c" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" data-id="label-wu-0c"><span class="wu-name">WU0+</span> · <span data-i18n="wu.correction"></span></a>
             </div>
             <div class="lane is-planned" data-id="lane-wu-1">
-              <span class="branch-line" data-id="branch-wu-1"></span>
-              <span class="merge-line" data-id="merge-wu-1"></span>
-              <span class="branch-tip" data-id="tip-wu-1"></span>
+              <svg class="branch-art" data-id="art-wu-1" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-1" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-1" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-1-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-1-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-1-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-1" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-1" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" data-id="label-wu-1"><span class="wu-name">WU1</span> · <span data-i18n="wu.data"></span></a>
             </div>
             <div class="lane is-planned" data-id="lane-wu-2">
-              <span class="branch-line" data-id="branch-wu-2"></span>
-              <span class="merge-line" data-id="merge-wu-2"></span>
-              <span class="branch-tip" data-id="tip-wu-2"></span>
+              <svg class="branch-art" data-id="art-wu-2" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-2" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-2" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-2-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-2-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-2-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-2" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-2" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" data-id="label-wu-2"><span class="wu-name">WU2</span> · <span data-i18n="wu.logic"></span></a>
             </div>
             <div class="lane is-planned" data-id="lane-wu-3">
-              <span class="branch-line" data-id="branch-wu-3"></span>
-              <span class="merge-line" data-id="merge-wu-3"></span>
-              <span class="branch-tip" data-id="tip-wu-3"></span>
+              <svg class="branch-art" data-id="art-wu-3" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-3" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-3" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-3-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-3-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-3-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-3" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-3" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" data-id="label-wu-3"><span class="wu-name">WU3</span> · <span data-i18n="wu.links"></span></a>
             </div>
             <div class="lane is-planned" data-id="lane-wu-4">
-              <span class="branch-line" data-id="branch-wu-4"></span>
-              <span class="merge-line" data-id="merge-wu-4"></span>
-              <span class="branch-tip" data-id="tip-wu-4"></span>
+              <svg class="branch-art" data-id="art-wu-4" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-4" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-4" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-4-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-4-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-4-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-4" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-4" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" data-id="label-wu-4"><span class="wu-name">WU4</span> · <span data-i18n="wu.button"></span></a>
             </div>
           </div>
@@ -399,39 +443,71 @@
             <span class="main-line" data-id="main-line"></span>
             <span class="main-label" data-id="main-label">main</span>
             <div class="lane is-open" data-id="lane-wu-0">
-              <span class="branch-line" data-id="branch-wu-0"></span>
-              <span class="merge-line" data-id="merge-wu-0"></span>
-              <span class="branch-tip" data-id="tip-wu-0"></span>
+              <svg class="branch-art" data-id="art-wu-0" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-0" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-0" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-0-1" cx="75" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-0" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-0" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/336" target="_blank" rel="noopener" data-id="label-wu-0" aria-current="step"><span class="wu-name">WU0</span> · <span data-i18n="wu.scenarios"></span></a>
             </div>
             <div class="lane is-planned is-inserted" data-id="lane-wu-0c">
-              <span class="branch-line" data-id="branch-wu-0c"></span>
-              <span class="merge-line" data-id="merge-wu-0c"></span>
-              <span class="branch-tip" data-id="tip-wu-0c"></span>
+              <svg class="branch-art" data-id="art-wu-0c" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-0c" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-0c" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-0c-1" cx="75" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-0c" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-0c" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/337" target="_blank" rel="noopener" data-id="label-wu-0c"><span class="wu-name">WU0+</span> · <span data-i18n="wu.correction"></span></a>
             </div>
             <div class="lane is-planned" data-id="lane-wu-1">
-              <span class="branch-line" data-id="branch-wu-1"></span>
-              <span class="merge-line" data-id="merge-wu-1"></span>
-              <span class="branch-tip" data-id="tip-wu-1"></span>
+              <svg class="branch-art" data-id="art-wu-1" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-1" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-1" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-1-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-1-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-1-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-1" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-1" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/338" target="_blank" rel="noopener" data-id="label-wu-1"><span class="wu-name">WU1</span> · <span data-i18n="wu.data"></span></a>
             </div>
             <div class="lane is-planned" data-id="lane-wu-2">
-              <span class="branch-line" data-id="branch-wu-2"></span>
-              <span class="merge-line" data-id="merge-wu-2"></span>
-              <span class="branch-tip" data-id="tip-wu-2"></span>
+              <svg class="branch-art" data-id="art-wu-2" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-2" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-2" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-2-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-2-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-2-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-2" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-2" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/339" target="_blank" rel="noopener" data-id="label-wu-2"><span class="wu-name">WU2</span> · <span data-i18n="wu.logic"></span></a>
             </div>
             <div class="lane is-planned" data-id="lane-wu-3">
-              <span class="branch-line" data-id="branch-wu-3"></span>
-              <span class="merge-line" data-id="merge-wu-3"></span>
-              <span class="branch-tip" data-id="tip-wu-3"></span>
+              <svg class="branch-art" data-id="art-wu-3" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-3" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-3" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-3-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-3-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-3-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-3" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-3" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/340" target="_blank" rel="noopener" data-id="label-wu-3"><span class="wu-name">WU3</span> · <span data-i18n="wu.links"></span></a>
             </div>
             <div class="lane is-planned" data-id="lane-wu-4">
-              <span class="branch-line" data-id="branch-wu-4"></span>
-              <span class="merge-line" data-id="merge-wu-4"></span>
-              <span class="branch-tip" data-id="tip-wu-4"></span>
+              <svg class="branch-art" data-id="art-wu-4" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-4" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-4" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-4-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-4-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-4-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-4" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-4" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/341" target="_blank" rel="noopener" data-id="label-wu-4"><span class="wu-name">WU4</span> · <span data-i18n="wu.button"></span></a>
             </div>
           </div>
@@ -461,39 +537,71 @@
             <span class="main-line" data-id="main-line"></span>
             <span class="main-label" data-id="main-label">main</span>
             <div class="lane is-merged" data-id="lane-wu-0">
-              <span class="branch-line" data-id="branch-wu-0"></span>
-              <span class="merge-line" data-id="merge-wu-0"></span>
-              <span class="branch-tip" data-id="tip-wu-0"></span>
+              <svg class="branch-art" data-id="art-wu-0" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-0" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-0" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-0-1" cx="75" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-0" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-0" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/336" target="_blank" rel="noopener" data-id="label-wu-0"><span class="wu-name">WU0</span> · <span data-i18n="wu.scenarios"></span><span class="sr-only" data-i18n="wu.done"></span></a>
             </div>
             <div class="lane is-open is-inserted" data-id="lane-wu-0c">
-              <span class="branch-line" data-id="branch-wu-0c"></span>
-              <span class="merge-line" data-id="merge-wu-0c"></span>
-              <span class="branch-tip" data-id="tip-wu-0c"></span>
+              <svg class="branch-art" data-id="art-wu-0c" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-0c" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-0c" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-0c-1" cx="75" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-0c" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-0c" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/337" target="_blank" rel="noopener" data-id="label-wu-0c" aria-current="step"><span class="wu-name">WU0+</span> · <span data-i18n="wu.correction"></span></a>
             </div>
             <div class="lane is-planned" data-id="lane-wu-1">
-              <span class="branch-line" data-id="branch-wu-1"></span>
-              <span class="merge-line" data-id="merge-wu-1"></span>
-              <span class="branch-tip" data-id="tip-wu-1"></span>
+              <svg class="branch-art" data-id="art-wu-1" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-1" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-1" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-1-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-1-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-1-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-1" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-1" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/338" target="_blank" rel="noopener" data-id="label-wu-1"><span class="wu-name">WU1</span> · <span data-i18n="wu.data"></span></a>
             </div>
             <div class="lane is-planned" data-id="lane-wu-2">
-              <span class="branch-line" data-id="branch-wu-2"></span>
-              <span class="merge-line" data-id="merge-wu-2"></span>
-              <span class="branch-tip" data-id="tip-wu-2"></span>
+              <svg class="branch-art" data-id="art-wu-2" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-2" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-2" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-2-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-2-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-2-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-2" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-2" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/339" target="_blank" rel="noopener" data-id="label-wu-2"><span class="wu-name">WU2</span> · <span data-i18n="wu.logic"></span></a>
             </div>
             <div class="lane is-planned" data-id="lane-wu-3">
-              <span class="branch-line" data-id="branch-wu-3"></span>
-              <span class="merge-line" data-id="merge-wu-3"></span>
-              <span class="branch-tip" data-id="tip-wu-3"></span>
+              <svg class="branch-art" data-id="art-wu-3" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-3" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-3" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-3-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-3-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-3-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-3" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-3" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/340" target="_blank" rel="noopener" data-id="label-wu-3"><span class="wu-name">WU3</span> · <span data-i18n="wu.links"></span></a>
             </div>
             <div class="lane is-planned" data-id="lane-wu-4">
-              <span class="branch-line" data-id="branch-wu-4"></span>
-              <span class="merge-line" data-id="merge-wu-4"></span>
-              <span class="branch-tip" data-id="tip-wu-4"></span>
+              <svg class="branch-art" data-id="art-wu-4" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-4" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-4" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-4-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-4-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-4-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-4" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-4" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/341" target="_blank" rel="noopener" data-id="label-wu-4"><span class="wu-name">WU4</span> · <span data-i18n="wu.button"></span></a>
             </div>
           </div>
@@ -518,39 +626,71 @@
             <span class="main-line" data-id="main-line"></span>
             <span class="main-label" data-id="main-label">main</span>
             <div class="lane is-merged" data-id="lane-wu-0">
-              <span class="branch-line" data-id="branch-wu-0"></span>
-              <span class="merge-line" data-id="merge-wu-0"></span>
-              <span class="branch-tip" data-id="tip-wu-0"></span>
+              <svg class="branch-art" data-id="art-wu-0" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-0" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-0" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-0-1" cx="75" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-0" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-0" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/336" target="_blank" rel="noopener" data-id="label-wu-0"><span class="wu-name">WU0</span> · <span data-i18n="wu.scenarios"></span><span class="sr-only" data-i18n="wu.done"></span></a>
             </div>
             <div class="lane is-merged is-inserted" data-id="lane-wu-0c">
-              <span class="branch-line" data-id="branch-wu-0c"></span>
-              <span class="merge-line" data-id="merge-wu-0c"></span>
-              <span class="branch-tip" data-id="tip-wu-0c"></span>
+              <svg class="branch-art" data-id="art-wu-0c" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-0c" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-0c" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-0c-1" cx="75" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-0c" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-0c" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/337" target="_blank" rel="noopener" data-id="label-wu-0c"><span class="wu-name">WU0+</span> · <span data-i18n="wu.correction"></span><span class="sr-only" data-i18n="wu.done"></span></a>
             </div>
             <div class="lane is-open" data-id="lane-wu-1">
-              <span class="branch-line" data-id="branch-wu-1"></span>
-              <span class="merge-line" data-id="merge-wu-1"></span>
-              <span class="branch-tip" data-id="tip-wu-1"></span>
+              <svg class="branch-art" data-id="art-wu-1" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-1" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-1" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-1-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-1-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-1-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-1" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-1" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/338" target="_blank" rel="noopener" data-id="label-wu-1" aria-current="step"><span class="wu-name">WU1</span> · <span data-i18n="wu.data"></span></a>
             </div>
             <div class="lane is-planned" data-id="lane-wu-2">
-              <span class="branch-line" data-id="branch-wu-2"></span>
-              <span class="merge-line" data-id="merge-wu-2"></span>
-              <span class="branch-tip" data-id="tip-wu-2"></span>
+              <svg class="branch-art" data-id="art-wu-2" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-2" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-2" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-2-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-2-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-2-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-2" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-2" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/339" target="_blank" rel="noopener" data-id="label-wu-2"><span class="wu-name">WU2</span> · <span data-i18n="wu.logic"></span></a>
             </div>
             <div class="lane is-planned" data-id="lane-wu-3">
-              <span class="branch-line" data-id="branch-wu-3"></span>
-              <span class="merge-line" data-id="merge-wu-3"></span>
-              <span class="branch-tip" data-id="tip-wu-3"></span>
+              <svg class="branch-art" data-id="art-wu-3" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-3" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-3" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-3-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-3-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-3-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-3" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-3" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/340" target="_blank" rel="noopener" data-id="label-wu-3"><span class="wu-name">WU3</span> · <span data-i18n="wu.links"></span></a>
             </div>
             <div class="lane is-planned" data-id="lane-wu-4">
-              <span class="branch-line" data-id="branch-wu-4"></span>
-              <span class="merge-line" data-id="merge-wu-4"></span>
-              <span class="branch-tip" data-id="tip-wu-4"></span>
+              <svg class="branch-art" data-id="art-wu-4" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-4" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-4" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-4-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-4-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-4-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-4" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-4" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/341" target="_blank" rel="noopener" data-id="label-wu-4"><span class="wu-name">WU4</span> · <span data-i18n="wu.button"></span></a>
             </div>
           </div>
@@ -575,39 +715,71 @@
             <span class="main-line" data-id="main-line"></span>
             <span class="main-label" data-id="main-label">main</span>
             <div class="lane is-merged" data-id="lane-wu-0">
-              <span class="branch-line" data-id="branch-wu-0"></span>
-              <span class="merge-line" data-id="merge-wu-0"></span>
-              <span class="branch-tip" data-id="tip-wu-0"></span>
+              <svg class="branch-art" data-id="art-wu-0" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-0" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-0" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-0-1" cx="75" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-0" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-0" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/336" target="_blank" rel="noopener" data-id="label-wu-0"><span class="wu-name">WU0</span> · <span data-i18n="wu.scenarios"></span><span class="sr-only" data-i18n="wu.done"></span></a>
             </div>
             <div class="lane is-merged is-inserted" data-id="lane-wu-0c">
-              <span class="branch-line" data-id="branch-wu-0c"></span>
-              <span class="merge-line" data-id="merge-wu-0c"></span>
-              <span class="branch-tip" data-id="tip-wu-0c"></span>
+              <svg class="branch-art" data-id="art-wu-0c" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-0c" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-0c" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-0c-1" cx="75" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-0c" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-0c" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/337" target="_blank" rel="noopener" data-id="label-wu-0c"><span class="wu-name">WU0+</span> · <span data-i18n="wu.correction"></span><span class="sr-only" data-i18n="wu.done"></span></a>
             </div>
             <div class="lane is-merged" data-id="lane-wu-1">
-              <span class="branch-line" data-id="branch-wu-1"></span>
-              <span class="merge-line" data-id="merge-wu-1"></span>
-              <span class="branch-tip" data-id="tip-wu-1"></span>
+              <svg class="branch-art" data-id="art-wu-1" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-1" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-1" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-1-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-1-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-1-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-1" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-1" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/338" target="_blank" rel="noopener" data-id="label-wu-1"><span class="wu-name">WU1</span> · <span data-i18n="wu.data"></span><span class="sr-only" data-i18n="wu.done"></span></a>
             </div>
             <div class="lane is-open" data-id="lane-wu-2">
-              <span class="branch-line" data-id="branch-wu-2"></span>
-              <span class="merge-line" data-id="merge-wu-2"></span>
-              <span class="branch-tip" data-id="tip-wu-2"></span>
+              <svg class="branch-art" data-id="art-wu-2" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-2" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-2" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-2-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-2-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-2-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-2" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-2" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/339" target="_blank" rel="noopener" data-id="label-wu-2" aria-current="step"><span class="wu-name">WU2</span> · <span data-i18n="wu.logic"></span></a>
             </div>
             <div class="lane is-planned" data-id="lane-wu-3">
-              <span class="branch-line" data-id="branch-wu-3"></span>
-              <span class="merge-line" data-id="merge-wu-3"></span>
-              <span class="branch-tip" data-id="tip-wu-3"></span>
+              <svg class="branch-art" data-id="art-wu-3" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-3" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-3" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-3-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-3-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-3-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-3" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-3" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/340" target="_blank" rel="noopener" data-id="label-wu-3"><span class="wu-name">WU3</span> · <span data-i18n="wu.links"></span></a>
             </div>
             <div class="lane is-planned" data-id="lane-wu-4">
-              <span class="branch-line" data-id="branch-wu-4"></span>
-              <span class="merge-line" data-id="merge-wu-4"></span>
-              <span class="branch-tip" data-id="tip-wu-4"></span>
+              <svg class="branch-art" data-id="art-wu-4" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-4" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-4" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-4-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-4-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-4-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-4" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-4" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/341" target="_blank" rel="noopener" data-id="label-wu-4"><span class="wu-name">WU4</span> · <span data-i18n="wu.button"></span></a>
             </div>
           </div>
@@ -635,39 +807,71 @@
             <span class="main-line" data-id="main-line"></span>
             <span class="main-label" data-id="main-label">main</span>
             <div class="lane is-merged" data-id="lane-wu-0">
-              <span class="branch-line" data-id="branch-wu-0"></span>
-              <span class="merge-line" data-id="merge-wu-0"></span>
-              <span class="branch-tip" data-id="tip-wu-0"></span>
+              <svg class="branch-art" data-id="art-wu-0" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-0" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-0" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-0-1" cx="75" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-0" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-0" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/336" target="_blank" rel="noopener" data-id="label-wu-0"><span class="wu-name">WU0</span> · <span data-i18n="wu.scenarios"></span><span class="sr-only" data-i18n="wu.done"></span></a>
             </div>
             <div class="lane is-merged is-inserted" data-id="lane-wu-0c">
-              <span class="branch-line" data-id="branch-wu-0c"></span>
-              <span class="merge-line" data-id="merge-wu-0c"></span>
-              <span class="branch-tip" data-id="tip-wu-0c"></span>
+              <svg class="branch-art" data-id="art-wu-0c" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-0c" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-0c" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-0c-1" cx="75" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-0c" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-0c" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/337" target="_blank" rel="noopener" data-id="label-wu-0c"><span class="wu-name">WU0+</span> · <span data-i18n="wu.correction"></span><span class="sr-only" data-i18n="wu.done"></span></a>
             </div>
             <div class="lane is-merged" data-id="lane-wu-1">
-              <span class="branch-line" data-id="branch-wu-1"></span>
-              <span class="merge-line" data-id="merge-wu-1"></span>
-              <span class="branch-tip" data-id="tip-wu-1"></span>
+              <svg class="branch-art" data-id="art-wu-1" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-1" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-1" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-1-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-1-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-1-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-1" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-1" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/338" target="_blank" rel="noopener" data-id="label-wu-1"><span class="wu-name">WU1</span> · <span data-i18n="wu.data"></span><span class="sr-only" data-i18n="wu.done"></span></a>
             </div>
             <div class="lane is-merged" data-id="lane-wu-2">
-              <span class="branch-line" data-id="branch-wu-2"></span>
-              <span class="merge-line" data-id="merge-wu-2"></span>
-              <span class="branch-tip" data-id="tip-wu-2"></span>
+              <svg class="branch-art" data-id="art-wu-2" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-2" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-2" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-2-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-2-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-2-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-2" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-2" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/339" target="_blank" rel="noopener" data-id="label-wu-2"><span class="wu-name">WU2</span> · <span data-i18n="wu.logic"></span><span class="sr-only" data-i18n="wu.done"></span></a>
             </div>
             <div class="lane is-open" data-id="lane-wu-3">
-              <span class="branch-line" data-id="branch-wu-3"></span>
-              <span class="merge-line" data-id="merge-wu-3"></span>
-              <span class="branch-tip" data-id="tip-wu-3"></span>
+              <svg class="branch-art" data-id="art-wu-3" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-3" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-3" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-3-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-3-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-3-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-3" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-3" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/340" target="_blank" rel="noopener" data-id="label-wu-3" aria-current="step"><span class="wu-name">WU3</span> · <span data-i18n="wu.links"></span></a>
             </div>
             <div class="lane is-planned" data-id="lane-wu-4">
-              <span class="branch-line" data-id="branch-wu-4"></span>
-              <span class="merge-line" data-id="merge-wu-4"></span>
-              <span class="branch-tip" data-id="tip-wu-4"></span>
+              <svg class="branch-art" data-id="art-wu-4" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-4" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-4" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-4-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-4-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-4-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-4" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-4" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/341" target="_blank" rel="noopener" data-id="label-wu-4"><span class="wu-name">WU4</span> · <span data-i18n="wu.button"></span></a>
             </div>
           </div>
@@ -691,39 +895,71 @@
             <span class="main-line" data-id="main-line"></span>
             <span class="main-label" data-id="main-label">main</span>
             <div class="lane is-merged" data-id="lane-wu-0">
-              <span class="branch-line" data-id="branch-wu-0"></span>
-              <span class="merge-line" data-id="merge-wu-0"></span>
-              <span class="branch-tip" data-id="tip-wu-0"></span>
+              <svg class="branch-art" data-id="art-wu-0" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-0" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-0" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-0-1" cx="75" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-0" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-0" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/336" target="_blank" rel="noopener" data-id="label-wu-0"><span class="wu-name">WU0</span> · <span data-i18n="wu.scenarios"></span><span class="sr-only" data-i18n="wu.done"></span></a>
             </div>
             <div class="lane is-merged is-inserted" data-id="lane-wu-0c">
-              <span class="branch-line" data-id="branch-wu-0c"></span>
-              <span class="merge-line" data-id="merge-wu-0c"></span>
-              <span class="branch-tip" data-id="tip-wu-0c"></span>
+              <svg class="branch-art" data-id="art-wu-0c" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-0c" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-0c" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-0c-1" cx="75" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-0c" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-0c" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/337" target="_blank" rel="noopener" data-id="label-wu-0c"><span class="wu-name">WU0+</span> · <span data-i18n="wu.correction"></span><span class="sr-only" data-i18n="wu.done"></span></a>
             </div>
             <div class="lane is-merged" data-id="lane-wu-1">
-              <span class="branch-line" data-id="branch-wu-1"></span>
-              <span class="merge-line" data-id="merge-wu-1"></span>
-              <span class="branch-tip" data-id="tip-wu-1"></span>
+              <svg class="branch-art" data-id="art-wu-1" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-1" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-1" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-1-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-1-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-1-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-1" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-1" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/338" target="_blank" rel="noopener" data-id="label-wu-1"><span class="wu-name">WU1</span> · <span data-i18n="wu.data"></span><span class="sr-only" data-i18n="wu.done"></span></a>
             </div>
             <div class="lane is-merged" data-id="lane-wu-2">
-              <span class="branch-line" data-id="branch-wu-2"></span>
-              <span class="merge-line" data-id="merge-wu-2"></span>
-              <span class="branch-tip" data-id="tip-wu-2"></span>
+              <svg class="branch-art" data-id="art-wu-2" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-2" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-2" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-2-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-2-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-2-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-2" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-2" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/339" target="_blank" rel="noopener" data-id="label-wu-2"><span class="wu-name">WU2</span> · <span data-i18n="wu.logic"></span><span class="sr-only" data-i18n="wu.done"></span></a>
             </div>
             <div class="lane is-merged" data-id="lane-wu-3">
-              <span class="branch-line" data-id="branch-wu-3"></span>
-              <span class="merge-line" data-id="merge-wu-3"></span>
-              <span class="branch-tip" data-id="tip-wu-3"></span>
+              <svg class="branch-art" data-id="art-wu-3" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-3" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-3" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-3-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-3-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-3-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-3" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-3" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/340" target="_blank" rel="noopener" data-id="label-wu-3"><span class="wu-name">WU3</span> · <span data-i18n="wu.links"></span><span class="sr-only" data-i18n="wu.done"></span></a>
             </div>
             <div class="lane is-open" data-id="lane-wu-4">
-              <span class="branch-line" data-id="branch-wu-4"></span>
-              <span class="merge-line" data-id="merge-wu-4"></span>
-              <span class="branch-tip" data-id="tip-wu-4"></span>
+              <svg class="branch-art" data-id="art-wu-4" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-4" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-4" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-4-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-4-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-4-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-4" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-4" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/341" target="_blank" rel="noopener" data-id="label-wu-4" aria-current="step"><span class="wu-name">WU4</span> · <span data-i18n="wu.button"></span></a>
             </div>
           </div>
@@ -747,39 +983,71 @@
             <span class="main-line" data-id="main-line"></span>
             <span class="main-label" data-id="main-label">main</span>
             <div class="lane is-merged" data-id="lane-wu-0">
-              <span class="branch-line" data-id="branch-wu-0"></span>
-              <span class="merge-line" data-id="merge-wu-0"></span>
-              <span class="branch-tip" data-id="tip-wu-0"></span>
+              <svg class="branch-art" data-id="art-wu-0" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-0" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-0" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-0-1" cx="75" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-0" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-0" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/336" target="_blank" rel="noopener" data-id="label-wu-0"><span class="wu-name">WU0</span> · <span data-i18n="wu.scenarios"></span><span class="sr-only" data-i18n="wu.done"></span></a>
             </div>
             <div class="lane is-merged is-inserted" data-id="lane-wu-0c">
-              <span class="branch-line" data-id="branch-wu-0c"></span>
-              <span class="merge-line" data-id="merge-wu-0c"></span>
-              <span class="branch-tip" data-id="tip-wu-0c"></span>
+              <svg class="branch-art" data-id="art-wu-0c" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-0c" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-0c" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-0c-1" cx="75" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-0c" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-0c" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/337" target="_blank" rel="noopener" data-id="label-wu-0c"><span class="wu-name">WU0+</span> · <span data-i18n="wu.correction"></span><span class="sr-only" data-i18n="wu.done"></span></a>
             </div>
             <div class="lane is-merged" data-id="lane-wu-1">
-              <span class="branch-line" data-id="branch-wu-1"></span>
-              <span class="merge-line" data-id="merge-wu-1"></span>
-              <span class="branch-tip" data-id="tip-wu-1"></span>
+              <svg class="branch-art" data-id="art-wu-1" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-1" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-1" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-1-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-1-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-1-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-1" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-1" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/338" target="_blank" rel="noopener" data-id="label-wu-1"><span class="wu-name">WU1</span> · <span data-i18n="wu.data"></span><span class="sr-only" data-i18n="wu.done"></span></a>
             </div>
             <div class="lane is-merged" data-id="lane-wu-2">
-              <span class="branch-line" data-id="branch-wu-2"></span>
-              <span class="merge-line" data-id="merge-wu-2"></span>
-              <span class="branch-tip" data-id="tip-wu-2"></span>
+              <svg class="branch-art" data-id="art-wu-2" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-2" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-2" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-2-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-2-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-2-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-2" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-2" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/339" target="_blank" rel="noopener" data-id="label-wu-2"><span class="wu-name">WU2</span> · <span data-i18n="wu.logic"></span><span class="sr-only" data-i18n="wu.done"></span></a>
             </div>
             <div class="lane is-merged" data-id="lane-wu-3">
-              <span class="branch-line" data-id="branch-wu-3"></span>
-              <span class="merge-line" data-id="merge-wu-3"></span>
-              <span class="branch-tip" data-id="tip-wu-3"></span>
+              <svg class="branch-art" data-id="art-wu-3" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-3" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-3" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-3-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-3-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-3-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-3" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-3" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/340" target="_blank" rel="noopener" data-id="label-wu-3"><span class="wu-name">WU3</span> · <span data-i18n="wu.links"></span><span class="sr-only" data-i18n="wu.done"></span></a>
             </div>
             <div class="lane is-open" data-id="lane-wu-4">
-              <span class="branch-line" data-id="branch-wu-4"></span>
-              <span class="merge-line" data-id="merge-wu-4"></span>
-              <span class="branch-tip" data-id="tip-wu-4"></span>
+              <svg class="branch-art" data-id="art-wu-4" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-4" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-4" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-4-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-4-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-4-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-4" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-4" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/341" target="_blank" rel="noopener" data-id="label-wu-4" aria-current="step"><span class="wu-name">WU4</span> · <span data-i18n="wu.button"></span></a>
             </div>
           </div>
@@ -808,40 +1076,72 @@
             <span class="main-line" data-id="main-line"></span>
             <span class="main-label" data-id="main-label">main</span>
             <div class="lane is-merged" data-id="lane-wu-0">
-              <span class="branch-line" data-id="branch-wu-0"></span>
-              <span class="merge-line" data-id="merge-wu-0"></span>
-              <span class="branch-tip" data-id="tip-wu-0"></span>
+              <svg class="branch-art" data-id="art-wu-0" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-0" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-0" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-0-1" cx="75" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-0" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-0" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/336" target="_blank" rel="noopener" data-id="label-wu-0"><span class="wu-name">WU0</span> · <span data-i18n="wu.scenarios"></span><span class="sr-only" data-i18n="wu.done"></span></a>
             </div>
             <div class="lane is-merged is-inserted" data-id="lane-wu-0c">
-              <span class="branch-line" data-id="branch-wu-0c"></span>
-              <span class="merge-line" data-id="merge-wu-0c"></span>
-              <span class="branch-tip" data-id="tip-wu-0c"></span>
+              <svg class="branch-art" data-id="art-wu-0c" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-0c" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-0c" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-0c-1" cx="75" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-0c" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-0c" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/337" target="_blank" rel="noopener" data-id="label-wu-0c"><span class="wu-name">WU0+</span> · <span data-i18n="wu.correction"></span><span class="sr-only" data-i18n="wu.done"></span></a>
             </div>
             <div class="lane is-merged" data-id="lane-wu-1">
-              <span class="branch-line" data-id="branch-wu-1"></span>
-              <span class="merge-line" data-id="merge-wu-1"></span>
-              <span class="branch-tip" data-id="tip-wu-1"></span>
+              <svg class="branch-art" data-id="art-wu-1" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-1" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-1" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-1-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-1-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-1-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-1" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-1" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/338" target="_blank" rel="noopener" data-id="label-wu-1"><span class="wu-name">WU1</span> · <span data-i18n="wu.data"></span><span class="sr-only" data-i18n="wu.done"></span></a>
             </div>
             <div class="lane is-merged" data-id="lane-wu-2">
-              <span class="branch-line" data-id="branch-wu-2"></span>
-              <span class="merge-line" data-id="merge-wu-2"></span>
-              <span class="branch-tip" data-id="tip-wu-2"></span>
+              <svg class="branch-art" data-id="art-wu-2" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-2" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-2" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-2-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-2-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-2-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-2" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-2" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/339" target="_blank" rel="noopener" data-id="label-wu-2"><span class="wu-name">WU2</span> · <span data-i18n="wu.logic"></span><span class="sr-only" data-i18n="wu.done"></span></a>
             </div>
             <div class="lane is-merged" data-id="lane-wu-3">
-              <span class="branch-line" data-id="branch-wu-3"></span>
-              <span class="merge-line" data-id="merge-wu-3"></span>
-              <span class="branch-tip" data-id="tip-wu-3"></span>
+              <svg class="branch-art" data-id="art-wu-3" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-3" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line" data-id="merge-wu-3" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-3-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-3-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-3-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-3" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node" data-id="mnode-wu-3" cx="150" cy="36" r="6"/>
+              </svg>
               <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/340" target="_blank" rel="noopener" data-id="label-wu-3"><span class="wu-name">WU3</span> · <span data-i18n="wu.links"></span><span class="sr-only" data-i18n="wu.done"></span></a>
             </div>
             <div class="lane is-open" data-id="lane-wu-4">
-              <span class="branch-line" data-id="branch-wu-4"></span>
-              <span class="merge-line fragment custom" data-id="merge-wu-4" data-fragment-index="4"></span>
-              <span class="branch-tip" data-id="tip-wu-4"></span>
-              <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/341" target="_blank" rel="noopener" data-id="label-wu-4" aria-current="step"><span class="wu-name">WU4</span> · <span data-i18n="wu.button"></span></a>
+              <svg class="branch-art" data-id="art-wu-4" width="150" height="88" viewBox="0 0 150 88" aria-hidden="true">
+                <path class="branch-line" data-id="branch-wu-4" d="M0 36 L15.84 60.64 Q18 64 22 64 L128 64"/>
+                <path class="merge-line fragment custom" data-fragment-index="4" data-id="merge-wu-4" d="M128 64 Q132 64 134.16 60.64 L150 36"/>
+                <circle class="commit" data-id="commit-wu-4-1" cx="45" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-4-2" cx="75" cy="64" r="5"/>
+                <circle class="commit" data-id="commit-wu-4-3" cx="105" cy="64" r="5"/>
+                <circle class="main-node fork-node" data-id="fork-wu-4" cx="0" cy="36" r="6"/>
+                <circle class="main-node merge-node fragment custom" data-fragment-index="4" data-id="mnode-wu-4" cx="150" cy="36" r="6"/>
+              </svg>
+              <a class="branch-label" href="https://github.com/lutsenko-yuriy/habit-loop/pull/341" target="_blank" rel="noopener" data-id="label-wu-4" aria-current="step"><span class="wu-name">WU4</span> · <span data-i18n="wu.button"></span><span class="sr-only fragment" data-fragment-index="4" data-i18n="wu.done"></span></a>
             </div>
           </div>
         </div>

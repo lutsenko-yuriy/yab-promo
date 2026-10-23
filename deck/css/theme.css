@@ -489,8 +489,8 @@ body {
   position: absolute;
   inset: 0;
   display: grid;
-  grid-template-columns: repeat(6, 150px);
-  padding-left: 300px;
+  grid-template-columns: repeat(6, 200px);
+  padding-left: 16px;
 }
 
 .reveal .main-line {
@@ -604,6 +604,16 @@ body {
 
 .reveal .lane.is-merged .branch-label {
   color: var(--yab-primary-dark);
+}
+
+/* The debrief happens on WU4's branch: its label names it on the debrief only, but the
+   words are laid out on every slide so the label keeps its size. */
+.reveal .label-debrief {
+  opacity: 0;
+}
+
+.reveal .lane.with-debrief .label-debrief {
+  opacity: 1;
 }
 
 .reveal .branch-label[href]:hover {

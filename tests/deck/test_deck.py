@@ -22,8 +22,7 @@ PURPOSE_SLIDES = ["purpose", "purpose-what", "purpose-flow", "purpose-human", "p
 LIFECYCLE_STEPS = ["idea", "ticket", "plan", "tests", "build", "review", "release", "lessons"]
 HUMAN_GATES = ["ticket", "plan", "review", "release"]
 
-# Slides of the example section (HAB-202), in order. All but the opener carry one work-unit
-# track; its chips keep their data-id so Auto-Animate moves and recolours them.
+# Slides of the example section (HAB-202), in order.
 EXAMPLE_SLIDES = [
     "example",
     "example-brief",
@@ -38,22 +37,28 @@ EXAMPLE_SLIDES = [
     "example-review",
     "example-debrief",
 ]
-WU_TRACK = ["wu-0", "wu-0c", "wu-1", "wu-2", "wu-3", "wu-4"]
-INSERTED_CHIP = "wu-0c"
-# Workflow steps around the work units: brief, analytics and plan lead the track on every
-# slide, the debrief joins its end on the last one.
+# The workflow steps that scope the ticket. Brief, analytics and plan carry them as a track;
+# Auto-Animate keeps it in place and recolours it, and WU0 fades it out.
 LEADING_STEPS = ["step-brief", "step-analyze", "step-plan"]
-DEBRIEF_STEP = "step-debrief"
-# The step being worked on while the ticket is scoped; the work units only appear once the
-# plan makes them. Steps before the current one are done, those after it not yet started.
+# The step being worked on while the ticket is scoped. Steps before the current one are
+# done, those after it not yet started.
 SCOPING_STEP = {
     "example-brief": "step-brief",
     "example-analyze": "step-analyze",
     "example-plan": "step-plan",
 }
-# The chip being worked on per slide; chips before it are done. None: no work started
-# (plan) or all done (debrief).
-CURRENT_CHIP = {
+
+# Loosely trunk-based: each work unit gets its own branch and its own pull request into main.
+# WU0+ was inserted after the plan, to correct WU0.
+WORK_UNITS = ["wu-0", "wu-0c", "wu-1", "wu-2", "wu-3", "wu-4"]
+INSERTED_UNIT = "wu-0c"
+HABIT_LOOP_PULLS = "https://github.com/lutsenko-yuriy/habit-loop/pull/"
+PULL_REQUESTS = {unit: f"{HABIT_LOOP_PULLS}{number}"
+                 for unit, number in zip(WORK_UNITS, range(336, 342))}
+# The branch open on each slide of the branch diagram; branches before it are merged, those
+# after it only planned. None: the plan, where every branch is still planned. WU4 stays open
+# through the review and the debrief, whose last click merges it.
+OPEN_BRANCH = {
     "example-plan": None,
     "example-wu0": "wu-0",
     "example-correction": "wu-0c",
@@ -62,8 +67,17 @@ CURRENT_CHIP = {
     "example-wu3": "wu-3",
     "example-wu4": "wu-4",
     "example-review": "wu-4",
-    "example-debrief": None,
+    "example-debrief": "wu-4",
 }
+DIAGRAM_SLIDES = list(OPEN_BRANCH)
+DEVELOPMENT_SLIDES = DIAGRAM_SLIDES[1:]
+# Every part of the diagram, in markup order. Auto-Animate fades in anything unmatched, so
+# each part needs a data-id to stay put from slide to slide.
+DIAGRAM_IDS = ["branches", "main-line", "main-label"] + [
+    f"{part}-{unit}" for unit in WORK_UNITS
+    for part in ("lane", "branch", "merge", "tip", "label")
+]
+BRANCH_STATES = ("is-planned", "is-open", "is-merged")
 
 # Slides that carry the switch panel (the pact chaining feature switch): from the first work
 # unit through the debrief. The switch stays off until the debrief's last click turns it on.
@@ -119,6 +133,7 @@ SAME_IN_BOTH = {
 }
 
 ALLOWED_INLINE_TAGS = {"strong", "em", "br", "span"}
+VOID_TAGS = {"br", "img", "input", "link", "meta", "hr", "source", "wbr"}
 
 TABLE_RE = re.compile(
     r"\Awindow\.YAB_I18N = window\.YAB_I18N \|\| \{\};\n"
@@ -142,6 +157,7 @@ class _DeckParser(HTMLParser):
         self.asset_refs = []  # (tag, url)
         self.anchors = []  # attrs of every <a href>
         self._section_depth = 0
+        self._open = []  # (tag, attrs) of the elements open inside the current slide
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
@@ -161,9 +177,15 @@ class _DeckParser(HTMLParser):
                     "images": [],
                     "i18n_attrs": {},
                     "fragments": [],
+                    "tags": {},
+                    "fragment_of": {},
+                    "unnamed_in_diagram": [],
                 }
             )
+            self._open = []
         slide = self.slides[-1] if self._section_depth else None
+        if slide is not None and tag != "section":
+            self._track(slide, tag, attrs)
         for name in ("data-i18n", "data-i18n-aria", "data-i18n-alt"):
             if name in attrs:
                 self.i18n_keys.append(attrs[name])
@@ -173,6 +195,7 @@ class _DeckParser(HTMLParser):
         if slide is not None and "fragment" in (attrs.get("class") or "").split():
             slide["fragments"].append(attrs)
         if slide is not None and "data-id" in attrs:
+            slide["tags"][attrs["data-id"]] = tag
             slide["data_ids"].append(attrs["data-id"])
             slide["classes"][attrs["data-id"]] = set((attrs.get("class") or "").split())
             slide["id_attrs"][attrs["data-id"]] = attrs
@@ -189,9 +212,25 @@ class _DeckParser(HTMLParser):
         if tag == "link" and "href" in attrs:
             self.asset_refs.append((tag, attrs["href"]))
 
+    def _track(self, slide, tag, attrs):
+        """Records what an element sits inside: the nearest fragment and the diagram."""
+        ancestors = self._open + [(tag, attrs)]
+        fragment = next((a for _, a in reversed(ancestors)
+                         if "fragment" in (a.get("class") or "").split()), None)
+        if fragment is not None and "data-i18n" in attrs:
+            slide["fragment_of"][attrs["data-i18n"]] = fragment.get("data-fragment-index")
+        in_diagram = any("branches" in (a.get("class") or "").split() for _, a in self._open)
+        in_link = any(t == "a" for t, _ in self._open)
+        if in_diagram and not in_link and "data-id" not in attrs:
+            slide["unnamed_in_diagram"].append((tag, attrs.get("class")))
+        if tag not in VOID_TAGS:
+            self._open.append((tag, attrs))
+
     def handle_endtag(self, tag):
         if tag == "section":
             self._section_depth -= 1
+        elif self._open and self._open[-1][0] == tag:
+            self._open.pop()
 
 
 def _parse_deck():
@@ -356,60 +395,17 @@ class MarkupTest(unittest.TestCase):
                 self.assertEqual(anchor.get("target"), "_blank")
                 self.assertIn("noopener", (anchor.get("rel") or "").split())
 
-    def test_work_unit_track_persists_across_example(self):
-        for slide_id in CURRENT_CHIP:
+    def test_step_chips_lead_the_scoping_slides(self):
+        for slide_id, current in SCOPING_STEP.items():
             slide = self._slide(slide_id)
-            with self.subTest(slide=slide_id):
-                self.assertIn("data-auto-animate", slide["attrs"])
-                chips = [i for i in slide["data_ids"] if i.startswith("wu-")]
-                inserted = EXAMPLE_SLIDES.index(slide_id) >= EXAMPLE_SLIDES.index(
-                    "example-correction"
-                )
-                expected = [c for c in WU_TRACK if inserted or c != INSERTED_CHIP]
-                self.assertEqual(chips, expected)
-                for chip in chips:
-                    self.assertIn("wu-chip", slide["classes"][chip])
-                if INSERTED_CHIP in chips:
-                    self.assertIn("is-inserted", slide["classes"][INSERTED_CHIP])
-
-    def test_work_unit_chip_states(self):
-        for slide_id, current in CURRENT_CHIP.items():
-            slide = self._slide(slide_id)
-            chips = [i for i in slide["data_ids"] if i.startswith("wu-")]
-            if current is not None:
-                done = chips[:chips.index(current)]
-            elif slide_id == "example-debrief":
-                done = chips
-            else:
-                done = []
-            for chip in chips:
-                classes = slide["classes"][chip]
-                with self.subTest(slide=slide_id, chip=chip):
-                    self.assertEqual("is-current" in classes, chip == current)
-                    aria = slide["id_attrs"][chip].get("aria-current")
-                    self.assertEqual(aria, "step" if chip == current else None)
-                    self.assertEqual("is-done" in classes, chip in done)
-
-    def test_scoping_slides_show_only_the_steps(self):
-        for slide_id in SCOPING_STEP.keys() - CURRENT_CHIP.keys():
-            slide = self._slide(slide_id)
+            steps = [i for i in slide["data_ids"] if i.startswith("step-")]
+            done = LEADING_STEPS[:LEADING_STEPS.index(current)]
             with self.subTest(slide=slide_id):
                 self.assertIn("data-auto-animate", slide["attrs"])
                 self.assertIn("story", slide["attrs"].get("class", "").split())
-                self.assertEqual([i for i in slide["data_ids"] if i.startswith("wu-")], [])
-                self.assertNotIn(DEBRIEF_STEP, slide["data_ids"])
-
-    def test_leading_steps_precede_work_units(self):
-        for slide_id in EXAMPLE_SLIDES[1:]:
-            slide = self._slide(slide_id)
-            steps = [i for i in slide["data_ids"] if i in LEADING_STEPS]
-            current = SCOPING_STEP.get(slide_id)
-            done = LEADING_STEPS[:LEADING_STEPS.index(current)] if current else LEADING_STEPS
-            with self.subTest(slide=slide_id):
                 self.assertEqual(steps, LEADING_STEPS)
-                if WU_TRACK[0] in slide["data_ids"]:
-                    self.assertLess(slide["data_ids"].index(LEADING_STEPS[-1]),
-                                    slide["data_ids"].index(WU_TRACK[0]))
+                self.assertEqual([i for i in slide["data_ids"] if i.startswith("wu-")], [])
+                self.assertNotIn("is-leaving", slide["classes"]["track"])
                 for step in steps:
                     classes = slide["classes"][step]
                     self.assertIn("is-step", classes)
@@ -418,30 +414,112 @@ class MarkupTest(unittest.TestCase):
                     self.assertEqual(aria, "step" if step == current else None)
                     self.assertEqual("is-done" in classes, step in done)
 
-    def test_plan_reveals_work_units_with_one_click(self):
-        plan = self._slide("example-plan")
-        indexes = set()
-        for chip in WU_TRACK:
-            if chip == INSERTED_CHIP:
-                continue
-            with self.subTest(chip=chip):
-                self.assertIn("fragment", plan["classes"][chip])
-                indexes.add(plan["id_attrs"][chip].get("data-fragment-index"))
-        self.assertEqual(len(indexes), 1)
-        self.assertIsNotNone(indexes.pop())
-
-    def test_debrief_step_follows_work_units_on_last_slide(self):
-        for slide_id in EXAMPLE_SLIDES[1:]:
+    def test_step_chips_fade_out_on_wu0(self):
+        wu0 = self._slide("example-wu0")
+        self.assertLessEqual({"wu-track", "is-leaving"}, wu0["classes"]["track"])
+        self.assertEqual(wu0["id_attrs"]["track"].get("aria-hidden"), "true")
+        self.assertEqual([i for i in wu0["data_ids"] if i.startswith("step-")], LEADING_STEPS)
+        for slide_id in DEVELOPMENT_SLIDES[1:]:
             slide = self._slide(slide_id)
             with self.subTest(slide=slide_id):
-                if slide_id != "example-debrief":
-                    self.assertNotIn(DEBRIEF_STEP, slide["data_ids"])
+                self.assertNotIn("track", slide["data_ids"])
+                self.assertEqual([i for i in slide["data_ids"] if i.startswith("step-")], [])
+
+    def test_branch_diagram_persists_from_plan_to_debrief(self):
+        plan = self._slide("example-plan")
+        for slide in self.deck.slides:
+            parts = [i for i in slide["data_ids"] if i in DIAGRAM_IDS]
+            with self.subTest(slide=slide["id"]):
+                if slide["id"] not in DIAGRAM_SLIDES:
+                    self.assertEqual(parts, [])
                     continue
-                self.assertEqual(slide["data_ids"].index(DEBRIEF_STEP),
-                                 slide["data_ids"].index(WU_TRACK[-1]) + 1)
-                self.assertLessEqual({"wu-chip", "is-step", "is-current"},
-                                     slide["classes"][DEBRIEF_STEP])
-                self.assertEqual(slide["id_attrs"][DEBRIEF_STEP].get("aria-current"), "step")
+                self.assertIn("data-auto-animate", slide["attrs"])
+                self.assertIn("story", slide["attrs"].get("class", "").split())
+                self.assertEqual(parts, DIAGRAM_IDS)
+                self.assertEqual({i: slide["tags"][i] for i in parts},
+                                 {i: plan["tags"][i] for i in parts},
+                                 "Auto-Animate only matches elements with the same tag")
+                for unit in WORK_UNITS:
+                    self.assertIn("lane", slide["classes"][f"lane-{unit}"])
+                    self.assertEqual(slide["tags"][f"label-{unit}"], "a")
+                    self.assertEqual("is-inserted" in slide["classes"][f"lane-{unit}"],
+                                     unit == INSERTED_UNIT)
+
+    def test_every_diagram_part_has_a_data_id(self):
+        for slide_id in DIAGRAM_SLIDES:
+            with self.subTest(slide=slide_id):
+                self.assertEqual(self._slide(slide_id)["unnamed_in_diagram"], [])
+
+    def test_branch_states(self):
+        for slide_id, current in OPEN_BRANCH.items():
+            slide = self._slide(slide_id)
+            merged = WORK_UNITS[:WORK_UNITS.index(current)] if current else []
+            for unit in WORK_UNITS:
+                expected = ("is-open" if unit == current
+                            else "is-merged" if unit in merged else "is-planned")
+                states = slide["classes"][f"lane-{unit}"] & set(BRANCH_STATES)
+                with self.subTest(slide=slide_id, unit=unit):
+                    self.assertEqual(states, {expected})
+                    aria = slide["id_attrs"][f"label-{unit}"].get("aria-current")
+                    self.assertEqual(aria, "step" if unit == current else None)
+
+    def test_branch_labels_link_their_pull_requests(self):
+        plan = self._slide("example-plan")
+        for unit in WORK_UNITS:
+            with self.subTest(slide="example-plan", unit=unit):
+                self.assertNotIn("href", plan["id_attrs"][f"label-{unit}"],
+                                 "no pull request exists yet when the plan is made")
+        for slide_id in DEVELOPMENT_SLIDES:
+            for unit in WORK_UNITS:
+                label = self._slide(slide_id)["id_attrs"][f"label-{unit}"]
+                with self.subTest(slide=slide_id, unit=unit):
+                    self.assertEqual(label.get("href"), PULL_REQUESTS[unit])
+                    self.assertEqual(label.get("target"), "_blank")
+                    self.assertIn("noopener", (label.get("rel") or "").split())
+
+    def test_plan_states_the_branching_rule(self):
+        plan = self._slide("example-plan")
+        self.assertNotIn("fragment", self._key_classes(plan, "example-plan.lead"))
+        principles = ["example-plan.small", "example-plan.switch"]
+        for key in principles:
+            with self.subTest(key=key):
+                self.assertIn("fragment", self._key_classes(plan, key))
+        keys = plan["i18n"]
+        self.assertEqual(keys[keys.index("example-plan.lead") + 1:][:2], principles,
+                         "one click per principle, after the lead")
+        en = _load_table("en")
+        self.assertEqual(en["example-plan.lead"],
+                         "Loosely trunk-based: one branch per unit, each merged into main "
+                         "through its own pull request.")
+        self.assertEqual(en["example-plan.small"],
+                         "Each unit is small enough to review in one sitting.")
+        self.assertEqual(en["example-plan.switch"],
+                         "Unfinished parts stay behind a switch until the last unit ships.")
+
+    def test_debrief_reveals_three_columns_then_numbers(self):
+        debrief = self._slide("example-debrief")
+        order = {"example-debrief.noted": "0", "example-debrief.learned": "1",
+                 "example-debrief.changed": "2", "example-debrief.units": "3"}
+        for key, index in order.items():
+            with self.subTest(key=key):
+                self.assertEqual(debrief["fragment_of"].get(key), index)
+        for column in ("noted", "learned", "changed"):
+            items = [k for k in debrief["i18n"] if k.startswith(f"example-debrief.{column}-")]
+            with self.subTest(column=column):
+                self.assertEqual(len(items), 2)
+                for item in items:
+                    self.assertEqual(debrief["fragment_of"].get(item), order[
+                        f"example-debrief.{column}"], "an item shows with its column")
+
+    def test_limits_tools_names_branching(self):
+        slide = self._slide("limits-tools")
+        keys = slide["i18n"]
+        self.assertEqual(keys[keys.index("limits-tools.pm") + 1], "limits-tools.branching")
+        self.assertIn("fragment", self._key_classes(slide, "limits-tools.branching"))
+        en = _load_table("en")["limits-tools.branching"]
+        self.assertIn("<strong>Branching</strong>", en)
+        self.assertIn("trunk-based", en)
+        self.assertIn("<strong>Branching</strong>", _load_table("de")["limits-tools.branching"])
 
     def _key_classes(self, slide, key):
         return set((slide["i18n_attrs"][key].get("class") or "").split())
@@ -481,26 +559,32 @@ class MarkupTest(unittest.TestCase):
                     self.assertFalse(SWITCH_KEYS & set(slide["i18n"]))
                     continue
                 self.assertEqual(panel, SWITCH_PANEL)
-                last_chip = max(i for i, data_id in enumerate(slide["data_ids"])
-                                if data_id.startswith(("wu-", "step-")))
-                self.assertGreater(slide["data_ids"].index("switch-panel"), last_chip)
+                self.assertGreater(slide["data_ids"].index("switch-panel"),
+                                   slide["data_ids"].index("label-wu-4"),
+                                   "the panel sits below the branch diagram")
                 self.assertLessEqual(SWITCH_KEYS, set(slide["i18n"]))
 
     def test_switch_is_off_until_the_debrief_has_shown(self):
+        last_click = ["merge-wu-4", "toggle"]
         for slide_id in SWITCH_SLIDES[:-1]:
-            with self.subTest(slide=slide_id):
-                toggle = self._slide(slide_id)["classes"]["toggle"]
-                self.assertNotIn("fragment", toggle)
-                self.assertNotIn("is-on", toggle)
+            for data_id in last_click:
+                with self.subTest(slide=slide_id, part=data_id):
+                    classes = self._slide(slide_id)["classes"][data_id]
+                    self.assertNotIn("fragment", classes)
+                    self.assertNotIn("is-on", classes)
         debrief = self._slide("example-debrief")
-        self.assertLessEqual({"toggle", "fragment", "custom"}, debrief["classes"]["toggle"])
+        for data_id in last_click:
+            with self.subTest(part=data_id):
+                self.assertLessEqual({"fragment", "custom"}, debrief["classes"][data_id])
         indexes = [int(fragment["data-fragment-index"]) for fragment in debrief["fragments"]
                    if "data-fragment-index" in fragment]
         self.assertEqual(len(indexes), len(debrief["fragments"]),
                          "every fragment on the debrief needs an index")
-        flip = int(debrief["id_attrs"]["toggle"]["data-fragment-index"])
-        self.assertEqual(indexes.count(flip), 1)
-        self.assertEqual(flip, max(indexes), "turning the switch on is the last click")
+        last = max(indexes)
+        on_last = sorted(fragment.get("data-id") for fragment in debrief["fragments"]
+                         if int(fragment["data-fragment-index"]) == last)
+        self.assertEqual(on_last, sorted(last_click),
+                         "the last click merges WU4, then turns the switch on")
 
     def test_switch_is_named_as_a_feature_flag(self):
         for lang in LANGS:

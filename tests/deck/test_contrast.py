@@ -18,10 +18,10 @@ GRAPHIC_MINIMUM = 3.0  # WCAG 1.4.11, graphics needed to follow the slide
 
 PAGE_BACKGROUND = "yab-background"
 
-# Arrows show the order of steps and the branch diagram's lines show each work unit's
-# branch, so they are graphics; everything else that sets a colour is text.
+# Arrows show the order of steps and the branch diagram's lines and commits show each work
+# unit's branch, so they are graphics; everything else that sets a colour is text.
 GRAPHIC_SELECTOR = re.compile(
-    r"arrow|main-line|branch-line|merge-line|branch-tip|::after|::before"
+    r"arrow|main-line|branch-line|merge-line|commit|main-node|::after|::before"
 )
 
 # Kept light green on purpose (checkup heavy-1, PR #11): list markers and the progress

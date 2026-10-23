@@ -71,11 +71,20 @@ OPEN_BRANCH = {
 }
 DIAGRAM_SLIDES = list(OPEN_BRANCH)
 DEVELOPMENT_SLIDES = DIAGRAM_SLIDES[1:]
+# Commits drawn on each branch: the real count of each pull request, capped at three
+# (#336 and #337 had one each; #338 to #341 had 9, 10, 14 and 15).
+COMMITS = {"wu-0": 1, "wu-0c": 1, "wu-1": 3, "wu-2": 3, "wu-3": 3, "wu-4": 3}
+# Main runs faintly behind the scoping steps, from the brief on; the units join on the plan.
+MAIN_IDS = ["branches", "main-line", "main-label"]
 # Every part of the diagram, in markup order. Auto-Animate fades in anything unmatched, so
-# each part needs a data-id to stay put from slide to slide.
-DIAGRAM_IDS = ["branches", "main-line", "main-label"] + [
-    f"{part}-{unit}" for unit in WORK_UNITS
-    for part in ("lane", "branch", "merge", "tip", "label")
+# each part needs a data-id to stay put from slide to slide. Per unit: the lane, its drawing,
+# the branch, the merge, its commits, the fork and merge commits on main, and the label.
+DIAGRAM_IDS = MAIN_IDS + [
+    part for unit in WORK_UNITS for part in (
+        [f"lane-{unit}", f"art-{unit}", f"branch-{unit}", f"merge-{unit}"]
+        + [f"commit-{unit}-{n}" for n in range(1, COMMITS[unit] + 1)]
+        + [f"fork-{unit}", f"mnode-{unit}", f"label-{unit}"]
+    )
 ]
 BRANCH_STATES = ("is-planned", "is-open", "is-merged")
 
@@ -425,11 +434,26 @@ class MarkupTest(unittest.TestCase):
                 self.assertNotIn("track", slide["data_ids"])
                 self.assertEqual([i for i in slide["data_ids"] if i.startswith("step-")], [])
 
+    def test_main_is_faint_while_the_ticket_is_scoped(self):
+        for slide_id in EXAMPLE_SLIDES[1:]:
+            slide = self._slide(slide_id)
+            with self.subTest(slide=slide_id):
+                self.assertEqual("is-scoping" in slide["classes"]["branches"],
+                                 slide_id in SCOPING_STEP)
+        for slide_id in SCOPING_STEP.keys() - DIAGRAM_SLIDES:
+            slide = self._slide(slide_id)
+            with self.subTest(slide=slide_id):
+                self.assertEqual([i for i in slide["data_ids"] if i in DIAGRAM_IDS], MAIN_IDS)
+                self.assertLess(slide["data_ids"].index("step-plan"),
+                                slide["data_ids"].index("branches"))
+
     def test_branch_diagram_persists_from_plan_to_debrief(self):
         plan = self._slide("example-plan")
         for slide in self.deck.slides:
             parts = [i for i in slide["data_ids"] if i in DIAGRAM_IDS]
             with self.subTest(slide=slide["id"]):
+                if slide["id"] in SCOPING_STEP.keys() - DIAGRAM_SLIDES:
+                    continue
                 if slide["id"] not in DIAGRAM_SLIDES:
                     self.assertEqual(parts, [])
                     continue
@@ -446,7 +470,7 @@ class MarkupTest(unittest.TestCase):
                                      unit == INSERTED_UNIT)
 
     def test_every_diagram_part_has_a_data_id(self):
-        for slide_id in DIAGRAM_SLIDES:
+        for slide_id in EXAMPLE_SLIDES[1:]:
             with self.subTest(slide=slide_id):
                 self.assertEqual(self._slide(slide_id)["unnamed_in_diagram"], [])
 
@@ -565,7 +589,7 @@ class MarkupTest(unittest.TestCase):
                 self.assertLessEqual(SWITCH_KEYS, set(slide["i18n"]))
 
     def test_switch_is_off_until_the_debrief_has_shown(self):
-        last_click = ["merge-wu-4", "toggle"]
+        last_click = ["merge-wu-4", "mnode-wu-4", "toggle"]
         for slide_id in SWITCH_SLIDES[:-1]:
             for data_id in last_click:
                 with self.subTest(slide=slide_id, part=data_id):
@@ -581,10 +605,15 @@ class MarkupTest(unittest.TestCase):
         self.assertEqual(len(indexes), len(debrief["fragments"]),
                          "every fragment on the debrief needs an index")
         last = max(indexes)
-        on_last = sorted(fragment.get("data-id") for fragment in debrief["fragments"]
-                         if int(fragment["data-fragment-index"]) == last)
-        self.assertEqual(on_last, sorted(last_click),
+        on_last = [fragment for fragment in debrief["fragments"]
+                   if int(fragment["data-fragment-index"]) == last]
+        self.assertEqual(sorted(f["data-id"] for f in on_last if "data-id" in f),
+                         sorted(last_click),
                          "the last click merges WU4, then turns the switch on")
+        # Screen readers hear WU4 as done once it merges.
+        done = [f for f in on_last if f.get("data-i18n") == "wu.done"]
+        self.assertEqual(len(done), 1)
+        self.assertIn("sr-only", done[0].get("class", "").split())
 
     def test_switch_is_named_as_a_feature_flag(self):
         for lang in LANGS:

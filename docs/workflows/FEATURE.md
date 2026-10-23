@@ -115,6 +115,7 @@ behaviour beyond a literal value, it is not trivial — use the full workflow in
     1. Wait for the review skills (`review`, `audit`), any coverage report, and the user to finish leaving comments.
        - **Immediately after invoking each routed skill, confirm its subagent actually spawned** before moving on to anything else. A skill's routing message is an instruction to act on, not content to just read — treat it the same way you'd treat a TODO you haven't checked off.
     2. For each comment: either fix it in a new commit and push, or post a one-sentence explanation of why the fix will not be implemented, threaded under the original comment.
+       - **Visual ideas:** when feedback is about how something should look and is hard to pin down in words (a shape, a layout, an animation), ask for the user's sketch (a photo is fine) if they have something to draw on; otherwise show two or three rough mock-ups (screenshots or a throwaway static page) to pick from before implementing.
     3. Check any patch-coverage report. If coverage is below the project threshold, add tests for the uncovered lines where reasonable — skip lines that require disproportionate test infrastructure. Explain skipped lines in a PR/MR comment.
     4. If the cumulative changes since the last review pass are non-trivial (new files, logic changes, interface changes), re-invoke both review skills and return to step 10.1.
     5. Minor fixes (typos, cosmetic, comment wording) do not require a re-review pass.

@@ -21,3 +21,7 @@ Generated from `bookmarks:` frontmatter in `docs/knowledge/notes/*.md`. Run `pyt
 ## Reviewed — nothing noteworthy
 
 - [YP-12: Deck test for the theme's colour contrast](YP-12.md)
+
+## Not yet reviewed
+
+- [YP-16: Reorder core values into a logical chain](YP-16.md)

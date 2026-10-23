@@ -56,13 +56,16 @@ Elements name their key in `data-i18n` (inner HTML),
 `data-i18n-aria` (`aria-label` and tooltip) or `data-i18n-alt` (an image's `alt`).
 
 The example section's slides (`class="story"`) share one height so what runs across them
-stays in place while Auto-Animate recolours it. The brief, analytics and plan slides carry
-the workflow steps as a track of chips (`data-id="step-<skill>"`). From the plan to the debrief a
-fixed band at the top (`.story-head`) holds the branch diagram (`.branches`): a `main` line
-and one lane per work unit (`data-id="lane-<unit>"`), each with a branch, a merge leg, an
-open-end dot and a label (`branch-`, `merge-`, `tip-`, `label-<unit>`). On the plan the steps
-sit on `main` and every lane is planned; WU0 keeps a hidden copy of the steps
-(`.wu-track.is-leaving`) so they fade out instead of vanishing. Lanes are `is-planned`,
+stays in place while Auto-Animate recolours it. From the brief to the debrief a fixed band
+at the top (`.story-head`) holds the branch diagram (`.branches`). On the brief, analytics
+and plan slides the workflow steps (`data-id="step-<skill>"`) sit on a faint `main`
+(`.branches.is-scoping`); the plan adds one lane per work unit (`data-id="lane-<unit>"`), and
+WU0 keeps a hidden copy of the steps (`.wu-track.is-leaving`) so they fade out instead of
+vanishing. Each lane holds a small inline SVG (`art-<unit>`): the branch leaving main at an
+angle, the merge leg climbing back, the unit's commits (its pull request's real count,
+capped at three) and the fork and merge commits on main (`branch-`, `merge-`,
+`commit-<unit>-<n>`, `fork-`, `mnode-<unit>`), then the label (`label-<unit>`). Each branch
+forks where the one before it merged, so the two share one commit. Lanes are `is-planned`,
 `is-open` or `is-merged`; every part keeps the same box on every slide and only fades or
 recolours, because Auto-Animate morphs neither shapes nor sizes. Every element inside the
 diagram and the switch panel has a `data-id`, links' inner text aside: Auto-Animate fades in
@@ -70,12 +73,13 @@ anything unmatched, so a part without one would blink on every slide.
 From WU0 to the debrief, everything below the band sits in `.story-body`: a switch panel
 (`.switch-panel`, with stable `data-id`s for the switch, its name and its purpose, so it
 stays put too) beside the slide's own content (`.story-main`). The switch is off on every
-one of those slides. On the debrief, WU4's merge leg and the switch are `fragment custom`
-sharing the highest `data-fragment-index`, so its last click merges WU4 and, 0.7s later,
-turns the switch on. After a slide auto-animates, reveal.js pins its matched elements'
-colours and opacity with `!important` until the slide is left; only CSS transitions outrank
-that, so the last click uses transitions to `!important` end states, and the WU4 regression
-flash animates an overlay (`::before`) rather than the branch itself.
+one of those slides. On the debrief, WU4's merge leg, its merge commit on main and the switch
+are `fragment custom` sharing the highest `data-fragment-index`, so its last click merges
+WU4 and, 0.7s later, turns the switch on. After a slide auto-animates, reveal.js pins its
+matched elements' colours, opacity, outline and transition with `!important` until the slide
+is left; only CSS transitions outrank that, so the last click uses transitions to
+`!important` end states, and the WU4 regression flash animates `stroke` and `fill`, which
+reveal.js leaves alone.
 
 `.github/workflows/pages.yml` publishes `deck/` alone to GitHub Pages on every push to `main`
 that changes it, so the site carries neither the docs nor the tooling.

@@ -920,6 +920,14 @@ body {
   color: var(--yab-muted);
 }
 
+.reveal .app-link {
+  display: table;
+  margin: 0 0 12px;
+  font-size: 0.6em;
+  font-weight: 700;
+  border-bottom: 2px solid var(--yab-growth);
+}
+
 .reveal .repo-link {
   font-size: 0.55em;
   font-weight: 700;

@@ -197,6 +197,7 @@ window.YAB_I18N.de = {
   "cases-mordovorot.notes": "Ticket-Notizen",
   "cases-mordovorot.clients": "Clients, eine Codebasis: Terminal und Browser",
   "cases-mordovorot.as-of": "Stand: 21. Oktober 2026.",
+  "cases-mordovorot.app": "Im Browser spielen",
   "cases-mordovorot.desktop-alt": "Mordovorot im Desktop-Browser: das Spielfeld, die Züge und Mordies Kommentar",
   "cases-mordovorot.phone-alt": "Mordovorot im Browser auf dem Handy",
 

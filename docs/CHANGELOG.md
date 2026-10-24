@@ -4,6 +4,11 @@ A record of all versioned releases. For planned work and known issues, see @docs
 
 ---
 
+## [0.4.4] — 2026-10-24 (PR #27 merged)
+
+### Added
+- [user] YP-26: the Mordovorot case slide links to the game itself, to play in the browser, not only to its code (PR #27)
+
 ## [0.4.3] — 2026-10-24 (PR #25 merged)
 
 ### Changed

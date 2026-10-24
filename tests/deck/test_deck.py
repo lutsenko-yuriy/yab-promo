@@ -112,6 +112,10 @@ CASE_REPOS = {
     "cases-checklister": "https://github.com/lutsenko-yuriy/CheckLister",
     "cases-mordovorot": "https://github.com/lutsenko-yuriy/mordovorot",
 }
+# The app itself, for the cases where it is public.
+CASE_APPS = {
+    "cases-mordovorot": "https://lutsenko-yuriy.github.io/mordovorot/",
+}
 # App slides with numbers; each states the date they were counted on.
 CASES_WITH_STATS = ["cases-habit-loop", "cases-mordovorot"]
 # CheL-36, the CheckLister feature on its slide, ran in four work units.
@@ -367,6 +371,11 @@ class MarkupTest(unittest.TestCase):
         for slide_id, repo in CASE_REPOS.items():
             with self.subTest(slide=slide_id):
                 self.assertIn(repo, self._slide(slide_id)["links"])
+
+    def test_case_slides_link_their_public_app(self):
+        for slide_id, app in CASE_APPS.items():
+            with self.subTest(slide=slide_id):
+                self.assertIn(app, self._slide(slide_id)["links"])
 
     def test_case_slides_show_their_screenshots(self):
         for slide_id in CASE_REPOS:

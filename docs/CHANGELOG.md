@@ -4,6 +4,11 @@ A record of all versioned releases. For planned work and known issues, see @docs
 
 ---
 
+## [0.4.5] — 2026-10-24 (PR #30 merged)
+
+### Changed
+- [user] YP-29: the cases come in the order Habit Loop, Mordovorot, CheckLister, and their numbers are counted again on 24 October 2026 (PR #30)
+
 ## [0.4.4] — 2026-10-24 (PR #27 merged)
 
 ### Added

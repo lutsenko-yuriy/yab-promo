@@ -36,9 +36,9 @@ https://lutsenko-yuriy.github.io/yab-promo/ (source: `deck/`).
      switch (pact chaining feature flag) and what it is for. The debrief shows what was noted,
      learned and changed in the workflow, then the numbers; its last click merges WU4 into
      main and then turns the switch on.
-  4. Cases: Habit Loop (Flutter), CheckLister (React Native) and Mordovorot (Kotlin
-     Multiplatform), each with screenshots, a link to its public repo, a link to the app itself where it
-     is public (Mordovorot, in the browser) and, where it has them,
+  4. Cases: Habit Loop (Flutter), Mordovorot (Kotlin Multiplatform) and CheckLister
+     (React Native), each with screenshots, a link to its public repo, a link to the app itself
+     where it is public (Mordovorot, in the browser) and, where it has them,
      numbers with the date they were counted.
   5. Plans for the future: what is not proven yet (scale, giant brownfield codebases,
      runtimes and tools, branching models other than trunk-based) and what comes in the next

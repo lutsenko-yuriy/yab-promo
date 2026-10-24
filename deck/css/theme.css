@@ -19,6 +19,8 @@
   --yab-border: #c5e1a5;
   --yab-radius: 18px;
   --yab-shadow: 0 6px 20px rgba(0, 77, 64, 0.1);
+  --yab-floating: rgba(255, 255, 255, 0.8); /* menu button and controls over the slide */
+  --yab-hover: rgba(0, 121, 107, 0.1);
 
   --yab-font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
@@ -1049,7 +1051,7 @@ body {
   height: 56px;
   border: 0;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--yab-floating);
   box-shadow: var(--yab-shadow);
   color: var(--yab-primary-dark);
   cursor: pointer;
@@ -1236,7 +1238,7 @@ body {
   display: flex;
   gap: 10px;
   padding: 6px;
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--yab-floating);
   border-radius: 999px;
   box-shadow: var(--yab-shadow);
   font-family: var(--yab-font);
@@ -1254,7 +1256,7 @@ body {
 }
 
 .yab-controls button:hover {
-  background: rgba(0, 121, 107, 0.1);
+  background: var(--yab-hover);
 }
 
 .yab-controls button:focus-visible {

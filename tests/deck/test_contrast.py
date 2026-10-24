@@ -38,6 +38,7 @@ _COLOR = re.compile(r"(?:^|;)\s*color:\s*([^;]+)")
 _BACKGROUND = re.compile(r"(?:^|;)\s*background(?:-color)?:\s*([^;]+)")
 _VAR = re.compile(r"var\(--([\w-]+)\)")
 _HEX = re.compile(r"#[0-9a-fA-F]{6}")
+_RAW_COLOUR = re.compile(r"#[0-9a-fA-F]{3,8}\b|rgba?\(|hsla?\(")
 
 
 def _luminance(hex_colour):
@@ -103,6 +104,14 @@ class ContrastTest(unittest.TestCase):
                 too_faint.append(f"{selector}: {foreground} on {background} is "
                                  f"{ratio:.2f}:1, needs {minimum}:1")
         self.assertEqual(too_faint, [])
+
+    def test_colours_are_only_set_in_token_blocks(self):
+        # Night mode swaps the token values, so a colour written straight into a rule
+        # would stay the same in both themes.
+        css = _COMMENT.sub("", THEME.read_text(encoding="utf-8"))
+        raw = [" ".join(selector.split()) for selector, body in _RULE.findall(css)
+               if ":root" not in selector and _RAW_COLOUR.search(body)]
+        self.assertEqual(raw, [])
 
     def test_contrast_formula(self):
         self.assertAlmostEqual(contrast("#000000", "#ffffff"), 21.0)

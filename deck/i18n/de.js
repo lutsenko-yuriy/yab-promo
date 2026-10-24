@@ -4,6 +4,7 @@ window.YAB_I18N.de = {
   "controls.language": "Sprache",
   "controls.lang-en": "EN",
   "controls.lang-de": "DE",
+  "controls.night-mode": "Nachtmodus",
   "controls.fullscreen": "Vollbild (F)",
   "controls.menu": "Zu einem Abschnitt springen",
   "controls.contents": "Inhalt",

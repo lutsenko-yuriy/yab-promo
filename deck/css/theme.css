@@ -1286,7 +1286,7 @@ body {
   cursor: pointer;
 }
 
-/* Language switch and full-screen button */
+/* Language switch, night mode and full-screen buttons */
 
 .yab-controls {
   position: fixed;
@@ -1331,7 +1331,8 @@ body {
   color: var(--yab-surface);
 }
 
-.yab-fullscreen svg {
+.yab-fullscreen svg,
+.yab-theme svg {
   width: 22px;
   height: 22px;
   fill: none;
@@ -1340,6 +1341,15 @@ body {
   stroke-linecap: round;
   stroke-linejoin: round;
   vertical-align: middle;
+}
+
+.yab-theme .icon-sun,
+.yab-theme[aria-pressed="true"] .icon-moon {
+  display: none;
+}
+
+.yab-theme[aria-pressed="true"] .icon-sun {
+  display: inline;
 }
 
 .yab-fullscreen .icon-exit,

@@ -1,4 +1,5 @@
-// Starts reveal.js and wires the section menu, the language switch and the full-screen button.
+// Starts reveal.js and wires the section menu, the language switch, the night mode and
+// full-screen buttons.
 (function () {
   'use strict';
 
@@ -20,6 +21,19 @@
       releaseFocus(event, button);
     });
   });
+
+  // Night mode is on while the deck is dark, whether picked here or by the system.
+  const nightMode = document.querySelector('.yab-theme');
+  const syncNightMode = () => {
+    nightMode.setAttribute('aria-pressed', String(window.YabTheme.current() === 'dark'));
+  };
+  nightMode.addEventListener('click', (event) => {
+    window.YabTheme.toggle();
+    syncNightMode();
+    releaseFocus(event, nightMode);
+  });
+  window.YabTheme.system.addEventListener('change', syncNightMode);
+  syncNightMode();
 
   // Safari before 16.4 only has the webkit-prefixed API; iPhone has neither.
   const root = document.documentElement;
@@ -117,7 +131,7 @@
   window.Reveal.on('slidechanged', markCurrentSection);
 
   window.Reveal.initialize({
-    // Leave keys on the menu, language switch and full-screen button to those controls.
+    // Leave keys on the menu and the buttons at the top right to those controls.
     keyboardCondition: (event) =>
       !event.target.closest('.yab-controls, .yab-menu'),
     hash: true,

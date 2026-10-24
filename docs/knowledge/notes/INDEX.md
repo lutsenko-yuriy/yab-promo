@@ -6,7 +6,7 @@ Generated from `bookmarks:` frontmatter in `docs/knowledge/notes/*.md`. Run `pyt
 
 ## Top themes
 
-- **upstream-candidate** (7)
+- **upstream-candidate** (8)
 - **scope-growth** (2)
 
 ## By bookmark
@@ -21,6 +21,7 @@ Generated from `bookmarks:` frontmatter in `docs/knowledge/notes/*.md`. Run `pyt
 - [YP-22: [trivial] Drop the Codex case slide and the Python 3.11 limit](YP-22.md)
 - [YP-24: [trivial] Purpose slide: "a structured way of working" instead of "a team's way of working"](YP-24.md)
 - [YP-26: [trivial] Cases: link Mordovorot's live app, not only its repo](YP-26.md)
+- [YP-28: Night mode for the deck](YP-28.md)
 - [YP-29: Cases: Mordovorot before CheckLister, and up-to-date numbers](YP-29.md)
 - [Onboarding guide (PR #4): Claude Code onboarding guide for new teammates](onboarding-guide.md)
 

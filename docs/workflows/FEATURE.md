@@ -11,6 +11,9 @@ Follow TDD: write or update tests **before** implementing the feature or fix. Re
 **Ticket states and parallelism rules:**
 - **Brief** → pre-implementation scoping (`/brief`, `/analyze`, `/plan`, `/draft-scenarios` gates from step 1 below) — used when this scoping genuinely spans multiple sessions/days, so it's visible separately from Backlog rather than looking untouched. Skip it for tickets that go straight into a single session's In Progress.
 - **In Progress** → active development; only one ticket may be In Progress at a time (Brief does not count against this limit).
+- **New requests mid-ticket** → create the ticket straight away, but don't start it until the current
+  ticket is shipped or waiting on the user. Switching branches mid-ticket costs rebases, re-checks and
+  the user's attention.
 - **In Review** → PR/MR is open; code review is happening.
 - **In QA / testing** → change is merged; automated and/or human verification is happening on the target environment. A new ticket **may** be picked up while another is In this state.
 - **Done** → verification has signed off; the user moves the ticket to Done manually.
@@ -33,6 +36,11 @@ workflow above:
 4. `/debrief` — skip the review loop (step 10) entirely; a trivial diff doesn't carry
    architectural or runtime risk worth two review passes.
 5. Merge via `/ship`.
+
+**Batching:** trivial tickets that queue up while other work is in progress go out together: one
+branch from the latest `origin/main` (`feature/YP-XX-YP-YY-<short-description>`), one commit per
+ticket, one PR/MR closing all of them, then a single `/debrief` and a single `/ship` (one CHANGELOG
+entry per ticket, one version bump).
 
 If a change *looks* small but touches logic, a new screen, or anything with runtime
 behaviour beyond a literal value, it is not trivial — use the full workflow instead.

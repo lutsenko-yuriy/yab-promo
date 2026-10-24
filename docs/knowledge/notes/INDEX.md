@@ -6,7 +6,7 @@ Generated from `bookmarks:` frontmatter in `docs/knowledge/notes/*.md`. Run `pyt
 
 ## Top themes
 
-- **upstream-candidate** (6)
+- **upstream-candidate** (7)
 - **scope-growth** (2)
 
 ## By bookmark
@@ -21,6 +21,7 @@ Generated from `bookmarks:` frontmatter in `docs/knowledge/notes/*.md`. Run `pyt
 - [YP-22: [trivial] Drop the Codex case slide and the Python 3.11 limit](YP-22.md)
 - [YP-24: [trivial] Purpose slide: "a structured way of working" instead of "a team's way of working"](YP-24.md)
 - [YP-26: [trivial] Cases: link Mordovorot's live app, not only its repo](YP-26.md)
+- [YP-29: Cases: Mordovorot before CheckLister, and up-to-date numbers](YP-29.md)
 - [Onboarding guide (PR #4): Claude Code onboarding guide for new teammates](onboarding-guide.md)
 
 ## Reviewed — nothing noteworthy
@@ -28,7 +29,3 @@ Generated from `bookmarks:` frontmatter in `docs/knowledge/notes/*.md`. Run `pyt
 - [YP-12: Deck test for the theme's colour contrast](YP-12.md)
 - [YP-16: Reorder core values into a logical chain](YP-16.md)
 - [YP-19: German brief slide overflows the shared story height](YP-19.md)
-
-## Not yet reviewed
-
-- [YP-29: Cases: Mordovorot before CheckLister, and up-to-date numbers](YP-29.md)

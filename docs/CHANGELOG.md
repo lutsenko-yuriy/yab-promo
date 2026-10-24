@@ -4,6 +4,11 @@ A record of all versioned releases. For planned work and known issues, see @docs
 
 ---
 
+## [0.4.3] — 2026-10-24 (PR #25 merged)
+
+### Changed
+- [user] YP-24: the "What YAB is" slide says YAB gives AI agents a structured way of working, instead of a team's way of working (PR #25)
+
 ## [0.4.2] — 2026-10-23 (PR #23 merged)
 
 ### Changed

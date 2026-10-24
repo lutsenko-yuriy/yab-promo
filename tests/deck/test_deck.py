@@ -103,8 +103,8 @@ SWITCH_NAME = "pact chaining feature flag"
 CASES_SLIDES = [
     "cases",
     "cases-habit-loop",
-    "cases-checklister",
     "cases-mordovorot",
+    "cases-checklister",
 ]
 # The public repository each app slide links to; its screenshots live in img/cases/<app>/.
 CASE_REPOS = {
@@ -342,6 +342,12 @@ class MarkupTest(unittest.TestCase):
         start = ids.index("cases")
         self.assertEqual(ids[start:start + len(CASES_SLIDES)], CASES_SLIDES)
         self.assertEqual(ids[start + len(CASES_SLIDES)], "limits")
+
+    def test_cases_opener_lists_the_apps_in_slide_order(self):
+        apps = [slide_id.removeprefix("cases-") for slide_id in CASES_SLIDES[1:]]
+        keys = [k for k in self._slide("cases")["i18n"] if k.startswith("cases.")]
+        self.assertEqual([k for k in keys if k.removeprefix("cases.") in apps],
+                         [f"cases.{app}" for app in apps])
 
     def test_limits_section_order(self):
         ids = [slide["id"] for slide in self.deck.slides]

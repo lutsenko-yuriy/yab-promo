@@ -197,6 +197,7 @@ window.YAB_I18N.en = {
   "cases-mordovorot.notes": "ticket notes",
   "cases-mordovorot.clients": "clients, one codebase: terminal and browser",
   "cases-mordovorot.as-of": "Counted on 21 October 2026.",
+  "cases-mordovorot.app": "Play it in your browser",
   "cases-mordovorot.desktop-alt": "Mordovorot in a desktop browser: the board, moves and Mordie’s comment",
   "cases-mordovorot.phone-alt": "Mordovorot in a phone browser",
 

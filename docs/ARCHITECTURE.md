@@ -18,7 +18,7 @@ Content repo: Markdown copy plus static HTML/CSS pages, with the YAB tooling scr
 deck/               # The YAB presentation deck, published to GitHub Pages as is
   index.html        #   All slides; visible text and alt text referenced by i18n keys
   css/              #   Theme (Habit Loop palette) and deck components
-  js/               #   Deck start-up, section menu and controls, language switching
+  js/               #   Deck start-up, section menu and controls, language and night mode switching
   i18n/             #   String tables, one per language (en.js, de.js)
   img/cases/<app>/  #   App screenshots for the cases section, resized for the web
   vendor/           #   Third-party files copied in unchanged (reveal.js)
@@ -83,6 +83,15 @@ matched elements' colours, opacity, outline and transition with `!important` unt
 is left; only CSS transitions outrank that, so the last click uses transitions to
 `!important` end states, and the WU4 regression flash animates `stroke` and `fill`, which
 reveal.js leaves alone.
+
+Every colour in `deck/css/theme.css` is a `--yab-*` token on `:root`. Night mode redefines
+the same tokens twice with identical values: under `:root[data-theme="dark"]` (picked with the
+night mode button) and under `@media (prefers-color-scheme: dark)` for
+`:root:not([data-theme="light"])` (the system setting, while the viewer has picked nothing).
+`deck/js/theme.js` runs in `<head>`, before the stylesheet, and puts the saved choice on
+`<html>` as `data-theme`, so the first paint is already in the right theme; with nothing
+saved, or storage refused, it sets nothing and the CSS follows the system.
+`test_contrast.py` checks both token sets.
 
 `.github/workflows/pages.yml` publishes `deck/` alone to GitHub Pages on every push to `main`
 that changes it, so the site carries neither the docs nor the tooling.

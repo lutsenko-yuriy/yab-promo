@@ -16,11 +16,74 @@
   --yab-background: #f1f8e9;
   --yab-surface: #ffffff;
   --yab-text: #1b2b26;
+  --yab-on-accent: #004d40; /* text on growth and sunrise fills */
   --yab-border: #c5e1a5;
   --yab-radius: 18px;
   --yab-shadow: 0 6px 20px rgba(0, 77, 64, 0.1);
+  --yab-floating: rgba(255, 255, 255, 0.8); /* menu button and controls over the slide */
+  --yab-hover: rgba(0, 121, 107, 0.1);
+  --yab-shot-frame: transparent; /* the case screenshots, framed at night */
 
   --yab-font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  color-scheme: light;
+}
+
+/* Night mode: Habit Loop's dark theme (Material 3 dark scheme seeded from #00796b, muted
+   text as HabitLoopColors.secondaryText). Light tones replace the brand teal for text and
+   lines, which would be too dark on the background. The same values twice: as picked with
+   the night mode button, and as the system setting while nothing is picked. */
+
+:root[data-theme="dark"] {
+  --yab-primary: #80d5c8;
+  --yab-primary-dark: #a6f2e4;
+  --yab-growth: #8bc34a;
+  --yab-growth-dark: #8bc34a;
+  --yab-sunrise: #ffb74d;
+  --yab-success: #81c784;
+  --yab-danger: #ef9a9a;
+  --yab-pending: #ffb74d;
+  --yab-info: #90caf9;
+  --yab-muted: #bdbdbd;
+
+  --yab-background: #0e1513;
+  --yab-surface: #1a211f;
+  --yab-text: #dee4e1;
+  --yab-on-accent: #0e1513;
+  --yab-border: #3f4946;
+  --yab-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  --yab-floating: rgba(26, 33, 31, 0.85);
+  --yab-hover: rgba(128, 213, 200, 0.15);
+  --yab-shot-frame: var(--yab-border);
+
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --yab-primary: #80d5c8;
+    --yab-primary-dark: #a6f2e4;
+    --yab-growth: #8bc34a;
+    --yab-growth-dark: #8bc34a;
+    --yab-sunrise: #ffb74d;
+    --yab-success: #81c784;
+    --yab-danger: #ef9a9a;
+    --yab-pending: #ffb74d;
+    --yab-info: #90caf9;
+    --yab-muted: #bdbdbd;
+
+    --yab-background: #0e1513;
+    --yab-surface: #1a211f;
+    --yab-text: #dee4e1;
+    --yab-on-accent: #0e1513;
+    --yab-border: #3f4946;
+    --yab-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    --yab-floating: rgba(26, 33, 31, 0.85);
+    --yab-hover: rgba(128, 213, 200, 0.15);
+    --yab-shot-frame: var(--yab-border);
+
+    color-scheme: dark;
+  }
 }
 
 /* Base */
@@ -204,7 +267,7 @@ body {
   height: 1.7em;
   border-radius: 50%;
   background: var(--yab-growth);
-  color: var(--yab-primary-dark);
+  color: var(--yab-on-accent);
 }
 
 /* Read by screen readers, hidden on screen. */
@@ -299,7 +362,7 @@ body {
   padding: 4px 12px 4px 8px;
   border-radius: 999px;
   background: var(--yab-sunrise);
-  color: var(--yab-primary-dark);
+  color: var(--yab-on-accent);
   font-size: 0.5em;
   font-weight: 700;
   box-shadow: var(--yab-shadow);
@@ -451,7 +514,7 @@ body {
 .reveal .wu-chip.is-done {
   border-color: var(--yab-growth);
   background: var(--yab-growth);
-  color: var(--yab-primary-dark);
+  color: var(--yab-on-accent);
 }
 
 .reveal .wu-chip.is-step.is-done {
@@ -961,6 +1024,7 @@ body {
   margin: 0;
   border-radius: 18px;
   box-shadow: var(--yab-shadow);
+  outline: 1px solid var(--yab-shot-frame);
 }
 
 .reveal .shots .shot-wide {
@@ -1049,7 +1113,7 @@ body {
   height: 56px;
   border: 0;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--yab-floating);
   box-shadow: var(--yab-shadow);
   color: var(--yab-primary-dark);
   cursor: pointer;
@@ -1135,7 +1199,7 @@ body {
   height: 28px;
   border-radius: 50%;
   background: var(--yab-growth);
-  color: var(--yab-primary-dark);
+  color: var(--yab-on-accent);
   font-size: 14px;
 }
 
@@ -1226,7 +1290,7 @@ body {
   cursor: pointer;
 }
 
-/* Language switch and full-screen button */
+/* Language switch, night mode and full-screen buttons */
 
 .yab-controls {
   position: fixed;
@@ -1236,7 +1300,7 @@ body {
   display: flex;
   gap: 10px;
   padding: 6px;
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--yab-floating);
   border-radius: 999px;
   box-shadow: var(--yab-shadow);
   font-family: var(--yab-font);
@@ -1254,7 +1318,7 @@ body {
 }
 
 .yab-controls button:hover {
-  background: rgba(0, 121, 107, 0.1);
+  background: var(--yab-hover);
 }
 
 .yab-controls button:focus-visible {
@@ -1271,7 +1335,8 @@ body {
   color: var(--yab-surface);
 }
 
-.yab-fullscreen svg {
+.yab-fullscreen svg,
+.yab-theme svg {
   width: 22px;
   height: 22px;
   fill: none;
@@ -1280,6 +1345,15 @@ body {
   stroke-linecap: round;
   stroke-linejoin: round;
   vertical-align: middle;
+}
+
+.yab-theme .icon-sun,
+.yab-theme[aria-pressed="true"] .icon-moon {
+  display: none;
+}
+
+.yab-theme[aria-pressed="true"] .icon-sun {
+  display: inline;
 }
 
 .yab-fullscreen .icon-exit,

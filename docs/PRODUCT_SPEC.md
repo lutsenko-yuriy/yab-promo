@@ -20,6 +20,10 @@ https://lutsenko-yuriy.github.io/yab-promo/ (source: `deck/`).
   with reduced motion turned on, they are not.
 - The viewer can switch between English and German at any time; the current slide stays. A
   `?lang=de` link opens the deck in German.
+- The deck follows the device's light or dark setting. A night mode button beside full screen
+  switches it on the current slide; the choice is remembered in that browser and wins over the
+  device setting from then on. Night mode uses Habit Loop's dark colours; the app screenshots get
+  a thin frame.
 - The first slide is a table of contents under the title YAB, with the full name, Yuriy's
   agentic boyz, on its own smaller line. It links to six sections:
   1. Purpose of YAB: what it is, the ticket lifecycle with its human gates, and its memory.

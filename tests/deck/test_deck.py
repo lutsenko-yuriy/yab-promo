@@ -719,6 +719,38 @@ class MarkupTest(unittest.TestCase):
         css = (DECK / "css" / "theme.css").read_text(encoding="utf-8")
         self.assertRegex(css, r"@media \(orientation: portrait\) and \(max-width: \d+px\)")
 
+    def test_night_mode_button_sits_between_language_and_full_screen(self):
+        html = (DECK / "index.html").read_text(encoding="utf-8")
+        controls = re.search(r'<div class="yab-controls">.*?\n  </div>', html, re.DOTALL)
+        self.assertIsNotNone(controls, "no controls")
+        controls = controls.group(0)
+        self.assertEqual(
+            re.findall(r'class="(yab-lang|yab-theme|yab-fullscreen)"', controls),
+            ["yab-lang", "yab-theme", "yab-fullscreen"],
+        )
+        button = re.search(r'<button[^>]*class="yab-theme"[^>]*>.*?</button>', controls,
+                           re.DOTALL).group(0)
+        self.assertIn('data-i18n-aria="controls.night-mode"', button)
+        self.assertIn('aria-pressed="false"', button)
+        # The icon shows where a click takes you: the moon in light mode, the sun at night.
+        self.assertIn('class="icon-moon"', button)
+        self.assertIn('class="icon-sun"', button)
+
+    def test_night_mode_is_set_before_the_first_paint(self):
+        html = (DECK / "index.html").read_text(encoding="utf-8")
+        head = html[:html.index("</head>")]
+        script = re.search(r'<script src="js/theme\.js"([^>]*)></script>', head)
+        self.assertIsNotNone(script, "js/theme.js is not loaded in <head>")
+        self.assertNotRegex(script.group(1), r"defer|async")
+        self.assertLess(script.start(), head.index('href="css/theme.css"'))
+
+    def test_night_mode_survives_refused_storage(self):
+        # Private windows and some file:// pages throw on any storage access.
+        script = (DECK / "js" / "theme.js").read_text(encoding="utf-8")
+        accesses = script.count("localStorage")
+        self.assertGreater(accesses, 0, "the choice is not remembered")
+        self.assertEqual(len(re.findall(r"try \{[^}]*localStorage", script)), accesses)
+
     def test_no_code_on_slides(self):
         self.assertEqual(self.deck.code_tags, 0)
 

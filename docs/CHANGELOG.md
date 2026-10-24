@@ -4,6 +4,12 @@ A record of all versioned releases. For planned work and known issues, see @docs
 
 ---
 
+## [0.5.0] — 2026-10-24 (PR #31 merged)
+
+### Added
+- [user] YP-28: night mode for the presentation. It follows the device's light or dark setting, and a button next to full screen switches it on the current slide; the choice is remembered in the browser. The colours follow Habit Loop's dark theme, and the app screenshots get a thin frame at night (PR #31)
+- [meta] YP-28 debrief: requests that arrive mid-ticket are ticketed but not started until the current ticket ships or waits on the user; queued trivial tickets ship together on one branch and PR
+
 ## [0.4.5] — 2026-10-24 (PR #30 merged)
 
 ### Changed

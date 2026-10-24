@@ -144,6 +144,15 @@ class ContrastTest(unittest.TestCase):
         self.assertTrue(self.dark, "no night mode tokens")
         self.assertEqual(tokens(self.css, DARK_SYSTEM), self.dark)
 
+    def test_night_mode_frames_the_screenshots(self):
+        # The case screenshots are dark captures; at night their edges would melt into
+        # the background. Dimming them would only make them murkier.
+        shot = dict(_rules(self.css))[".reveal .shots .shot"]
+        self.assertIn("outline: 1px solid var(--yab-shot-frame)", shot)
+        self.assertNotIn("filter", shot)
+        self.assertEqual(self.light.get("yab-shot-frame"), "transparent")
+        self.assertEqual(self.dark.get("yab-shot-frame"), "var(--yab-border)")
+
     def test_colours_are_only_set_in_token_blocks(self):
         # Night mode swaps the token values, so a colour written straight into a rule
         # would stay the same in both themes.

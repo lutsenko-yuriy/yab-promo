@@ -22,6 +22,7 @@
   --yab-shadow: 0 6px 20px rgba(0, 77, 64, 0.1);
   --yab-floating: rgba(255, 255, 255, 0.8); /* menu button and controls over the slide */
   --yab-hover: rgba(0, 121, 107, 0.1);
+  --yab-shot-frame: transparent; /* the case screenshots, framed at night */
 
   --yab-font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
@@ -53,6 +54,7 @@
   --yab-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
   --yab-floating: rgba(26, 33, 31, 0.85);
   --yab-hover: rgba(128, 213, 200, 0.15);
+  --yab-shot-frame: var(--yab-border);
 
   color-scheme: dark;
 }
@@ -78,6 +80,7 @@
     --yab-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
     --yab-floating: rgba(26, 33, 31, 0.85);
     --yab-hover: rgba(128, 213, 200, 0.15);
+    --yab-shot-frame: var(--yab-border);
 
     color-scheme: dark;
   }
@@ -1021,6 +1024,7 @@ body {
   margin: 0;
   border-radius: 18px;
   box-shadow: var(--yab-shadow);
+  outline: 1px solid var(--yab-shot-frame);
 }
 
 .reveal .shots .shot-wide {

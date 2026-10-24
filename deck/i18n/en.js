@@ -33,7 +33,7 @@ window.YAB_I18N.en = {
   "purpose.review": "One person can't review everything it writes.",
 
   "purpose-what.title": "What YAB is",
-  "purpose-what.lead": "A GitHub template that gives your AI agents <strong>a team's way of working</strong>.",
+  "purpose-what.lead": "A GitHub template that gives your AI agents <strong>a structured way of working</strong>.",
   "purpose-what.tickets": "Tickets",
   "purpose-what.plans": "Plans",
   "purpose-what.tests": "Tests first",

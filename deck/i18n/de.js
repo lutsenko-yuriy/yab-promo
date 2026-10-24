@@ -33,7 +33,7 @@ window.YAB_I18N.de = {
   "purpose.review": "Ein Mensch allein kann nicht alles prüfen, was er schreibt.",
 
   "purpose-what.title": "Was YAB ist",
-  "purpose-what.lead": "Ein GitHub-Template, das KI-Agenten <strong>die Arbeitsweise eines Teams</strong> gibt.",
+  "purpose-what.lead": "Ein GitHub-Template, das KI-Agenten <strong>eine strukturierte Arbeitsweise</strong> gibt.",
   "purpose-what.tickets": "Tickets",
   "purpose-what.plans": "Pläne",
   "purpose-what.tests": "Tests zuerst",

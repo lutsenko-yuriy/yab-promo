@@ -6,7 +6,7 @@ Generated from `bookmarks:` frontmatter in `docs/knowledge/notes/*.md`. Run `pyt
 
 ## Top themes
 
-- **upstream-candidate** (4)
+- **upstream-candidate** (5)
 - **scope-growth** (2)
 
 ## By bookmark
@@ -19,6 +19,7 @@ Generated from `bookmarks:` frontmatter in `docs/knowledge/notes/*.md`. Run `pyt
 - [YP-14: Deck polish: YAB title, the analytics question, and the feature switch from WU0 to after the debrief](YP-14.md)
 - [YP-18: Example: one branch and PR per work unit as a growing branch diagram (loosely trunk-based), plus the branching limit](YP-18.md)
 - [YP-22: [trivial] Drop the Codex case slide and the Python 3.11 limit](YP-22.md)
+- [YP-24: [trivial] Purpose slide: "a structured way of working" instead of "a team's way of working"](YP-24.md)
 - [Onboarding guide (PR #4): Claude Code onboarding guide for new teammates](onboarding-guide.md)
 
 ## Reviewed — nothing noteworthy

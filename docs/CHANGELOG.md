@@ -4,6 +4,12 @@ A record of all versioned releases. For planned work and known issues, see @docs
 
 ---
 
+## [0.5.3] — 2026-10-26 (PR #39 merged)
+
+### Changed
+- [app] YP-38: `deck/index.html` is no longer committed: it is gitignored, the Pages workflow builds it with `tools/build_deck.py` and publishes `deck/` without `src/`, and the deck tests build the page themselves. `build_deck.py --check` is gone. After pulling, run `python3 tools/build_deck.py` once to open the deck from a clone (if the pull refuses over a local `deck/index.html`, run `git checkout -- deck/index.html` first) (PR #39)
+- [meta] YP-38 debrief: quick, no workflow changes
+
 ## [0.5.2] — 2026-10-26 (PR #37 merged)
 
 ### Changed

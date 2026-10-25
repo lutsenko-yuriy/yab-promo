@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """Write deck/index.html from the slide sources in deck/src/.
 
-The deck is published as committed files, so index.html stays in the repo and needs no
-build to run online or from a local clone. Edit deck/src/ and run this script; a test
-fails when index.html is out of date with its sources.
+index.html isn't committed: the Pages workflow runs this script before publishing deck/,
+and a local clone runs it once before opening the deck. Edit deck/src/, never index.html.
 
 deck/src/shell.html is the page; three rules make up the rest:
 
@@ -22,8 +21,7 @@ deck/src/shell.html is the page; three rules make up the rest:
 Anything unknown, missing or left open stops the build with the file and line.
 
 Usage:
-    python3 tools/build_deck.py           # write deck/index.html
-    python3 tools/build_deck.py --check   # exit 1 if deck/index.html is out of date
+    python3 tools/build_deck.py   # write deck/index.html
 """
 
 import re
@@ -235,20 +233,14 @@ def render(src: Path = SRC) -> str:
 
 
 def main(argv: List[str]) -> int:
-    if argv not in ([], ["--check"]):
-        print("usage: python3 tools/build_deck.py [--check]", file=sys.stderr)
+    if argv:
+        print("usage: python3 tools/build_deck.py", file=sys.stderr)
         return 2
     try:
         page = render()
     except BuildError as error:
         print(f"build_deck: {error}", file=sys.stderr)
         return 1
-    if "--check" in argv:
-        if not OUT.is_file() or OUT.read_text(encoding="utf-8") != page:
-            print("build_deck: deck/index.html is out of date; run python3 tools/build_deck.py",
-                  file=sys.stderr)
-            return 1
-        return 0
     OUT.write_text(page, encoding="utf-8")
     return 0
 

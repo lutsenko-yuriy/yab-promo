@@ -12,3 +12,6 @@ __pycache__/
 #   .claude/*
 #   !.claude/agents/
 # to your project's .gitignore instead.
+
+# The deck page is built from deck/src/ by tools/build_deck.py (CI builds it for Pages).
+deck/index.html

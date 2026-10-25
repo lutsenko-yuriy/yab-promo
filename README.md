@@ -6,9 +6,15 @@ Promo materials for Yuriy's agentic boyz (YAB) framework: **[lutsenko-yuriy/yuri
 
 Promo pages are static HTML/CSS: open them in a browser, no build needed to view them.
 
-The presentation deck is `deck/index.html`. It works opened straight from the file (also offline); add `?lang=de` for German, or use the EN/DE switch.
+The presentation deck is live at https://lutsenko-yuriy.github.io/yab-promo/. To run it from a clone, build the page once (Python 3, nothing to install), then open `deck/index.html` straight from the file (also offline):
 
-To change the slides, edit `deck/src/` and run `python3 tools/build_deck.py`; it writes `deck/index.html`, which is committed.
+```bash
+python3 tools/build_deck.py
+```
+
+Add `?lang=de` for German, or use the EN/DE switch.
+
+To change the slides, edit `deck/src/` and run the build again. `deck/index.html` is generated and gitignored; the Pages workflow builds it before publishing.
 
 ## Testing
 

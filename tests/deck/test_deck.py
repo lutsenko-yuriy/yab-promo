@@ -1,9 +1,12 @@
 """Structural checks for the presentation deck in deck/.
 
 The deck has no JavaScript test setup, so these tests read the files as text: the
-markup in deck/index.html and the string tables in deck/i18n/<lang>.js.
+page tools/build_deck.py builds from deck/src/, and the string tables in
+deck/i18n/<lang>.js.
 """
 
+import functools
+import importlib.util
 import json
 import re
 import unittest
@@ -13,6 +16,16 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[2]
 DECK = REPO / "deck"
 LANGS = ("en", "de")
+
+_spec = importlib.util.spec_from_file_location("build_deck", REPO / "tools" / "build_deck.py")
+build_deck = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(build_deck)
+
+
+@functools.lru_cache(maxsize=None)
+def _page():
+    """The deck page as CI builds and publishes it."""
+    return build_deck.render()
 
 # Sections the table-of-contents slide links to, in order.
 TOC_TARGETS = ["purpose", "values", "example", "cases", "limits", "get-yab"]
@@ -159,7 +172,7 @@ TABLE_RE = re.compile(
 
 
 class _DeckParser(HTMLParser):
-    """Collects what the tests need from deck/index.html in one pass."""
+    """Collects what the tests need from the built deck page in one pass."""
 
     def __init__(self):
         super().__init__()
@@ -251,7 +264,7 @@ class _DeckParser(HTMLParser):
 
 def _parse_deck():
     parser = _DeckParser()
-    parser.feed((DECK / "index.html").read_text(encoding="utf-8"))
+    parser.feed(_page())
     return parser
 
 
@@ -296,7 +309,7 @@ class MarkupTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.deck = _parse_deck()
-        cls.html = (DECK / "index.html").read_text(encoding="utf-8")
+        cls.html = _page()
 
     def test_markup_keys_match_tables(self):
         markup = set(self.deck.i18n_keys)
@@ -515,7 +528,7 @@ class MarkupTest(unittest.TestCase):
                     self.assertEqual(delay, UNITS_DELAY if slide_id == "example-wu0" else None)
 
     def test_debrief_happens_on_wu4s_branch(self):
-        html = (DECK / "index.html").read_text(encoding="utf-8")
+        html = _page()
         for slide_id in DIAGRAM_SLIDES:
             section = re.search(rf'<section id="{slide_id}".*?</section>', html, re.DOTALL)
             label = re.search(r'<a [^>]*data-id="label-wu-4"[^>]*>(.*?)</a>', section.group(0))
@@ -740,7 +753,7 @@ class MarkupTest(unittest.TestCase):
         self.assertEqual([i for i in human["data_ids"] if i.startswith("human-")], gates)
 
     def test_section_menu_links_every_section(self):
-        html = (DECK / "index.html").read_text(encoding="utf-8")
+        html = _page()
         menu = re.search(r'<nav class="yab-menu".*?</nav>', html, re.DOTALL)
         self.assertIsNotNone(menu, "no section menu")
         menu = menu.group(0)
@@ -758,7 +771,7 @@ class MarkupTest(unittest.TestCase):
         self.assertRegex(menu, rf'id="{list_id}"[^>]*hidden')
 
     def test_section_label_sits_beside_the_menu(self):
-        html = (DECK / "index.html").read_text(encoding="utf-8")
+        html = _page()
         label = re.search(r'<p class="yab-section".*?</p>', html, re.DOTALL)
         self.assertIsNotNone(label, "no fixed section label")
         self.assertEqual(
@@ -771,7 +784,7 @@ class MarkupTest(unittest.TestCase):
                 self.assertEqual(eyebrows, [], "the section label is no longer on the slides")
 
     def test_phones_held_upright_are_asked_to_turn(self):
-        html = (DECK / "index.html").read_text(encoding="utf-8")
+        html = _page()
         hint = re.search(r'<div class="yab-rotate".*?</div>', html, re.DOTALL)
         self.assertIsNotNone(hint, "no rotate hint")
         self.assertIn('data-i18n="controls.rotate"', hint.group(0))
@@ -780,7 +793,7 @@ class MarkupTest(unittest.TestCase):
         self.assertRegex(css, r"@media \(orientation: portrait\) and \(max-width: \d+px\)")
 
     def test_night_mode_button_sits_between_language_and_full_screen(self):
-        html = (DECK / "index.html").read_text(encoding="utf-8")
+        html = _page()
         controls = re.search(r'<div class="yab-controls">.*?\n  </div>', html, re.DOTALL)
         self.assertIsNotNone(controls, "no controls")
         controls = controls.group(0)
@@ -797,7 +810,7 @@ class MarkupTest(unittest.TestCase):
         self.assertIn('class="icon-sun"', button)
 
     def test_night_mode_is_set_before_the_first_paint(self):
-        html = (DECK / "index.html").read_text(encoding="utf-8")
+        html = _page()
         head = html[:html.index("</head>")]
         script = re.search(r'<script src="js/theme\.js"([^>]*)></script>', head)
         self.assertIsNotNone(script, "js/theme.js is not loaded in <head>")
@@ -836,11 +849,18 @@ class PagesWorkflowTest(unittest.TestCase):
     def test_runs_on_deck_changes_to_main(self):
         self.assertRegex(self.text, r"branches:\s*\[\s*main\s*\]")
         self.assertIn('"deck/**"', self.text)
+        self.assertIn('"tools/build_deck.py"', self.text)
+        self.assertIn('".github/workflows/pages.yml"', self.text)
         self.assertIn("workflow_dispatch", self.text)
 
-    def test_publishes_only_the_deck_folder(self):
-        self.assertIn("actions/upload-pages-artifact@v3", self.text)
-        self.assertRegex(self.text, r"\n\s+path: deck\n")
+    def test_builds_the_deck_and_publishes_it_without_the_sources(self):
+        # deck/index.html isn't committed, so the page is built before the upload.
+        build = self.text.find("python3 tools/build_deck.py")
+        upload = self.text.find("actions/upload-pages-artifact@v3")
+        self.assertNotEqual(build, -1, "the deck is never built")
+        self.assertLess(build, upload, "the deck is built after it is uploaded")
+        self.assertIn("rsync -a --exclude /src/ deck/ _site/", self.text[build:upload])
+        self.assertRegex(self.text[upload:], r"\n\s+path: _site\n")
         self.assertIn("actions/deploy-pages@v4", self.text)
 
     def test_has_pages_permissions(self):

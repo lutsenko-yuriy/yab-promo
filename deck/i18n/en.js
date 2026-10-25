@@ -10,6 +10,12 @@ window.YAB_I18N.en = {
   "controls.contents": "Contents",
   "controls.rotate": "Turn your phone sideways to see the slides at full size.",
   "controls.rotate-dismiss": "Continue anyway",
+  "toggle.purpose": "Include “Purpose of YAB” when clicking through",
+  "toggle.values": "Include “Core values” when clicking through",
+  "toggle.example": "Include “The example” when clicking through",
+  "toggle.cases": "Include “Cases” when clicking through",
+  "toggle.limits": "Include “Plans for the future” when clicking through",
+  "toggle.get-yab": "Include “Get YAB” when clicking through",
 
   "toc.title": "YAB",
   "toc.subtitle": "Yuriy's agentic boyz",

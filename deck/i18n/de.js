@@ -10,6 +10,12 @@ window.YAB_I18N.de = {
   "controls.contents": "Inhalt",
   "controls.rotate": "Das Handy quer halten, um die Folien in voller Größe zu sehen.",
   "controls.rotate-dismiss": "Trotzdem weiter",
+  "toggle.purpose": "„Wozu YAB?“ beim Durchklicken zeigen",
+  "toggle.values": "„Grundwerte“ beim Durchklicken zeigen",
+  "toggle.example": "„Das Beispiel“ beim Durchklicken zeigen",
+  "toggle.cases": "„Praxisfälle“ beim Durchklicken zeigen",
+  "toggle.limits": "„Pläne für die Zukunft“ beim Durchklicken zeigen",
+  "toggle.get-yab": "„YAB ausprobieren“ beim Durchklicken zeigen",
 
   "toc.title": "YAB",
   "toc.subtitle": "Yuriy's agentic boyz",

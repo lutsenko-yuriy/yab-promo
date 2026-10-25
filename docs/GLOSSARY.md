@@ -30,6 +30,7 @@ When a new term is introduced during a `brief` session, add it here before creat
 | Section | One of the deck's six parts, listed on the contents slide and in the section menu | `toc.<section>` |
 | Section opener | The first slide of a section; its title morphs from the section's contents card | `id="<section>"` |
 | Section menu | The menu at the top left that jumps to any section and marks the one being shown | `.yab-menu` |
+| Section toggle | The on/off switch beside each entry in the section menu: a section switched off is skipped when clicking through, but still opens from the contents slide or the menu; the choices are carried in the link | — |
 | Section label | The fixed text beside the section menu naming the section being shown | `.yab-section`, `eyebrow.<section>` keys |
 | Plans for the future | Section 5: what YAB has not proven yet and what comes next | `limits` |
 | Case | A real project built with YAB, shown with screenshots and a link to its repo | `cases-<app>` |

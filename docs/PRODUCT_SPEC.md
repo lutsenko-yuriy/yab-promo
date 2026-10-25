@@ -37,9 +37,10 @@ https://lutsenko-yuriy.github.io/yab-promo/ (source: `deck/`).
      one branch per work unit across the width with its commits, each forking where the
      previous one merged, each label linking to its pull request. The debrief happens on
      WU4's branch. From the first work unit on, a panel beside the story shows the feature
-     switch (pact chaining feature flag) and what it is for. The debrief shows what was noted,
+     switch (pact chaining feature flag) and what it is for, in three bullets: it ships hidden,
+     turns on after release, and turns off without a release. The debrief shows what was noted,
      learned and changed in the workflow, then the numbers; its last click merges WU4 into
-     main and then turns the switch on.
+     main, puts "from 0.53.0" in place of "after release", and then turns the switch on.
   4. Cases: Habit Loop (Flutter), Mordovorot (Kotlin Multiplatform) and CheckLister
      (React Native), each with screenshots, a link to its public repo, a link to the app itself
      where it is public (Mordovorot, in the browser) and, where it has them,

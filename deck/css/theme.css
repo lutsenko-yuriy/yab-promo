@@ -790,6 +790,22 @@ body {
   color: var(--yab-muted);
 }
 
+/* "after release" and the version take turns in the same spot: the one not shown is squeezed
+   to no width, so the sentence closes up around the other. */
+.reveal .purpose-when {
+  display: inline-block;
+  overflow: hidden;
+  max-width: 12em;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+
+.reveal .purpose-released {
+  max-width: 0;
+  opacity: 0;
+  visibility: hidden;
+}
+
 .reveal .toggle {
   position: relative;
   display: flex;
@@ -837,11 +853,12 @@ body {
   box-shadow: var(--yab-shadow);
 }
 
-/* Off on every slide. The debrief's last click merges WU4 into main and then turns the
-   switch on. After a slide auto-animates, reveal.js pins its matched elements' colours and
+/* Off on every slide. The debrief's last click merges WU4 into main, names the version in
+   place of "after release" and then turns the switch on. After a slide auto-animates, reveal.js pins its matched elements' colours and
    opacity with !important until the slide is left; only a transition outranks that, so the
    end states are !important and only the way in is animated (stepping back is instant). */
 .reveal .toggle.fragment,
+.reveal .switch-purpose.fragment,
 .reveal .merge-line.fragment,
 .reveal .merge-node.fragment {
   transition: none;
@@ -865,28 +882,44 @@ body {
   transition: color 0.4s ease !important;
 }
 
+.reveal .switch-purpose.fragment.visible .purpose-pending {
+  max-width: 0;
+  opacity: 0 !important;
+  visibility: hidden;
+  transition: opacity 0.2s ease 0.4s, max-width 0.2s ease 0.6s,
+    visibility 0s linear 0.6s !important;
+}
+
+.reveal .switch-purpose.fragment.visible .purpose-released {
+  max-width: 12em;
+  opacity: 1 !important;
+  visibility: visible;
+  transition: max-width 0.2s ease 0.6s, opacity 0.2s ease 0.7s,
+    visibility 0s linear 0.6s !important;
+}
+
 .reveal .toggle.fragment.visible {
   background: var(--yab-success) !important;
   color: var(--yab-surface) !important;
-  transition: background-color 0.3s ease 0.7s, color 0.3s ease 0.7s !important;
+  transition: background-color 0.3s ease 1s, color 0.3s ease 1s !important;
 }
 
 .reveal .toggle.fragment.visible .toggle-knob {
   margin-left: 106px;
-  transition: margin-left 0.3s ease 0.7s !important;
+  transition: margin-left 0.3s ease 1s !important;
 }
 
 .reveal .toggle.fragment.visible .toggle-off {
   opacity: 0 !important;
   visibility: hidden;
-  transition: opacity 0.3s ease 0.7s, visibility 0s linear 1s !important;
+  transition: opacity 0.3s ease 1s, visibility 0s linear 1.3s !important;
 }
 
 .reveal .toggle.fragment.visible .toggle-on {
   color: var(--yab-surface) !important;
   opacity: 1 !important;
   visibility: visible;
-  transition: opacity 0.3s ease 0.7s, visibility 0s linear 0.7s !important;
+  transition: opacity 0.3s ease 1s, visibility 0s linear 1s !important;
 }
 
 .reveal .verdict {
@@ -1379,6 +1412,7 @@ body {
   .reveal .toggle.fragment.visible,
   .reveal .toggle.fragment.visible .toggle-knob,
   .reveal .toggle.fragment.visible .toggle-label,
+  .reveal .switch-purpose.fragment.visible .purpose-when,
   .reveal .lane .merge-line.fragment.visible,
   .reveal .lane .merge-node.fragment.visible,
   .reveal .lane:has(.merge-line.visible) .branch-line,

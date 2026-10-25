@@ -164,7 +164,10 @@ window.YAB_I18N.en = {
   "switch.off": "Off",
   "switch.on": "On",
   "switch.name": "pact chaining feature flag",
-  "switch.purpose": "Ships hidden, turns on from 0.53.0, turns off without a release.",
+  "switch.purpose-lead": "Ships hidden, turns on",
+  "switch.purpose-pending": "after release,",
+  "switch.purpose-released": "from 0.53.0,",
+  "switch.purpose-tail": "turns off without a release.",
 
   "cases.lead": "Three real apps, three different stacks.",
   "cases.habit-loop": "Flutter<br>Habit tracker",

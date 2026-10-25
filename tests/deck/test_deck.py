@@ -770,6 +770,55 @@ class MarkupTest(unittest.TestCase):
         list_id = re.search(r'aria-controls="([^"]+)"', toggle).group(1)
         self.assertRegex(menu, rf'id="{list_id}"[^>]*hidden')
 
+    def test_every_section_has_a_toggle_in_the_menu(self):
+        html = _page()
+        menu = re.search(r'<ol id="yab-menu-list".*?</ol>', html, re.DOTALL).group(0)
+        entries = re.findall(r"<li\b.*?</li>", menu, re.DOTALL)
+        self.assertNotIn("yab-section-toggle", entries[0], "the contents entry has no toggle")
+        self.assertEqual(len(entries), 1 + len(TOC_TARGETS))
+        for target, entry in zip(TOC_TARGETS, entries[1:]):
+            with self.subTest(section=target):
+                toggles = re.findall(r'<button[^>]*class="yab-section-toggle"[^>]*>', entry)
+                self.assertEqual(len(toggles), 1)
+                toggle = toggles[0]
+                for attr in ('type="button"', 'role="switch"', 'aria-checked="true"',
+                             f'data-section="{target}"', f'data-i18n-aria="toggle.{target}"'):
+                    self.assertIn(attr, toggle)
+                # The switch follows its link, so Tab reaches the link first.
+                self.assertLess(entry.index(f'href="#/{target}"'), entry.index(toggle))
+
+    def test_toggle_names_exist_in_both_languages(self):
+        for lang in LANGS:
+            table = _load_table(lang)
+            for target in TOC_TARGETS:
+                with self.subTest(lang=lang, section=target):
+                    self.assertIn(f"toggle.{target}", table)
+
+    def test_section_toggles_load_between_the_strings_and_the_deck(self):
+        html = _page()
+        scripts = re.findall(r'<script src="([^"]+)"', html)
+        self.assertIn("js/sections.js", scripts)
+        self.assertLess(scripts.index("js/i18n.js"), scripts.index("js/sections.js"))
+        self.assertLess(scripts.index("js/sections.js"), scripts.index("js/deck.js"))
+
+    def test_section_toggles_cover_every_section(self):
+        # A section left out here would never be skipped.
+        script = (DECK / "js" / "sections.js").read_text(encoding="utf-8")
+        listed = re.search(r"const SECTIONS = \[([^\]]*)\]", script)
+        self.assertIsNotNone(listed, "sections.js has no SECTIONS list")
+        self.assertEqual(re.findall(r"'([^']+)'", listed.group(1)), TOC_TARGETS)
+
+    def test_section_toggles_live_only_in_the_link(self):
+        for name in ("sections.js", "deck.js"):
+            script = (DECK / "js" / name).read_text(encoding="utf-8")
+            with self.subTest(script=name):
+                self.assertNotRegex(script, r"localStorage|sessionStorage")
+        # Some browsers refuse URL changes on file:// pages.
+        script = (DECK / "js" / "sections.js").read_text(encoding="utf-8")
+        changes = script.count("replaceState")
+        self.assertGreater(changes, 0, "the link is not updated")
+        self.assertEqual(len(re.findall(r"try \{[^}]*replaceState", script)), changes)
+
     def test_section_label_sits_beside_the_menu(self):
         html = _page()
         label = re.search(r'<p class="yab-section".*?</p>', html, re.DOTALL)

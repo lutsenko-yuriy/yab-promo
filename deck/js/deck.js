@@ -1,5 +1,5 @@
-// Starts reveal.js and wires the section menu, the language switch, the night mode and
-// full-screen buttons.
+// Starts reveal.js and wires the section menu and its toggles, the language switch, the
+// night mode and full-screen buttons.
 (function () {
   'use strict';
 
@@ -105,21 +105,55 @@
     if (event.relatedTarget && !menu.contains(event.relatedTarget)) setMenuOpen(false);
   });
 
+  // Section toggles: a section switched off is skipped when clicking through. The menu
+  // stays open while they are switched; the click is inside it.
+  const sectionToggles = Array.from(menuList.querySelectorAll('.yab-section-toggle'));
+  function syncToggles() {
+    sectionToggles.forEach((toggle) => {
+      const on = window.YabSections.isOn(toggle.dataset.section);
+      toggle.setAttribute('aria-checked', String(on));
+      toggle.closest('li').classList.toggle('is-skipped', !on);
+    });
+  }
+  sectionToggles.forEach((toggle) => {
+    toggle.addEventListener('click', (event) => {
+      window.YabSections.set(toggle.dataset.section,
+          toggle.getAttribute('aria-checked') !== 'true');
+      syncToggles();
+      syncControls();
+      releaseFocus(event, toggle);
+    });
+  });
+  syncToggles();
+
   const sectionLabels = Array.from(document.querySelectorAll('.yab-section [data-section]'));
 
   // A section runs from its opener to the slide before the next section's opener; the
-  // contents slide counts as its own. The menu marks it, and the label beside the menu
-  // names it (nothing on the contents slide, which has no label).
-  function markCurrentSection() {
-    // Reveal.getSlides() also works in the scroll view reveal.js uses on narrow screens.
+  // contents slide counts as its own. Reveal.getSlides() also works in the scroll view
+  // reveal.js uses on narrow screens.
+  function menuLinkOf(slide) {
     const slides = window.Reveal.getSlides();
-    const current = slides.indexOf(window.Reveal.getCurrentSlide());
+    const index = slides.indexOf(slide);
     let section = null;
     menuLinks.forEach((link) => {
       const opener = document.getElementById(link.hash.slice(2));
-      if (opener && slides.indexOf(opener) <= current) section = link;
-      link.removeAttribute('aria-current');
+      if (opener && slides.indexOf(opener) <= index) section = link;
     });
+    return section;
+  }
+
+  // The section id a slide belongs to, or null for the contents slide.
+  function sectionOf(slide) {
+    const link = menuLinkOf(slide);
+    if (!link || link.closest('.yab-menu-contents')) return null;
+    return link.hash.slice(2);
+  }
+
+  // The menu marks the current section, and the label beside the menu names it (nothing
+  // on the contents slide, which has no label).
+  function markCurrentSection() {
+    const section = menuLinkOf(window.Reveal.getCurrentSlide());
+    menuLinks.forEach((link) => link.removeAttribute('aria-current'));
     if (section) section.setAttribute('aria-current', 'location');
     const name = section ? section.hash.slice(2) : null;
     sectionLabels.forEach((label) => {
@@ -127,8 +161,86 @@
     });
   }
 
+  // Clicking through skips switched-off sections; going to a slide by its link (the menu,
+  // a contents card, the address bar) or picking it in the overview or on the progress bar
+  // still opens it. reveal.js moves on a link either before or after the hash changes, so
+  // the clicked target is remembered as well; it moves on a pick within the click itself.
+  let linkTarget = null;
+  let picking = false;
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest('a[href^="#/"]');
+    if (link) {
+      linkTarget = link.hash.slice(2).split('/')[0];
+    } else if (event.target.closest('.reveal .progress') ||
+        (window.Reveal.isOverview() && event.target.closest('.reveal .slides section'))) {
+      picking = true;
+      setTimeout(() => {
+        picking = false;
+      }, 0);
+    }
+  }, true);
+
+  function isOnAt(slide) {
+    return window.YabSections.isOn(sectionOf(slide));
+  }
+
+  // The first slide from index on, in the given direction, whose section is on.
+  function nextOnSlide(slides, index, direction) {
+    for (let i = index; i >= 0 && i < slides.length; i += direction) {
+      if (isOnAt(slides[i])) return i;
+    }
+    return -1;
+  }
+
+  let redirecting = false;
+  window.Reveal.on('beforeslidechange', (event) => {
+    if (redirecting || picking || window.Reveal.isOverview()) return;
+    const slides = window.Reveal.getSlides();
+    const from = window.Reveal.getIndices().h;
+    const to = event.indexh;
+    const target = slides[to];
+    if (Math.abs(to - from) !== 1 || !target) return;
+    const hashTarget = window.location.hash.slice(2).split('/')[0];
+    if (target.id === linkTarget || target.id === hashTarget) return;
+    const section = sectionOf(target);
+    if (window.YabSections.isOn(section) || section === sectionOf(slides[from])) return;
+    event.preventDefault();
+    const found = nextOnSlide(slides, to, to - from);
+    if (found < 0) {
+      // Nothing on ahead: stay, as at the end of the deck.
+      syncControls();
+      return;
+    }
+    redirecting = true;
+    try {
+      window.Reveal.slide(found);
+    } finally {
+      redirecting = false;
+    }
+  });
+
+  // The right arrow is off when nothing that is on lies ahead. reveal.js updates its
+  // controls after its own events and on every key press, so this runs a moment later.
+  function syncControls() {
+    setTimeout(() => {
+      const slides = window.Reveal.getSlides();
+      const ahead = window.Reveal.availableFragments().next ||
+          nextOnSlide(slides, window.Reveal.getIndices().h + 1, 1) >= 0;
+      document.querySelectorAll('.reveal .controls .navigate-right').forEach((arrow) => {
+        arrow.classList.toggle('enabled', ahead);
+        arrow.disabled = !ahead;
+      });
+    }, 0);
+  }
+
   window.Reveal.on('ready', markCurrentSection);
-  window.Reveal.on('slidechanged', markCurrentSection);
+  window.Reveal.on('slidechanged', () => {
+    markCurrentSection();
+    linkTarget = null;
+  });
+  ['ready', 'slidechanged', 'fragmentshown', 'fragmenthidden', 'overviewhidden'].forEach((type) => {
+    window.Reveal.on(type, syncControls);
+  });
 
   window.Reveal.initialize({
     // Leave keys on the menu and the buttons at the top right to those controls.

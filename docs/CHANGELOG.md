@@ -4,6 +4,12 @@ A record of all versioned releases. For planned work and known issues, see @docs
 
 ---
 
+## [0.5.1] — 2026-10-25 (PR #34 merged)
+
+### Changed
+- [user] YP-32: in the example, the switch panel's purpose is three bullets, and the middle one says the flag turns on "after release" until the debrief's last click: WU4 merges, "from 0.53.0" takes its place, then the switch turns on (PR #34)
+- [meta] YP-32 debrief: research tickets for recording animations during review (YP-35, yab-dev#28) and for disabling the skill router (yab-dev#27)
+
 ## [0.5.0] — 2026-10-24 (PR #31 merged)
 
 ### Added

@@ -164,7 +164,10 @@ window.YAB_I18N.de = {
   "switch.off": "Aus",
   "switch.on": "An",
   "switch.name": "pact chaining feature flag",
-  "switch.purpose": "Wird versteckt ausgeliefert, geht ab 0.53.0 an, lässt sich ohne Release abschalten.",
+  "switch.purpose-ships": "Wird versteckt ausgeliefert",
+  "switch.purpose-pending": "Geht nach dem Release an",
+  "switch.purpose-released": "Geht ab 0.53.0 an",
+  "switch.purpose-off": "Lässt sich ohne Release abschalten",
 
   "cases.lead": "Drei echte Apps, drei verschiedene Stacks.",
   "cases.habit-loop": "Flutter<br>Gewohnheits-Tracker",

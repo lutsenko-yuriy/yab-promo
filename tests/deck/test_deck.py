@@ -90,13 +90,16 @@ DIAGRAM_IDS = MAIN_IDS + [
 BRANCH_STATES = ("is-planned", "is-open", "is-merged")
 
 # Slides that carry the switch panel (the pact chaining feature switch): from the first work
-# unit through the debrief. The switch stays off until the debrief's last click turns it on.
+# unit through the debrief. The switch stays off, and its purpose says it turns on "after
+# release", until the debrief's last click names the version and turns it on.
 SWITCH_SLIDES = EXAMPLE_SLIDES[EXAMPLE_SLIDES.index("example-wu0"):]
 # Every part of the panel, the switch's labels included, has a data-id: Auto-Animate fades
 # in anything unmatched, so a label without one would blink on every slide.
 SWITCH_PANEL = ["switch-panel", "toggle", "toggle-knob", "toggle-off", "toggle-on",
-                "switch-name", "switch-purpose"]
-SWITCH_KEYS = {"switch.off", "switch.on", "switch.name", "switch.purpose"}
+                "switch-name", "switch-purpose", "purpose-ships", "purpose-on", "purpose-pending",
+                "purpose-released", "purpose-off"]
+SWITCH_KEYS = {"switch.off", "switch.on", "switch.name", "switch.purpose-ships",
+               "switch.purpose-pending", "switch.purpose-released", "switch.purpose-off"}
 SWITCH_NAME = "pact chaining feature flag"
 
 # Slides of the cases section, in order: the opener, then one per app.
@@ -293,6 +296,7 @@ class MarkupTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.deck = _parse_deck()
+        cls.html = (DECK / "index.html").read_text(encoding="utf-8")
 
     def test_markup_keys_match_tables(self):
         markup = set(self.deck.i18n_keys)
@@ -619,7 +623,7 @@ class MarkupTest(unittest.TestCase):
                 self.assertLessEqual(SWITCH_KEYS, set(slide["i18n"]))
 
     def test_switch_is_off_until_the_debrief_has_shown(self):
-        last_click = ["merge-wu-4", "mnode-wu-4", "toggle"]
+        last_click = ["merge-wu-4", "mnode-wu-4", "purpose-on", "toggle"]
         for slide_id in SWITCH_SLIDES[:-1]:
             for data_id in last_click:
                 with self.subTest(slide=slide_id, part=data_id):
@@ -639,7 +643,7 @@ class MarkupTest(unittest.TestCase):
                    if int(fragment["data-fragment-index"]) == last]
         self.assertEqual(sorted(f["data-id"] for f in on_last if "data-id" in f),
                          sorted(last_click),
-                         "the last click merges WU4, then turns the switch on")
+                         "the last click merges WU4, names the version, turns the switch on")
         # Screen readers hear WU4 as done once it merges.
         done = [f for f in on_last if f.get("data-i18n") == "wu.done"]
         self.assertEqual(len(done), 1)
@@ -653,6 +657,62 @@ class MarkupTest(unittest.TestCase):
             ".reveal .toggle-on": "visibility: hidden",
             ".reveal .toggle.fragment.visible .toggle-on": "visibility: visible",
             ".reveal .toggle.fragment.visible .toggle-off": "visibility: hidden",
+        }
+        for selector, declaration in rules.items():
+            block = re.search(rf"^{re.escape(selector)} \{{(.*?)\}}", css, re.M | re.S)
+            with self.subTest(selector=selector):
+                self.assertIsNotNone(block)
+                self.assertIn(declaration, block.group(1))
+
+    def test_switch_turns_on_after_release_until_the_last_merge(self):
+        purposes = {
+            "en": ["Ships hidden", "Turns on after release", "Turns on from 0.53.0",
+                   "Turns off without a release"],
+            "de": ["Wird versteckt ausgeliefert", "Geht nach dem Release an",
+                   "Geht ab 0.53.0 an", "Lässt sich ohne Release abschalten"],
+        }
+        keys = ["switch.purpose-ships", "switch.purpose-pending", "switch.purpose-released",
+                "switch.purpose-off"]
+        for lang, bullets in purposes.items():
+            table = _load_table(lang)
+            with self.subTest(lang=lang):
+                self.assertEqual([table[key] for key in keys], bullets)
+
+    def test_purpose_is_a_list_with_nothing_left_to_blink(self):
+        # One bullet per part; only the middle one changes. Auto-Animate fades in anything
+        # without a data-id on every slide, so every part of the list carries one.
+        blocks = re.findall(r'<ul class="switch-purpose".*?</ul>', self.html, re.S)
+        self.assertEqual(len(blocks), len(SWITCH_SLIDES))
+        for block in blocks:
+            tags = re.findall(r"<(li|span)\b([^>]*)>", block)
+            self.assertEqual([tag for tag, _ in tags], ["li", "li", "span", "span", "li"])
+            for tag, attrs in tags:
+                with self.subTest(tag=tag, attrs=attrs):
+                    self.assertIn("data-id=", attrs)
+
+    def test_version_shows_after_the_merge_and_before_the_switch(self):
+        # One click, three beats: WU4 merges, the version replaces "after release", then the
+        # switch turns on. The delays on the way in set the order.
+        css = (DECK / "css" / "theme.css").read_text(encoding="utf-8")
+
+        def delays(selector):
+            block = re.search(rf"^{re.escape(selector)} \{{(.*?)\}}", css, re.M | re.S)
+            self.assertIsNotNone(block, selector)
+            transition = re.search(r"transition:([^;]*);", block.group(1)).group(1)
+            return [float(d) for d in re.findall(r"\S+s \S+ ([\d.]+)s", transition)]
+
+        merge = 0.0
+        version = min(delays(".reveal .purpose-on.fragment.visible .purpose-released"))
+        switch = min(delays(".reveal .toggle.fragment.visible"))
+        self.assertLess(merge, version)
+        self.assertLess(version, switch)
+
+    def test_purpose_reads_one_version_at_a_time(self):
+        css = (DECK / "css" / "theme.css").read_text(encoding="utf-8")
+        rules = {
+            ".reveal .purpose-released": "visibility: hidden",
+            ".reveal .purpose-on.fragment.visible .purpose-released": "visibility: visible",
+            ".reveal .purpose-on.fragment.visible .purpose-pending": "visibility: hidden",
         }
         for selector, declaration in rules.items():
             block = re.search(rf"^{re.escape(selector)} \{{(.*?)\}}", css, re.M | re.S)

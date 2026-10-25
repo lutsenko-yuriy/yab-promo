@@ -1,5 +1,5 @@
-// Starts reveal.js and wires the section menu, the language switch, the night mode and
-// full-screen buttons.
+// Starts reveal.js and wires the section menu and its toggles, the language switch, the
+// night mode and full-screen buttons.
 (function () {
   'use strict';
 
@@ -104,6 +104,26 @@
   menu.addEventListener('focusout', (event) => {
     if (event.relatedTarget && !menu.contains(event.relatedTarget)) setMenuOpen(false);
   });
+
+  // Section toggles: a section switched off is skipped when clicking through. The menu
+  // stays open while they are switched; the click is inside it.
+  const toggles = Array.from(menuList.querySelectorAll('.yab-menu-skip'));
+  function syncToggles() {
+    toggles.forEach((toggle) => {
+      const on = window.YabSections.isOn(toggle.dataset.section);
+      toggle.setAttribute('aria-checked', String(on));
+      toggle.closest('li').classList.toggle('is-skipped', !on);
+    });
+  }
+  toggles.forEach((toggle) => {
+    toggle.addEventListener('click', (event) => {
+      window.YabSections.set(toggle.dataset.section,
+          toggle.getAttribute('aria-checked') !== 'true');
+      syncToggles();
+      releaseFocus(event, toggle);
+    });
+  });
+  syncToggles();
 
   const sectionLabels = Array.from(document.querySelectorAll('.yab-section [data-section]'));
 

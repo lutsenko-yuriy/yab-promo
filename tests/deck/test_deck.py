@@ -794,6 +794,31 @@ class MarkupTest(unittest.TestCase):
                 with self.subTest(lang=lang, section=target):
                     self.assertIn(f"toggle.{target}", table)
 
+    def test_section_toggles_load_between_the_strings_and_the_deck(self):
+        html = _page()
+        scripts = re.findall(r'<script src="([^"]+)"', html)
+        self.assertIn("js/sections.js", scripts)
+        self.assertLess(scripts.index("js/i18n.js"), scripts.index("js/sections.js"))
+        self.assertLess(scripts.index("js/sections.js"), scripts.index("js/deck.js"))
+
+    def test_section_toggles_cover_every_section(self):
+        # A section left out here would never be skipped.
+        script = (DECK / "js" / "sections.js").read_text(encoding="utf-8")
+        listed = re.search(r"const SECTIONS = \[([^\]]*)\]", script)
+        self.assertIsNotNone(listed, "sections.js has no SECTIONS list")
+        self.assertEqual(re.findall(r"'([^']+)'", listed.group(1)), TOC_TARGETS)
+
+    def test_section_toggles_live_only_in_the_link(self):
+        for name in ("sections.js", "deck.js"):
+            script = (DECK / "js" / name).read_text(encoding="utf-8")
+            with self.subTest(script=name):
+                self.assertNotRegex(script, r"localStorage|sessionStorage")
+        # Some browsers refuse URL changes on file:// pages.
+        script = (DECK / "js" / "sections.js").read_text(encoding="utf-8")
+        changes = script.count("replaceState")
+        self.assertGreater(changes, 0, "the link is not updated")
+        self.assertEqual(len(re.findall(r"try \{[^}]*replaceState", script)), changes)
+
     def test_section_label_sits_beside_the_menu(self):
         html = _page()
         label = re.search(r'<p class="yab-section".*?</p>', html, re.DOTALL)

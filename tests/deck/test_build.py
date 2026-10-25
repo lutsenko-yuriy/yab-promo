@@ -97,6 +97,14 @@ class EngineTest(unittest.TestCase):
         with self.assertRaisesRegex(build_deck.BuildError, r"shell\.html:1: "):
             self._render({"shell.html": "<!-- story s leaving -->\n<!-- /story -->\n"})
 
+    def test_unit_arguments_on_a_scoping_slide_are_an_error(self):
+        # leaving, delay and last-click act on the lanes, which a scoping slide doesn't have.
+        for arg in ("leaving", "delay=0.7", "last-click=4"):
+            with self.subTest(arg=arg):
+                with self.assertRaisesRegex(build_deck.BuildError, r"shell\.html:1: .*step="):
+                    self._render({"shell.html": f"<!-- story s step=brief {arg} -->\n"
+                                                "<!-- /story -->\n"})
+
 
 class RulesTest(unittest.TestCase):
     def test_units_before_the_open_one_are_merged_and_after_it_planned(self):

@@ -104,6 +104,9 @@ def _story_args(tokens: List[str], where: str) -> Dict[str, str]:
         args[key] = value
     if ("step" in args) == ("open" in args):
         raise BuildError(f"{where}: a story needs either step= or open=")
+    lane_args = [key for key in ("leaving", "delay", "last-click") if key in args]
+    if "step" in args and lane_args:
+        raise BuildError(f"{where}: {', '.join(lane_args)} needs open=, not step=")
     return args
 
 

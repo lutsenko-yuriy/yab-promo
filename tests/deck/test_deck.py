@@ -774,11 +774,11 @@ class MarkupTest(unittest.TestCase):
         html = _page()
         menu = re.search(r'<ol id="yab-menu-list".*?</ol>', html, re.DOTALL).group(0)
         entries = re.findall(r"<li\b.*?</li>", menu, re.DOTALL)
-        self.assertNotIn("yab-menu-skip", entries[0], "the contents entry has no toggle")
+        self.assertNotIn("yab-section-toggle", entries[0], "the contents entry has no toggle")
         self.assertEqual(len(entries), 1 + len(TOC_TARGETS))
         for target, entry in zip(TOC_TARGETS, entries[1:]):
             with self.subTest(section=target):
-                toggles = re.findall(r'<button[^>]*class="yab-menu-skip"[^>]*>', entry)
+                toggles = re.findall(r'<button[^>]*class="yab-section-toggle"[^>]*>', entry)
                 self.assertEqual(len(toggles), 1)
                 toggle = toggles[0]
                 for attr in ('type="button"', 'role="switch"', 'aria-checked="true"',

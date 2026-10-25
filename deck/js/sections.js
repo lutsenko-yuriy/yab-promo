@@ -36,5 +36,5 @@
     }
   }
 
-  window.YabSections = {SECTIONS, isOn, set};
+  window.YabSections = {isOn, set};
 })();

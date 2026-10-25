@@ -107,15 +107,15 @@
 
   // Section toggles: a section switched off is skipped when clicking through. The menu
   // stays open while they are switched; the click is inside it.
-  const toggles = Array.from(menuList.querySelectorAll('.yab-menu-skip'));
+  const sectionToggles = Array.from(menuList.querySelectorAll('.yab-section-toggle'));
   function syncToggles() {
-    toggles.forEach((toggle) => {
+    sectionToggles.forEach((toggle) => {
       const on = window.YabSections.isOn(toggle.dataset.section);
       toggle.setAttribute('aria-checked', String(on));
       toggle.closest('li').classList.toggle('is-skipped', !on);
     });
   }
-  toggles.forEach((toggle) => {
+  sectionToggles.forEach((toggle) => {
     toggle.addEventListener('click', (event) => {
       window.YabSections.set(toggle.dataset.section,
           toggle.getAttribute('aria-checked') !== 'true');

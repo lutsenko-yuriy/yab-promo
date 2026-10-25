@@ -849,11 +849,17 @@ class PagesWorkflowTest(unittest.TestCase):
     def test_runs_on_deck_changes_to_main(self):
         self.assertRegex(self.text, r"branches:\s*\[\s*main\s*\]")
         self.assertIn('"deck/**"', self.text)
+        self.assertIn('"tools/build_deck.py"', self.text)
         self.assertIn("workflow_dispatch", self.text)
 
-    def test_publishes_only_the_deck_folder(self):
-        self.assertIn("actions/upload-pages-artifact@v3", self.text)
-        self.assertRegex(self.text, r"\n\s+path: deck\n")
+    def test_builds_the_deck_and_publishes_it_without_the_sources(self):
+        # deck/index.html isn't committed, so the page is built before the upload.
+        build = self.text.find("python3 tools/build_deck.py")
+        upload = self.text.find("actions/upload-pages-artifact@v3")
+        self.assertNotEqual(build, -1, "the deck is never built")
+        self.assertLess(build, upload, "the deck is built after it is uploaded")
+        self.assertIn("rsync -a --exclude src/ deck/ _site/", self.text[build:upload])
+        self.assertRegex(self.text[upload:], r"\n\s+path: _site\n")
         self.assertIn("actions/deploy-pages@v4", self.text)
 
     def test_has_pages_permissions(self):

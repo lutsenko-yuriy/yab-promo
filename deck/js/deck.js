@@ -162,12 +162,22 @@
   }
 
   // Clicking through skips switched-off sections; going to a slide by its link (the menu,
-  // a contents card, the address bar) still opens it. reveal.js moves on a link either
-  // before or after the hash changes, so the clicked target is remembered as well.
+  // a contents card, the address bar) or picking it in the overview or on the progress bar
+  // still opens it. reveal.js moves on a link either before or after the hash changes, so
+  // the clicked target is remembered as well; it moves on a pick within the click itself.
   let linkTarget = null;
+  let picking = false;
   document.addEventListener('click', (event) => {
     const link = event.target.closest('a[href^="#/"]');
-    if (link) linkTarget = link.hash.slice(2).split('/')[0];
+    if (link) {
+      linkTarget = link.hash.slice(2).split('/')[0];
+    } else if (event.target.closest('.reveal .progress') ||
+        (window.Reveal.isOverview() && event.target.closest('.reveal .slides section'))) {
+      picking = true;
+      setTimeout(() => {
+        picking = false;
+      }, 0);
+    }
   }, true);
 
   function isOnAt(slide) {
@@ -184,7 +194,7 @@
 
   let redirecting = false;
   window.Reveal.on('beforeslidechange', (event) => {
-    if (redirecting || window.Reveal.isOverview()) return;
+    if (redirecting || picking || window.Reveal.isOverview()) return;
     const slides = window.Reveal.getSlides();
     const from = window.Reveal.getIndices().h;
     const to = event.indexh;
@@ -228,7 +238,7 @@
     markCurrentSection();
     linkTarget = null;
   });
-  ['ready', 'slidechanged', 'fragmentshown', 'fragmenthidden'].forEach((type) => {
+  ['ready', 'slidechanged', 'fragmentshown', 'fragmenthidden', 'overviewhidden'].forEach((type) => {
     window.Reveal.on(type, syncControls);
   });
 

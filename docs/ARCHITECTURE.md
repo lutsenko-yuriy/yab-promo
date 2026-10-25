@@ -108,9 +108,10 @@ written to the link's `?skip=` (only that parameter, with `history.replaceState`
 and reveal.js's `#/slide` stay; the choice still works where the browser refuses the URL
 change). `deck/js/deck.js` cancels reveal.js's `beforeslidechange` for a one-slide step into
 a switched-off section and moves on to the nearest slide whose section is on; a move to a
-slide named by a clicked link or by the address bar is not a step, so the menu, the contents
-cards and bookmarks still open it. It also disables the right arrow when nothing that is on
-lies ahead, after reveal.js's own control updates.
+slide named by a clicked link or by the address bar, or picked in the overview or on the
+progress bar, is not a step, so the menu, the contents cards and bookmarks still open it. It
+also disables the right arrow when nothing that is on lies ahead, after reveal.js's own
+control updates.
 
 `.github/workflows/pages.yml` builds `deck/index.html` and publishes `deck/` without `src/` to
 GitHub Pages on every push to `main` that changes `deck/`, `tools/build_deck.py` or the workflow, so the site

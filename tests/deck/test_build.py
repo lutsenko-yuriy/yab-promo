@@ -1,0 +1,118 @@
+"""Tests for tools/build_deck.py, which writes deck/index.html from deck/src/."""
+
+import importlib.util
+import re
+import tempfile
+import textwrap
+import unittest
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+SRC = ROOT / "deck" / "src"
+
+_spec = importlib.util.spec_from_file_location("build_deck", ROOT / "tools" / "build_deck.py")
+build_deck = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(build_deck)
+
+
+def _sources(files):
+    """Writes {relative path: text} into a temporary source folder and returns its path."""
+    folder = tempfile.TemporaryDirectory()
+    root = Path(folder.name)
+    for name, text in files.items():
+        path = root / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(textwrap.dedent(text).lstrip("\n"), encoding="utf-8")
+    return folder
+
+
+class EngineTest(unittest.TestCase):
+    def _render(self, files):
+        folder = _sources(files)
+        self.addCleanup(folder.cleanup)
+        return build_deck.render(Path(folder.name))
+
+    def test_include_indents_to_the_directive_and_keeps_blank_lines_empty(self):
+        out = self._render({
+            "shell.html": """
+                <body>
+                  <!-- include part.html -->
+                </body>
+            """,
+            "part.html": """
+                <p>one</p>
+
+                <p>two</p>
+            """,
+        })
+        self.assertEqual(out, "<body>\n  <p>one</p>\n\n  <p>two</p>\n</body>\n")
+
+    def test_includes_nest(self):
+        out = self._render({
+            "shell.html": "<!-- include a.html -->\n",
+            "a.html": "<div>\n  <!-- include b.html -->\n</div>\n",
+            "b.html": "<p>b</p>\n",
+        })
+        self.assertEqual(out, "<div>\n  <p>b</p>\n</div>\n")
+
+    def test_other_comments_pass_through(self):
+        out = self._render({"shell.html": "  <!-- The section being shown. -->\n<p></p>\n"})
+        self.assertEqual(out, "  <!-- The section being shown. -->\n<p></p>\n")
+
+    def test_missing_include_names_file_and_line(self):
+        with self.assertRaisesRegex(build_deck.BuildError, r"shell\.html:2: .*nope\.html"):
+            self._render({"shell.html": "<p></p>\n<!-- include nope.html -->\n"})
+
+    def test_inline_placeholder_substitutes(self):
+        self.assertEqual(build_deck.fill('<p class="a{{x}}">\n', {"x": " b"}, "t"),
+                         '<p class="a b">\n')
+
+    def test_placeholder_alone_takes_its_lines_indent(self):
+        self.assertEqual(build_deck.fill("<ul>\n  {{items}}\n</ul>\n",
+                                         {"items": "<li>1</li>\n\n<li>2</li>"}, "t"),
+                         "<ul>\n  <li>1</li>\n\n  <li>2</li>\n</ul>\n")
+
+    def test_empty_placeholder_alone_drops_its_line(self):
+        self.assertEqual(build_deck.fill("<div>\n  {{track}}\n</div>\n", {"track": ""}, "t"),
+                         "<div>\n</div>\n")
+
+    def test_unknown_placeholder_names_file_and_line(self):
+        with self.assertRaisesRegex(build_deck.BuildError, r"t:2: .*nope"):
+            build_deck.fill("<p>\n{{nope}}\n", {}, "t")
+
+    def test_unclosed_story_names_file_and_line(self):
+        with self.assertRaisesRegex(build_deck.BuildError, r"shell\.html:1: .*story"):
+            self._render({"shell.html": "<!-- story s open=wu-1 -->\n<h2></h2>\n"})
+
+    def test_nested_story_is_an_error(self):
+        with self.assertRaisesRegex(build_deck.BuildError, r"shell\.html:2: .*story"):
+            self._render({"shell.html": "<!-- story a open=wu-1 -->\n<!-- story b open=wu-2 -->\n"
+                                        "<!-- /story -->\n<!-- /story -->\n"})
+
+    def test_unknown_story_argument_is_an_error(self):
+        with self.assertRaisesRegex(build_deck.BuildError, r"shell\.html:1: .*colour"):
+            self._render({"shell.html": "<!-- story s colour=red -->\n<!-- /story -->\n"})
+
+    def test_story_needs_a_step_or_an_open_unit(self):
+        with self.assertRaisesRegex(build_deck.BuildError, r"shell\.html:1: "):
+            self._render({"shell.html": "<!-- story s leaving -->\n<!-- /story -->\n"})
+
+
+class RulesTest(unittest.TestCase):
+    def test_units_before_the_open_one_are_merged_and_after_it_planned(self):
+        self.assertEqual(build_deck.lane_states("wu-2"), {
+            "wu-0": "is-merged", "wu-0c": "is-merged", "wu-1": "is-merged",
+            "wu-2": "is-open", "wu-3": "is-planned", "wu-4": "is-planned",
+        })
+
+    def test_steps_before_the_current_one_are_done(self):
+        self.assertEqual(build_deck.step_states("analyze"),
+                         {"brief": "is-done", "analyze": "is-current", "plan": ""})
+
+    def test_unknown_unit_is_an_error(self):
+        with self.assertRaises(build_deck.BuildError):
+            build_deck.lane_states("wu-9")
+
+
+if __name__ == "__main__":
+    unittest.main()

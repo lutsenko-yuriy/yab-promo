@@ -151,8 +151,11 @@ class EngineTest(unittest.TestCase):
 
 
 class CommandLineTest(unittest.TestCase):
-    def test_unknown_option_changes_nothing(self):
-        self.assertEqual(build_deck.main(["--chek"]), 2)
+    def test_options_are_refused(self):
+        # --check compared against a committed page; the page isn't committed any more.
+        for argv in (["--chek"], ["--check"]):
+            with self.subTest(argv=argv):
+                self.assertEqual(build_deck.main(argv), 2)
 
 
 class RulesTest(unittest.TestCase):

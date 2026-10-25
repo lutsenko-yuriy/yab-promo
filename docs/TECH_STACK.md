@@ -24,7 +24,7 @@
 
 ## Tooling
 
-- **Build / package manager:** none to install; `python3 tools/build_deck.py` writes `deck/index.html` from `deck/src/` (the result is committed)
+- **Build / package manager:** none to install; `python3 tools/build_deck.py` writes `deck/index.html` from `deck/src/` (gitignored; the Pages workflow builds it)
 - **Test runner:** Python `unittest` for the YAB tooling and for the deck's structure and colour contrast (`tests/deck/`)
 - **Linter / formatter:** none configured
 - **CI:** GitHub Actions (`.github/workflows/tests.yml`)

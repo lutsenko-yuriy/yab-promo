@@ -60,7 +60,7 @@ Details and directory layout: @docs/ARCHITECTURE.md. Languages and tooling: docs
 
 - **Run tests:** `python3 -m unittest discover -s scripts/onboard/tests -t . && python3 -m unittest discover -s scripts/skill_router -t scripts && python3 -m unittest discover -s scripts/checkup/tests -t scripts && python3 -m unittest discover -s scripts/notes/tests -t . && python3 -m unittest discover -s tests -t .`
 - **Lint:** none configured
-- **Build:** `python3 tools/build_deck.py` writes `deck/index.html` from `deck/src/`; commit the result (`--check` reports whether it is out of date)
+- **Build:** `python3 tools/build_deck.py` writes `deck/index.html` from `deck/src/` (gitignored: the Pages workflow builds it; run it locally to open the deck)
 - **Install dependencies:** none
 
 ## Code style

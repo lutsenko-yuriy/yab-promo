@@ -52,4 +52,5 @@ https://lutsenko-yuriy.github.io/yab-promo/ (source: `deck/`).
 - From any slide, the viewer can open the section menu (top left) and jump to a section; the
   menu marks the section being shown.
 - A talk through the whole deck takes 15 to 20 minutes, and no slide needs code to follow.
-- The deck also runs offline, opened from a local clone.
+- The deck also runs offline from a local clone, after one command builds the page
+  (`python3 tools/build_deck.py`, needs Python 3).

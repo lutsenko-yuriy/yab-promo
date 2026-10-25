@@ -103,7 +103,7 @@ saved, or storage refused, it sets nothing and the CSS follows the system.
 `test_contrast.py` checks both token sets.
 
 `.github/workflows/pages.yml` builds `deck/index.html` and publishes `deck/` without `src/` to
-GitHub Pages on every push to `main` that changes `deck/` or `tools/build_deck.py`, so the site
+GitHub Pages on every push to `main` that changes `deck/`, `tools/build_deck.py` or the workflow, so the site
 carries neither the sources, the docs nor the tooling.
 
 ### Tooling

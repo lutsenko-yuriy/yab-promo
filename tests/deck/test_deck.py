@@ -850,6 +850,7 @@ class PagesWorkflowTest(unittest.TestCase):
         self.assertRegex(self.text, r"branches:\s*\[\s*main\s*\]")
         self.assertIn('"deck/**"', self.text)
         self.assertIn('"tools/build_deck.py"', self.text)
+        self.assertIn('".github/workflows/pages.yml"', self.text)
         self.assertIn("workflow_dispatch", self.text)
 
     def test_builds_the_deck_and_publishes_it_without_the_sources(self):

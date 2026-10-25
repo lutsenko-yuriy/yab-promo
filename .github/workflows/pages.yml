@@ -8,6 +8,7 @@ on:
     paths:
       - "deck/**"
       - "tools/build_deck.py"
+      - ".github/workflows/pages.yml"
   workflow_dispatch:
 
 permissions:

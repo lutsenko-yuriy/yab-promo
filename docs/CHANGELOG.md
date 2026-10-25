@@ -4,6 +4,12 @@ A record of all versioned releases. For planned work and known issues, see @docs
 
 ---
 
+## [0.6.0] — 2026-10-26 (PR #41 merged)
+
+### Added
+- [user] YP-33: section toggles. Each section in the menu has a switch, all on by default. Clicking through (keys, clicker, swipe, arrows) skips switched-off sections both ways, while the contents slide, the menu, bookmarks, the overview and the progress bar still open them. The choices are carried in the link (`?skip=cases+limits`, next to `?lang=`) and updated in place. The right arrow is disabled when nothing that is on lies ahead (PR #41)
+- [meta] YP-33 debrief: as expected, no workflow changes; a share button for the tailored link is ticketed as YP-40
+
 ## [0.5.3] — 2026-10-26 (PR #39 merged)
 
 ### Changed

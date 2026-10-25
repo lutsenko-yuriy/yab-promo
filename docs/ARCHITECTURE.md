@@ -102,8 +102,9 @@ night mode button) and under `@media (prefers-color-scheme: dark)` for
 saved, or storage refused, it sets nothing and the CSS follows the system.
 `test_contrast.py` checks both token sets.
 
-`.github/workflows/pages.yml` publishes `deck/` alone to GitHub Pages on every push to `main`
-that changes it, so the site carries neither the docs nor the tooling.
+`.github/workflows/pages.yml` builds `deck/index.html` and publishes `deck/` without `src/` to
+GitHub Pages on every push to `main` that changes `deck/` or `tools/build_deck.py`, so the site
+carries neither the sources, the docs nor the tooling.
 
 ### Tooling
 The YAB framework files copied from the template. Change them upstream in

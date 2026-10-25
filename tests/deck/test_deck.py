@@ -172,7 +172,7 @@ TABLE_RE = re.compile(
 
 
 class _DeckParser(HTMLParser):
-    """Collects what the tests need from deck/index.html in one pass."""
+    """Collects what the tests need from the built deck page in one pass."""
 
     def __init__(self):
         super().__init__()
@@ -858,7 +858,7 @@ class PagesWorkflowTest(unittest.TestCase):
         upload = self.text.find("actions/upload-pages-artifact@v3")
         self.assertNotEqual(build, -1, "the deck is never built")
         self.assertLess(build, upload, "the deck is built after it is uploaded")
-        self.assertIn("rsync -a --exclude src/ deck/ _site/", self.text[build:upload])
+        self.assertIn("rsync -a --exclude /src/ deck/ _site/", self.text[build:upload])
         self.assertRegex(self.text[upload:], r"\n\s+path: _site\n")
         self.assertIn("actions/deploy-pages@v4", self.text)
 

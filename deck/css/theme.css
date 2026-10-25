@@ -1166,7 +1166,8 @@ body {
 }
 
 .yab-menu-toggle:focus-visible,
-.yab-menu-list a:focus-visible {
+.yab-menu-list a:focus-visible,
+.yab-menu-skip:focus-visible {
   outline: 3px solid var(--yab-primary);
   outline-offset: 2px;
 }
@@ -1233,6 +1234,57 @@ body {
   background: var(--yab-growth);
   color: var(--yab-on-accent);
   font-size: 14px;
+}
+
+/* Section toggles: a switch beside each section; off shows by the knob's place as well as
+   by colour. */
+.yab-menu-list li:not(.yab-menu-contents) {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.yab-menu-list li:not(.yab-menu-contents) a {
+  flex: 1;
+}
+
+.yab-menu-skip {
+  position: relative;
+  flex: none;
+  width: 40px;
+  height: 22px;
+  margin-right: 6px;
+  padding: 0;
+  border: 2px solid currentColor;
+  border-radius: 11px;
+  background: currentColor;
+  color: var(--yab-primary);
+  cursor: pointer;
+}
+
+.yab-menu-skip .skip-knob {
+  position: absolute;
+  top: 3px;
+  left: 21px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--yab-surface);
+  transition: left 0.15s;
+}
+
+.yab-menu-skip[aria-checked="false"] {
+  background: transparent;
+  color: var(--yab-muted);
+}
+
+.yab-menu-skip[aria-checked="false"] .skip-knob {
+  left: 3px;
+  background: currentColor;
+}
+
+.yab-menu-list .is-skipped a:not([aria-current]) {
+  color: var(--yab-muted);
 }
 
 /* The current section's name, beside the menu button */
@@ -1398,7 +1450,8 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal .toc .card {
+  .reveal .toc .card,
+  .yab-menu-skip .skip-knob {
     transition: none;
   }
 

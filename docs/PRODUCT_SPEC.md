@@ -51,6 +51,14 @@ https://lutsenko-yuriy.github.io/yab-promo/ (source: `deck/`).
   6. Get YAB: the link to the template, three steps to start, and what YAB gives in return.
 - From any slide, the viewer can open the section menu (top left) and jump to a section; the
   menu marks the section being shown.
+- Each section in the menu has a switch, all on by default. Clicking through (keys, clicker,
+  swipe, the arrows) skips the slides of a switched-off section, forward and back; the
+  contents slide stays unchanged, and opening an off section from it or from the menu still
+  shows it, with clicking forward continuing to the next section that is on. The choices are
+  carried in the link (`?skip=cases+limits`, next to `?lang=`), updated in place, so a
+  tailored talk can be shared or bookmarked. The slide number and progress bar still count
+  the whole deck. On phones held upright reveal.js scrolls through every slide, so nothing
+  is skipped there.
 - A talk through the whole deck takes 15 to 20 minutes, and no slide needs code to follow.
 - The deck also runs offline from a local clone, after one command builds the page
   (`python3 tools/build_deck.py`, needs Python 3).

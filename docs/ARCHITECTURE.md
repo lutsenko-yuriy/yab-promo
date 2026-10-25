@@ -19,7 +19,7 @@ deck/               # The YAB presentation deck, published to GitHub Pages witho
   index.html        #   All slides, generated from src/ by tools/build_deck.py; gitignored
   src/              #   Slide sources: shell.html, one file per section, parts/ shared by the example
   css/              #   Theme (Habit Loop palette) and deck components
-  js/               #   Deck start-up, section menu and controls, language and night mode switching
+  js/               #   Deck start-up, section menu and toggles, controls, language and night mode
   i18n/             #   String tables, one per language (en.js, de.js)
   img/cases/<app>/  #   App screenshots for the cases section, resized for the web
   vendor/           #   Third-party files copied in unchanged (reveal.js)
@@ -53,8 +53,9 @@ local assets) and the theme's colour contrast (`test_contrast.py`: 4.5:1 for tex
 arrows, with list markers and the progress bar exempt as decoration); it sits outside
 `deck/` so the published site carries no Python.
 
-String-table keys are `<slide-id>.<part>` for text that belongs to one slide, plus seven
+String-table keys are `<slide-id>.<part>` for text that belongs to one slide, plus eight
 shared groups: `meta.*` (page title), `controls.*` (language switch, full screen),
+`toggle.<section>` (the name of each section's switch in the menu),
 `eyebrow.<section>` (the section label fixed beside the menu, naming the section being shown),
 `toc.<section>` (each section's name, used on its contents card and as its opener's
 title, so Auto-Animate morphs one into the other), `flow.<step>` (the lifecycle
@@ -101,6 +102,15 @@ night mode button) and under `@media (prefers-color-scheme: dark)` for
 `<html>` as `data-theme`, so the first paint is already in the right theme; with nothing
 saved, or storage refused, it sets nothing and the CSS follows the system.
 `test_contrast.py` checks both token sets.
+
+Section toggles: `deck/js/sections.js` holds which sections are switched off, read from and
+written to the link's `?skip=` (only that parameter, with `history.replaceState`, so `?lang=`
+and reveal.js's `#/slide` stay; the choice still works where the browser refuses the URL
+change). `deck/js/deck.js` cancels reveal.js's `beforeslidechange` for a one-slide step into
+a switched-off section and moves on to the nearest slide whose section is on; a move to a
+slide named by a clicked link or by the address bar is not a step, so the menu, the contents
+cards and bookmarks still open it. It also disables the right arrow when nothing that is on
+lies ahead, after reveal.js's own control updates.
 
 `.github/workflows/pages.yml` builds `deck/index.html` and publishes `deck/` without `src/` to
 GitHub Pages on every push to `main` that changes `deck/`, `tools/build_deck.py` or the workflow, so the site

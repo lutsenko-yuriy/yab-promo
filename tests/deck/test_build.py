@@ -105,6 +105,48 @@ class EngineTest(unittest.TestCase):
                     self._render({"shell.html": f"<!-- story s step=brief {arg} -->\n"
                                                 "<!-- /story -->\n"})
 
+    def test_bad_story_values_name_file_and_line(self):
+        for args in ("open=", "open=wu-9", "step=review", "delay=", "delay=soon",
+                     "last-click=", "last-click=x", "leaving=yes"):
+            with self.subTest(args=args):
+                with self.assertRaisesRegex(build_deck.BuildError, r"shell\.html:1: "):
+                    self._render({"shell.html": f"<!-- story s {args} -->\n<!-- /story -->\n"
+                                  if args.startswith(("open", "step")) else
+                                  f"<!-- story s open=wu-1 {args} -->\n<!-- /story -->\n"})
+
+    def test_trailing_whitespace_after_a_directive_is_fine(self):
+        out = self._render({"shell.html": "<!-- include a.html --> \t\n", "a.html": "<p></p>\n"})
+        self.assertEqual(out, "<p></p>\n")
+
+    def test_misspelled_directive_is_an_error_not_a_comment(self):
+        for line in ("<!--include a.html-->", "<!-- include  a.html -->",
+                     "<!-- story s open=wu-1-->", "<!-- /story-->"):
+            with self.subTest(line=line):
+                with self.assertRaisesRegex(build_deck.BuildError, r"shell\.html:1: "):
+                    self._render({"shell.html": line + "\n", "a.html": "<p></p>\n"})
+
+    def test_include_cycle_is_an_error(self):
+        with self.assertRaisesRegex(build_deck.BuildError, r"a\.html:1: .*a\.html"):
+            self._render({"shell.html": "<!-- include a.html -->\n",
+                          "a.html": "<!-- include a.html -->\n"})
+
+    def test_missing_shell_is_an_error(self):
+        with self.assertRaisesRegex(build_deck.BuildError, r"shell\.html"):
+            self._render({"other.html": "<p></p>\n"})
+
+    def test_placeholders_outside_the_parts_are_an_error(self):
+        # Only the parts are filled in; {{name}} anywhere else would reach the page as is.
+        for files in ({"shell.html": "<p>\n<h2>{{title}}</h2>\n"},
+                      {"shell.html": "<p>\n<!-- include a.html -->\n", "a.html": "{{x}}\n"}):
+            with self.subTest(files=files):
+                with self.assertRaisesRegex(build_deck.BuildError, r"\.html:\d+: .*\{\{"):
+                    self._render(files)
+
+
+class CommandLineTest(unittest.TestCase):
+    def test_unknown_option_changes_nothing(self):
+        self.assertEqual(build_deck.main(["--chek"]), 2)
+
 
 class RulesTest(unittest.TestCase):
     def test_units_before_the_open_one_are_merged_and_after_it_planned(self):

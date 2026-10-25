@@ -43,9 +43,12 @@ STORY_ARGS = ("step", "open", "leaving", "delay", "last-click")
 PARTS = ("parts/story.html", "parts/track.html", "parts/branches.html",
          "parts/story-body.html", "parts/switch-panel.html")
 
-INCLUDE = re.compile(r"^( *)<!-- include (\S+) -->$")
-STORY = re.compile(r"^( *)<!-- story (\S+)((?: \S+)*) -->$")
-STORY_END = re.compile(r"^ *<!-- /story -->$")
+INCLUDE = re.compile(r"^( *)<!-- include (\S+) -->[ \t]*$")
+STORY = re.compile(r"^( *)<!-- story (\S+)((?: \S+)*) -->[ \t]*$")
+STORY_END = re.compile(r"^ *<!-- /story -->[ \t]*$")
+# Anything that looks like a directive but isn't one would otherwise pass as a comment.
+DIRECTIVE_LIKE = re.compile(r"<!--\s*/?\s*(include|story)\b")
+NUMBER = re.compile(r"\d+(\.\d+)?")
 PLACEHOLDER = re.compile(r"\{\{([a-z0-9-]+)\}\}")
 
 DONE = '<span class="sr-only" data-i18n="wu.done"></span>'
@@ -98,12 +101,24 @@ def step_states(step: str) -> Dict[str, str]:
 def _story_args(tokens: List[str], where: str) -> Dict[str, str]:
     args = {}
     for token in tokens:
-        key, _, value = token.partition("=")
+        key, equals, value = token.partition("=")
         if key not in STORY_ARGS:
             raise BuildError(f"{where}: unknown story argument {key}")
+        if key == "leaving" and equals:
+            raise BuildError(f"{where}: leaving takes no value")
+        if key != "leaving" and not value:
+            raise BuildError(f"{where}: {key}= needs a value")
         args[key] = value
     if ("step" in args) == ("open" in args):
         raise BuildError(f"{where}: a story needs either step= or open=")
+    if args.get("step", STEPS[0]) not in STEPS:
+        raise BuildError(f"{where}: unknown step {args['step']}")
+    if args.get("open", UNITS[0]) not in UNITS:
+        raise BuildError(f"{where}: unknown unit {args['open']}")
+    if not NUMBER.fullmatch(args.get("delay", "0")):
+        raise BuildError(f"{where}: delay= takes seconds, not {args['delay']}")
+    if not args.get("last-click", "0").isdigit():
+        raise BuildError(f"{where}: last-click= takes a fragment index, not {args['last-click']}")
     lane_args = [key for key in ("leaving", "delay", "last-click") if key in args]
     if "step" in args and lane_args:
         raise BuildError(f"{where}: {', '.join(lane_args)} needs open=, not step=")
@@ -144,7 +159,8 @@ def _story(src: Path, slide_id: str, args: Dict[str, str], content: str) -> str:
                                          f'data-i18n="wu.done"></span>')
 
     def part(name):
-        return fill(_expand(src, f"parts/{name}.html"), values, f"parts/{name}.html")
+        path = f"parts/{name}.html"
+        return fill(_expand(src, path, [path], in_part=True), values, path)
 
     scoping = "step" in args
     values["scoping"] = " is-scoping" if scoping else ""
@@ -154,9 +170,17 @@ def _story(src: Path, slide_id: str, args: Dict[str, str], content: str) -> str:
     return part("story")
 
 
-def _expand(src: Path, name: str) -> str:
-    """Returns the file with its includes and story blocks built."""
+def _expand(src: Path, name: str, stack: List[str], in_part: bool = False) -> str:
+    """Returns the file with its includes and story blocks built.
+
+    stack holds the files being expanded, to catch an include cycle. Placeholders are
+    only filled in the parts, so anywhere else they stop the build.
+    """
     lines = (src / name).read_text(encoding="utf-8").splitlines()
+
+    def no_placeholder(text, where):
+        if not in_part and PLACEHOLDER.search(text):
+            raise BuildError(f"{where}: {{{{placeholders}}}} are only filled in parts/")
     out = []
     number = 0
     while number < len(lines):
@@ -166,9 +190,12 @@ def _expand(src: Path, name: str) -> str:
         include = INCLUDE.match(line)
         story = STORY.match(line)
         if include:
-            if not (src / include.group(2)).is_file():
-                raise BuildError(f"{where}: no such include {include.group(2)}")
-            out += _indent(_expand(src, include.group(2)), include.group(1))
+            target = include.group(2)
+            if not (src / target).is_file():
+                raise BuildError(f"{where}: no such include {target}")
+            if target in stack:
+                raise BuildError(f"{where}: {target} ends up including itself")
+            out += _indent(_expand(src, target, stack + [target], in_part), include.group(1))
         elif story:
             args = _story_args(story.group(3).split(), where)
             body = []
@@ -181,29 +208,40 @@ def _expand(src: Path, name: str) -> str:
                     raise BuildError(f"{name}:{number}: a story can't hold another story")
                 if STORY_END.match(inner):
                     break
+                if DIRECTIVE_LIKE.search(inner):
+                    raise BuildError(f"{name}:{number}: not a directive: {inner.strip()}")
+                no_placeholder(inner, f"{name}:{number}")
                 body.append(inner)
             content = textwrap.dedent("\n".join(body)).strip("\n")
             out += _indent(_story(src, story.group(2), args, content), story.group(1))
         elif STORY_END.match(line):
             raise BuildError(f"{where}: /story without a story")
+        elif DIRECTIVE_LIKE.search(line):
+            raise BuildError(f"{where}: not a directive: {line.strip()}")
         else:
+            no_placeholder(line, where)
             out.append(line)
     return "".join(line + "\n" for line in out)
 
 
 def render(src: Path = SRC) -> str:
     """Returns the deck page built from src/shell.html."""
-    return _expand(src, "shell.html")
+    if not (src / "shell.html").is_file():
+        raise BuildError(f"shell.html: not found in {src}")
+    return _expand(src, "shell.html", ["shell.html"])
 
 
 def main(argv: List[str]) -> int:
+    if argv not in ([], ["--check"]):
+        print("usage: python3 tools/build_deck.py [--check]", file=sys.stderr)
+        return 2
     try:
         page = render()
     except BuildError as error:
         print(f"build_deck: {error}", file=sys.stderr)
         return 1
     if "--check" in argv:
-        if OUT.read_text(encoding="utf-8") != page:
+        if not OUT.is_file() or OUT.read_text(encoding="utf-8") != page:
             print("build_deck: deck/index.html is out of date; run python3 tools/build_deck.py",
                   file=sys.stderr)
             return 1

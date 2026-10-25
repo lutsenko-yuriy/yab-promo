@@ -121,6 +121,28 @@ class DeckSourcesTest(unittest.TestCase):
                          (ROOT / "deck" / "index.html").read_text(encoding="utf-8"),
                          "deck/index.html is out of date: run python3 tools/build_deck.py")
 
+    def test_no_source_is_longer_than_150_lines(self):
+        for path in sorted(SRC.rglob("*.html")):
+            with self.subTest(path=path.relative_to(SRC)):
+                self.assertLessEqual(len(path.read_text(encoding="utf-8").splitlines()), 150)
+
+    def test_the_diagram_and_switch_panel_are_written_once(self):
+        example = (SRC / "03-example.html").read_text(encoding="utf-8")
+        for copy in ("branch-art", 'class="lane', "switch-panel", "wu-track"):
+            with self.subTest(copy=copy):
+                self.assertNotIn(copy, example)
+
+    def test_every_source_is_used(self):
+        used = set()
+        pending = ["shell.html", *build_deck.PARTS]
+        while pending:
+            name = pending.pop()
+            used.add(name)
+            text = (SRC / name).read_text(encoding="utf-8")
+            pending += [n for n in re.findall(r"<!-- include (\S+) -->", text) if n not in used]
+        every = {p.relative_to(SRC).as_posix() for p in SRC.rglob("*.html")}
+        self.assertEqual(sorted(every - used), [])
+
 
 if __name__ == "__main__":
     unittest.main()

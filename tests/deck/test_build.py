@@ -106,10 +106,15 @@ class EngineTest(unittest.TestCase):
                                                 "<!-- /story -->\n"})
 
     def test_bad_story_values_name_file_and_line(self):
-        for args in ("open=", "open=wu-9", "step=review", "delay=", "delay=soon",
-                     "last-click=", "last-click=x", "leaving=yes"):
+        for args, message in (("open=", "needs a value"), ("open=wu-9", "unknown unit"),
+                              ("step=review", "unknown step"), ("delay=", "needs a value"),
+                              ("delay=soon", "seconds"), ("last-click=", "needs a value"),
+                              ("last-click=x", "fragment index"),
+                              ("last-click=\u00b2", "fragment index"),
+                              ("leaving=yes", "no value"), ("delay=1 delay=2", "twice")):
             with self.subTest(args=args):
-                with self.assertRaisesRegex(build_deck.BuildError, r"shell\.html:1: "):
+                with self.assertRaisesRegex(build_deck.BuildError,
+                                            rf"shell\.html:1: .*{message}"):
                     self._render({"shell.html": f"<!-- story s {args} -->\n<!-- /story -->\n"
                                   if args.startswith(("open", "step")) else
                                   f"<!-- story s open=wu-1 {args} -->\n<!-- /story -->\n"})
@@ -122,7 +127,8 @@ class EngineTest(unittest.TestCase):
         for line in ("<!--include a.html-->", "<!-- include  a.html -->",
                      "<!-- story s open=wu-1-->", "<!-- /story-->"):
             with self.subTest(line=line):
-                with self.assertRaisesRegex(build_deck.BuildError, r"shell\.html:1: "):
+                with self.assertRaisesRegex(build_deck.BuildError,
+                                            r"shell\.html:1: not a directive"):
                     self._render({"shell.html": line + "\n", "a.html": "<p></p>\n"})
 
     def test_include_cycle_is_an_error(self):

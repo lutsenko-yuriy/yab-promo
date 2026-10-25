@@ -48,7 +48,7 @@ STORY = re.compile(r"^( *)<!-- story (\S+)((?: \S+)*) -->[ \t]*$")
 STORY_END = re.compile(r"^ *<!-- /story -->[ \t]*$")
 # Anything that looks like a directive but isn't one would otherwise pass as a comment.
 DIRECTIVE_LIKE = re.compile(r"<!--\s*/?\s*(include|story)\b")
-NUMBER = re.compile(r"\d+(\.\d+)?")
+NUMBER = re.compile(r"[0-9]+(\.[0-9]+)?")
 PLACEHOLDER = re.compile(r"\{\{([a-z0-9-]+)\}\}")
 
 DONE = '<span class="sr-only" data-i18n="wu.done"></span>'
@@ -104,6 +104,8 @@ def _story_args(tokens: List[str], where: str) -> Dict[str, str]:
         key, equals, value = token.partition("=")
         if key not in STORY_ARGS:
             raise BuildError(f"{where}: unknown story argument {key}")
+        if key in args:
+            raise BuildError(f"{where}: {key} is given twice")
         if key == "leaving" and equals:
             raise BuildError(f"{where}: leaving takes no value")
         if key != "leaving" and not value:
@@ -117,7 +119,7 @@ def _story_args(tokens: List[str], where: str) -> Dict[str, str]:
         raise BuildError(f"{where}: unknown unit {args['open']}")
     if not NUMBER.fullmatch(args.get("delay", "0")):
         raise BuildError(f"{where}: delay= takes seconds, not {args['delay']}")
-    if not args.get("last-click", "0").isdigit():
+    if not re.fullmatch(r"[0-9]+", args.get("last-click", "0")):
         raise BuildError(f"{where}: last-click= takes a fragment index, not {args['last-click']}")
     lane_args = [key for key in ("leaving", "delay", "last-click") if key in args]
     if "step" in args and lane_args:
@@ -181,6 +183,7 @@ def _expand(src: Path, name: str, stack: List[str], in_part: bool = False) -> st
     def no_placeholder(text, where):
         if not in_part and PLACEHOLDER.search(text):
             raise BuildError(f"{where}: {{{{placeholders}}}} are only filled in parts/")
+
     out = []
     number = 0
     while number < len(lines):

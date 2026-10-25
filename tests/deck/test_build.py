@@ -114,5 +114,13 @@ class RulesTest(unittest.TestCase):
             build_deck.lane_states("wu-9")
 
 
+class DeckSourcesTest(unittest.TestCase):
+    def test_index_is_up_to_date(self):
+        # deck/index.html is generated: edit deck/src/ and run python3 tools/build_deck.py.
+        self.assertEqual(build_deck.render(SRC),
+                         (ROOT / "deck" / "index.html").read_text(encoding="utf-8"),
+                         "deck/index.html is out of date: run python3 tools/build_deck.py")
+
+
 if __name__ == "__main__":
     unittest.main()

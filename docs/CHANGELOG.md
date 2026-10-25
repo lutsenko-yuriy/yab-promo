@@ -4,6 +4,12 @@ A record of all versioned releases. For planned work and known issues, see @docs
 
 ---
 
+## [0.5.2] — 2026-10-26 (PR #37 merged)
+
+### Changed
+- [app] YP-36: the deck's slides are written once, in per-section sources under `deck/src/`; `tools/build_deck.py` generates `deck/index.html` from them (byte-identical apart from a "generated" comment), and a test fails when it is out of date. The example section's branch diagram, step chips and switch panel live once in `deck/src/parts/` (PR #37)
+- [meta] YP-36 debrief: say which file a size goal applies to; next, build `deck/index.html` in CI instead of committing it (YP-38)
+
 ## [0.5.1] — 2026-10-25 (PR #34 merged)
 
 ### Changed

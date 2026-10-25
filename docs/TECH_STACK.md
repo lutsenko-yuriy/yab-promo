@@ -7,7 +7,7 @@
 | Markdown | CommonMark / GitHub Flavored Markdown | Promo copy, docs |
 | HTML | HTML5 | Static promo pages |
 | CSS | CSS3 | Styling for static pages |
-| Python | 3.9+ (CI matrix 3.9, 3.12 in `.github/workflows/tests.yml`) | YAB tooling under `scripts/` |
+| Python | 3.9+ (CI matrix 3.9, 3.12 in `.github/workflows/tests.yml`) | YAB tooling under `scripts/`; the deck build (`tools/build_deck.py`) |
 | Shell | Bash (`scripts/onboard/gate.sh`) | Onboarding gate hook |
 | JavaScript | ES2017+, plain browser scripts, no build step | Presentation deck controls and language switching (`deck/js/`) |
 
@@ -24,7 +24,7 @@
 
 ## Tooling
 
-- **Build / package manager:** none (static files)
+- **Build / package manager:** none to install; `python3 tools/build_deck.py` writes `deck/index.html` from `deck/src/` (the result is committed)
 - **Test runner:** Python `unittest` for the YAB tooling and for the deck's structure and colour contrast (`tests/deck/`)
 - **Linter / formatter:** none configured
 - **CI:** GitHub Actions (`.github/workflows/tests.yml`)

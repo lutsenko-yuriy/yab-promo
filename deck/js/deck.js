@@ -1,5 +1,5 @@
 // Starts reveal.js and wires the section menu and its toggles, the language switch, the
-// night mode and full-screen buttons.
+// night mode, full-screen and share buttons.
 (function () {
   'use strict';
 
@@ -13,6 +13,42 @@
   // slides; keyboard users keep focus on the control they used.
   function releaseFocus(event, button) {
     if (event.detail > 0) button.blur();
+  }
+
+  // A button and the panel it opens (the section menu, the share panel): Escape, a click
+  // elsewhere or tabbing away closes the panel. Escape is caught wherever focus is (Safari
+  // and Firefox don't focus clicked buttons), and caught first so reveal.js doesn't also
+  // open the overview. Returns the panel's open/close function.
+  function popup(button, panel, first, onChange) {
+    const inside = (element) => button.contains(element) || panel.contains(element);
+    function setOpen(open) {
+      panel.hidden = !open;
+      button.setAttribute('aria-expanded', String(open));
+      if (onChange) onChange(open);
+    }
+    button.addEventListener('click', (event) => {
+      const open = panel.hidden;
+      setOpen(open);
+      if (open && event.detail === 0) first.focus();
+      releaseFocus(event, button);
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape' || panel.hidden) return;
+      event.stopImmediatePropagation();
+      event.preventDefault();
+      const hadFocus = inside(document.activeElement);
+      setOpen(false);
+      if (hadFocus) button.focus();
+    }, true);
+    document.addEventListener('click', (event) => {
+      if (!panel.hidden && !inside(event.target)) setOpen(false);
+    });
+    [button, panel].forEach((part) => {
+      part.addEventListener('focusout', (event) => {
+        if (event.relatedTarget && !inside(event.relatedTarget)) setOpen(false);
+      });
+    });
+    return setOpen;
   }
 
   document.querySelectorAll('[data-lang]').forEach((button) => {
@@ -58,6 +94,44 @@
     fullscreen.hidden = true;
   }
 
+  // Sharing: a link the share sheet took closes the panel; a copied one says so first; one
+  // nothing took stays on show, selected, to copy by hand.
+  const shareButton = document.querySelector('.yab-share');
+  const sharePanel = document.getElementById('yab-share-panel');
+  const shareChoices = Array.from(sharePanel.querySelectorAll('[data-share]'));
+  const shareNote = sharePanel.querySelector('.yab-share-note span');
+  const shareField = sharePanel.querySelector('.yab-share-link');
+  let shareTimer = null;
+
+  function resetShare() {
+    clearTimeout(shareTimer);
+    shareNote.hidden = true;
+    shareField.hidden = true;
+  }
+  const setShareOpen = popup(shareButton, sharePanel, shareChoices[0], resetShare);
+
+  shareChoices.forEach((choice) => {
+    choice.addEventListener('click', (event) => {
+      const url = window.YabShare.link(
+          choice.dataset.share === 'start' ? null : window.Reveal.getSlidePath());
+      resetShare();
+      releaseFocus(event, choice);
+      window.YabShare.send(url).then((result) => {
+        if (result === 'shared') {
+          setShareOpen(false);
+        } else if (result === 'copied') {
+          shareNote.hidden = false;
+          shareTimer = setTimeout(() => setShareOpen(false), 2000);
+        } else if (result === 'manual') {
+          shareField.value = url;
+          shareField.hidden = false;
+          shareField.focus();
+          shareField.select();
+        }
+      });
+    });
+  });
+
   // The hint to turn a phone sideways can be waved away for the rest of the visit.
   document.querySelector('.yab-rotate-dismiss').addEventListener('click', () => {
     document.documentElement.classList.add('yab-rotate-dismissed');
@@ -69,40 +143,13 @@
   const menuList = menu.querySelector('.yab-menu-list');
   const menuLinks = Array.from(menuList.querySelectorAll('a'));
 
-  function setMenuOpen(open) {
-    menuList.hidden = !open;
-    menuToggle.setAttribute('aria-expanded', String(open));
-  }
-
-  menuToggle.addEventListener('click', (event) => {
-    const open = menuList.hidden;
-    setMenuOpen(open);
-    if (open && event.detail === 0) menuLinks[0].focus();
-    if (!open) releaseFocus(event, menuToggle);
-  });
+  const setMenuOpen = popup(menuToggle, menuList, menuLinks[0]);
   menuLinks.forEach((link) => {
     link.addEventListener('click', (event) => {
       setMenuOpen(false);
       if (window.Reveal.isOverview()) window.Reveal.toggleOverview(false);
       releaseFocus(event, link);
     });
-  });
-  // Escape closes an open menu wherever focus is (Safari and Firefox don't focus clicked
-  // buttons); capturing it first keeps reveal.js from also opening the overview.
-  document.addEventListener('keydown', (event) => {
-    if (event.key !== 'Escape' || menuList.hidden) return;
-    event.stopImmediatePropagation();
-    event.preventDefault();
-    const hadFocus = menu.contains(document.activeElement);
-    setMenuOpen(false);
-    if (hadFocus) menuToggle.focus();
-  }, true);
-  document.addEventListener('click', (event) => {
-    if (!menu.contains(event.target)) setMenuOpen(false);
-  });
-  // Tabbing out of the menu closes it.
-  menu.addEventListener('focusout', (event) => {
-    if (event.relatedTarget && !menu.contains(event.relatedTarget)) setMenuOpen(false);
   });
 
   // Section toggles: a section switched off is skipped when clicking through. The menu

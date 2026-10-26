@@ -858,6 +858,55 @@ class MarkupTest(unittest.TestCase):
         self.assertIn('class="icon-moon"', button)
         self.assertIn('class="icon-sun"', button)
 
+    def test_share_button_ends_the_controls_and_opens_its_panel(self):
+        html = _page()
+        controls = re.search(r'<div class="yab-controls">.*?\n  </div>', html, re.DOTALL)
+        controls = controls.group(0)
+        self.assertEqual(
+            re.findall(r'class="(yab-lang|yab-theme|yab-fullscreen|yab-share)"', controls),
+            ["yab-lang", "yab-theme", "yab-fullscreen", "yab-share"],
+        )
+        button = re.search(r'<button[^>]*class="yab-share"[^>]*>', controls).group(0)
+        for attr in ('type="button"', 'aria-expanded="false"',
+                     'aria-controls="yab-share-panel"', 'data-i18n-aria="controls.share"'):
+            self.assertIn(attr, button)
+        panel = re.search(r'<div id="yab-share-panel"[^>]*>.*?</div>', controls, re.DOTALL)
+        self.assertIsNotNone(panel, "the share panel is not inside the controls")
+        self.assertIn(" hidden", panel.group(0)[:panel.group(0).index(">")])
+
+    def test_share_panel_offers_two_links_a_note_and_a_fallback(self):
+        panel = re.search(r'<div id="yab-share-panel".*?</div>', _page(), re.DOTALL).group(0)
+        self.assertEqual(
+            re.findall(r'<button[^>]*data-share="([^"]+)"[^>]*data-i18n="controls\.share-\1"',
+                       panel),
+            ["slide", "start"],
+        )
+        # The note is a live region that is always there, so showing its text announces it.
+        self.assertRegex(panel, r'<p[^>]*class="yab-share-note"[^>]*role="status"[^>]*>'
+                                r'<span data-i18n="controls\.share-copied" hidden>')
+        field = re.search(r'<input[^>]*class="yab-share-link"[^>]*>', panel)
+        self.assertIsNotNone(field, "no field for copying the link by hand")
+        for attr in ("readonly", "hidden", 'data-i18n-aria="controls.share-manual"'):
+            self.assertIn(attr, field.group(0))
+
+    def test_share_strings_exist_in_both_languages(self):
+        for lang in LANGS:
+            table = _load_table(lang)
+            for key in ("controls.share", "controls.share-slide", "controls.share-start",
+                        "controls.share-copied", "controls.share-manual"):
+                with self.subTest(lang=lang, key=key):
+                    self.assertIn(key, table)
+
+    def test_share_loads_between_the_toggles_and_the_deck(self):
+        scripts = re.findall(r'<script src="([^"]+)"', _page())
+        self.assertIn("js/share.js", scripts)
+        self.assertLess(scripts.index("js/sections.js"), scripts.index("js/share.js"))
+        self.assertLess(scripts.index("js/share.js"), scripts.index("js/deck.js"))
+
+    def test_share_keeps_nothing_in_the_browser(self):
+        script = (DECK / "js" / "share.js").read_text(encoding="utf-8")
+        self.assertNotRegex(script, r"localStorage|sessionStorage")
+
     def test_night_mode_is_set_before_the_first_paint(self):
         html = _page()
         head = html[:html.index("</head>")]

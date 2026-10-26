@@ -81,6 +81,19 @@
         <path d="M9 4v5H4M20 9h-5V4M15 20v-5h5M4 15h5v5"/>
       </svg>
     </button>
+    <button type="button" class="yab-share" aria-expanded="false"
+            aria-controls="yab-share-panel" data-i18n-aria="controls.share">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 3v12M8 7l4-4 4 4M8 11H6a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-2"/>
+      </svg>
+    </button>
+    <div id="yab-share-panel" class="yab-share-panel" hidden>
+      <button type="button" data-share="slide" data-i18n="controls.share-slide"></button>
+      <button type="button" data-share="start" data-i18n="controls.share-start"></button>
+      <p class="yab-share-note" role="status"><span data-i18n="controls.share-copied" hidden></span></p>
+      <input type="text" class="yab-share-link" readonly hidden
+             data-i18n-aria="controls.share-manual">
+    </div>
   </div>
 
   <!-- Shown only on phones held upright (see theme.css); the deck still works if dismissed. -->
@@ -121,6 +134,7 @@
   <script src="i18n/de.js"></script>
   <script src="js/i18n.js"></script>
   <script src="js/sections.js"></script>
+  <script src="js/share.js"></script>
   <script src="js/deck.js"></script>
 </body>
 </html>

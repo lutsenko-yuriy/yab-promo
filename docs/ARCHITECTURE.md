@@ -19,7 +19,7 @@ deck/               # The YAB presentation deck, published to GitHub Pages witho
   index.html        #   All slides, generated from src/ by tools/build_deck.py; gitignored
   src/              #   Slide sources: shell.html, one file per section, parts/ shared by the example
   css/              #   Theme (Habit Loop palette) and deck components
-  js/               #   Deck start-up, section menu and toggles, controls, language and night mode
+  js/               #   Deck start-up, section menu and toggles, controls, sharing, language and night mode
   i18n/             #   String tables, one per language (en.js, de.js)
   img/cases/<app>/  #   App screenshots for the cases section, resized for the web
   vendor/           #   Third-party files copied in unchanged (reveal.js)
@@ -54,7 +54,7 @@ arrows, with list markers and the progress bar exempt as decoration); it sits ou
 `deck/` so the published site carries no Python.
 
 String-table keys are `<slide-id>.<part>` for text that belongs to one slide, plus eight
-shared groups: `meta.*` (page title), `controls.*` (language switch, full screen),
+shared groups: `meta.*` (page title), `controls.*` (language switch, full screen, share panel),
 `toggle.<section>` (the name of each section's switch in the menu),
 `eyebrow.<section>` (the section label fixed beside the menu, naming the section being shown),
 `toc.<section>` (each section's name, used on its contents card and as its opener's
@@ -112,6 +112,15 @@ slide named by a clicked link or by the address bar, or picked in the overview o
 progress bar, is not a step, so the menu, the contents cards and bookmarks still open it. It
 also disables the right arrow when nothing that is on lies ahead, after reveal.js's own
 control updates.
+
+Share button: `deck/js/share.js` builds the link from the address bar, which already carries
+`?lang=` and `?skip=`, with the slide from `Reveal.getSlidePath()` (reveal.js writes it to the
+address bar up to a second late; from the start has none), and hands it to `navigator.share`
+where the browser has it, else to `navigator.clipboard`; a closed share sheet, or one still
+open from an earlier pick, does nothing, and a refused one falls back to copying. `deck/js/deck.js` opens the
+panel under the controls, shows the "Link copied" note (a `role="status"` region that is
+always present, so its text is announced) or, when nothing could take the link, a selected
+read-only field with it.
 
 `.github/workflows/pages.yml` builds `deck/index.html` and publishes `deck/` without `src/` to
 GitHub Pages on every push to `main` that changes `deck/`, `tools/build_deck.py` or the workflow, so the site

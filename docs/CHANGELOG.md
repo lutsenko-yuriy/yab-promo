@@ -4,6 +4,12 @@ A record of all versioned releases. For planned work and known issues, see @docs
 
 ---
 
+## [0.7.0] — 2026-10-26 (PR #42 merged)
+
+### Added
+- [user] YP-40: share button. At the right end of the top-right controls, it offers "This slide" and "From the start", both keeping the language and the section toggles. The link goes to the system share sheet where the browser has one, is copied with a "Link copied" note elsewhere, or is shown selected to copy by hand when neither works (PR #42)
+- [meta] YP-40 debrief: quick, no workflow changes
+
 ## [0.6.0] — 2026-10-26 (PR #41 merged)
 
 ### Added

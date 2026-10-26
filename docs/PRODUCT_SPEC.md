@@ -24,6 +24,11 @@ https://lutsenko-yuriy.github.io/yab-promo/ (source: `deck/`).
   switches it on the current slide; the choice is remembered in that browser and wins over the
   device setting from then on. Night mode uses Habit Loop's dark colours; the app screenshots get
   a thin frame.
+- A share button at the right end of the top-right controls offers two links, both keeping the
+  language and the section toggles: this slide, or the deck from the start. Where the browser
+  has a system share sheet, the link goes to it; elsewhere it is copied and "Link copied"
+  shows. If neither works (e.g. the clipboard is refused), the link is shown, selected, to copy
+  by hand.
 - The first slide is a table of contents under the title YAB, with the full name, Yuriy's
   agentic boyz, on its own smaller line. It links to six sections:
   1. Purpose of YAB: what it is, the ticket lifecycle with its human gates, and its memory.

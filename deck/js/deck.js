@@ -1,5 +1,5 @@
 // Starts reveal.js and wires the section menu and its toggles, the language switch, the
-// night mode and full-screen buttons.
+// night mode, full-screen and share buttons.
 (function () {
   'use strict';
 
@@ -57,6 +57,69 @@
   } else {
     fullscreen.hidden = true;
   }
+
+  // The share button opens a panel with two links: this slide, or the deck from the start.
+  const shareButton = document.querySelector('.yab-share');
+  const sharePanel = document.getElementById('yab-share-panel');
+  const shareChoices = Array.from(sharePanel.querySelectorAll('[data-share]'));
+  const shareNote = sharePanel.querySelector('.yab-share-note span');
+  const shareField = sharePanel.querySelector('.yab-share-link');
+  const inShare = (element) => shareButton.contains(element) || sharePanel.contains(element);
+  let shareTimer = null;
+
+  function resetShare() {
+    clearTimeout(shareTimer);
+    shareNote.hidden = true;
+    shareField.hidden = true;
+  }
+
+  // Closing with focus inside the panel hands it back to the button.
+  function setShareOpen(open) {
+    resetShare();
+    if (!open && sharePanel.contains(document.activeElement)) shareButton.focus();
+    sharePanel.hidden = !open;
+    shareButton.setAttribute('aria-expanded', String(open));
+  }
+
+  shareButton.addEventListener('click', (event) => {
+    const open = sharePanel.hidden;
+    setShareOpen(open);
+    if (open && event.detail === 0) shareChoices[0].focus();
+    if (!open) releaseFocus(event, shareButton);
+  });
+  shareChoices.forEach((choice) => {
+    choice.addEventListener('click', (event) => {
+      const url = window.YabShare.link(choice.dataset.share === 'start');
+      resetShare();
+      releaseFocus(event, choice);
+      window.YabShare.send(url).then((result) => {
+        if (result === 'shared') {
+          setShareOpen(false);
+        } else if (result === 'copied') {
+          shareNote.hidden = false;
+          shareTimer = setTimeout(() => setShareOpen(false), 2000);
+        } else if (result === 'manual') {
+          shareField.value = url;
+          shareField.hidden = false;
+          shareField.focus();
+          shareField.select();
+        }
+      });
+    });
+  });
+  // Escape, a click elsewhere (the section menu too) or tabbing away closes the panel.
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape' || sharePanel.hidden) return;
+    event.stopImmediatePropagation();
+    event.preventDefault();
+    setShareOpen(false);
+  }, true);
+  document.addEventListener('click', (event) => {
+    if (!sharePanel.hidden && !inShare(event.target)) setShareOpen(false);
+  });
+  sharePanel.addEventListener('focusout', (event) => {
+    if (event.relatedTarget && !inShare(event.relatedTarget)) setShareOpen(false);
+  });
 
   // The hint to turn a phone sideways can be waved away for the rest of the visit.
   document.querySelector('.yab-rotate-dismiss').addEventListener('click', () => {

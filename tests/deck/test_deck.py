@@ -897,6 +897,16 @@ class MarkupTest(unittest.TestCase):
                 with self.subTest(lang=lang, key=key):
                     self.assertIn(key, table)
 
+    def test_share_loads_between_the_toggles_and_the_deck(self):
+        scripts = re.findall(r'<script src="([^"]+)"', _page())
+        self.assertIn("js/share.js", scripts)
+        self.assertLess(scripts.index("js/sections.js"), scripts.index("js/share.js"))
+        self.assertLess(scripts.index("js/share.js"), scripts.index("js/deck.js"))
+
+    def test_share_keeps_nothing_in_the_browser(self):
+        script = (DECK / "js" / "share.js").read_text(encoding="utf-8")
+        self.assertNotRegex(script, r"localStorage|sessionStorage")
+
     def test_night_mode_is_set_before_the_first_paint(self):
         html = _page()
         head = html[:html.index("</head>")]

@@ -114,9 +114,10 @@ also disables the right arrow when nothing that is on lies ahead, after reveal.j
 control updates.
 
 Share button: `deck/js/share.js` builds the link from the address bar, which already carries
-`?lang=` and `?skip=` (from the start drops reveal.js's `#/slide`), and hands it to
-`navigator.share` where the browser has it, else to `navigator.clipboard`; a closed share
-sheet does nothing, and a refused one falls back to copying. `deck/js/deck.js` opens the
+`?lang=` and `?skip=`, with the slide from `Reveal.getSlidePath()` (reveal.js writes it to the
+address bar up to a second late; from the start has none), and hands it to `navigator.share`
+where the browser has it, else to `navigator.clipboard`; a closed share sheet, or one still
+open from an earlier pick, does nothing, and a refused one falls back to copying. `deck/js/deck.js` opens the
 panel under the controls, shows the "Link copied" note (a `role="status"` region that is
 always present, so its text is announced) or, when nothing could take the link, a selected
 read-only field with it.

@@ -30,7 +30,7 @@
       const open = panel.hidden;
       setOpen(open);
       if (open && event.detail === 0) first.focus();
-      if (!open) releaseFocus(event, button);
+      releaseFocus(event, button);
     });
     document.addEventListener('keydown', (event) => {
       if (event.key !== 'Escape' || panel.hidden) return;
@@ -112,7 +112,8 @@
 
   shareChoices.forEach((choice) => {
     choice.addEventListener('click', (event) => {
-      const url = window.YabShare.link(choice.dataset.share === 'start');
+      const url = window.YabShare.link(
+          choice.dataset.share === 'start' ? null : window.Reveal.getSlidePath());
       resetShare();
       releaseFocus(event, choice);
       window.YabShare.send(url).then((result) => {

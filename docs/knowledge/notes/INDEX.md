@@ -30,3 +30,12 @@ Generated from `bookmarks:` frontmatter in `docs/knowledge/notes/*.md`. Run `pyt
 - [YP-12: Deck test for the theme's colour contrast](YP-12.md)
 - [YP-16: Reorder core values into a logical chain](YP-16.md)
 - [YP-19: German brief slide overflows the shared story height](YP-19.md)
+- [YP-43: Cases: recount Habit Loop and Mordovorot](YP-43.md)
+
+## Not yet reviewed
+
+- [YP-32: Example: the switch says "after release" until the last merge](YP-32.md)
+- [YP-33: Section toggles: skip sections when clicking through](YP-33.md)
+- [YP-36: Write each deck slide once: generate index.html from slide sources](YP-36.md)
+- [YP-38: Stop committing deck/index.html: build it in CI](YP-38.md)
+- [YP-40: Share button: share the deck link with its settings](YP-40.md)

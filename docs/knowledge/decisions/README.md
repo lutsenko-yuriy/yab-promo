@@ -33,3 +33,4 @@ Write one when a ticket's research or implementation concludes in a decision tha
 |---|---|---|---|---|
 | ADR-0001 | run a two-tier (light/heavy) periodic checkup for non-mechanical code quality dimensions | `accepted` | 2026-09-09 | YP-XX |
 | ADR-0002 | build a single-pass dialectical (thesis/antithesis/synthesis) research skill, steelman-bounded, over six other candidate methodologies | `accepted` | 2026-09-09 | YP-XX |
+| ADR-0003 | check slide motion in the smoke test with an Auto-Animate probe and frame strips, and send an MP4 of the touched slides to the session | `accepted` | 2026-10-26 | YP-35 |

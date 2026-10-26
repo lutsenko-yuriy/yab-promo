@@ -4,6 +4,12 @@ A record of all versioned releases. For planned work and known issues, see @docs
 
 ---
 
+## [0.7.1] — 2026-10-26 (PR #44 merged)
+
+### Changed
+- [user] YP-43: the case numbers are recounted on 26 October. Mordovorot now shows 44 releases, 118 merged pull requests and 43 ticket notes; Habit Loop is unchanged. The exact counting method is in `docs/knowledge/notes/YP-43.md` (PR #44)
+- [meta] YP-43 debrief: quick, no workflow changes
+
 ## [0.7.0] — 2026-10-26 (PR #42 merged)
 
 ### Added

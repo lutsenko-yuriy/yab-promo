@@ -4,6 +4,12 @@ A record of all versioned releases. For planned work and known issues, see @docs
 
 ---
 
+## [0.7.2] — 2026-10-26 (PR #46 merged)
+
+### Added
+- [meta] YP-35: research on recording slide motion for review, with the decision in ADR-0003. Every PR touching `deck/src/` or `deck/css/` gets an Auto-Animate "unmatched" probe and frame strips the agent reads. An MP4 of the touched slides is sent to the session (not attached to the PR). Output goes in the job scratch folder or a gitignored `.recordings/`, with intermediates deleted at once. Notes in `docs/knowledge/notes/YP-35.md`; implementation is YP-45 (PR #46)
+- [meta] YP-35 debrief: quick, no workflow changes
+
 ## [0.7.1] — 2026-10-26 (PR #44 merged)
 
 ### Changed
